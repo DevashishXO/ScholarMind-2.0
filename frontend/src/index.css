@@ -1,0 +1,43 @@
+/* tailwind v4 single-import */
+@import "tailwindcss";
+
+/* define theme tokens with @theme (Tailwind v4) */
+@theme {
+  --color-orange: #d87656;
+  --color-light:  #faf9f5;
+  --color-gray:   #30302e;
+
+  --font-bungee: "Bungee", sans-serif;
+}
+
+/* Global styles */
+:root {
+  /* if you want the tokens also available via var() on :root for any non-tailwind processing */
+  color-scheme: light;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-light);
+  color: var(--color-gray);
+  font-family:  sans-serif, var(--font-bungee),;
+}
+
+/* keep your declared helper class */
+.bungee-regular {
+  font-family: var(--font-bungee);
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Correct way to create a reusable button using CSS properties:
+   - use @apply only for existing tailwind utilities (padding, rounded, font-bold)
+   - use plain CSS for background-color referencing CSS variables
+*/
+.btn-orange {
+  @apply px-4 py-2 rounded-lg font-bold transition; /* allowed uses of @apply */
+  background-color: var(--color-orange);            /* use CSS var directly */
+  color: white;
+}
