@@ -1,0 +1,32 @@
+import DropDown from "./DropDown";
+
+export default function TopSection() {
+  return (
+    <header className="w-full bg-[var(--color-gray)] flex justify-between items-center px-8 py-5 text-[var(--color-light)] shadow-md">
+      {/* Left: Logo */}
+      <h1 className="text-3xl font-bold bungee-regular text-[var(--color-orange)] tracking-wide">
+        ScholarMind
+      </h1>
+
+      {/* Right: Navigation */}
+      <div className="flex items-center gap-4">
+        {/* Example dropdowns */}
+        <DropDown name="Meet Us?" options={["Our Team", "Careers", "Partners"]} />
+        <DropDown name="Platform" options={["Overview", "Features", "Roadmap"]} />
+        <DropDown name="Solutions" options={["Students", "Researchers", "Educators"]} />
+        <DropDown name="Pricing" options={["Students", "Researchers", "Educators"]} />
+        <DropDown name="Learn" options={["Students", "Researchers", "Educators"]} />
+
+        {/* Action Buttons */}
+        <div className="flex gap-3">
+          <button className="bg-transparent border border-[var(--color-orange)] text-[var(--color-orange)] px-4 py-2 rounded-md hover:bg-[var(--color-orange)] hover:text-white transition-all duration-300">
+            Contact
+          </button>
+          <button className="bg-[var(--color-orange)] text-white px-4 py-2 rounded-md hover:bg-[var(--color-gray)] shadow-md transition-all duration-300">
+            Try Now
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
