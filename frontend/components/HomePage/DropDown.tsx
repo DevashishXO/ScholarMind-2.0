@@ -18,16 +18,15 @@ export default function DropDown({ name, options }: DropdownProps) {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="
-          flex items-center gap-2 
+          flex items-center gap-1
           text-[var(--color-light)] 
-          px-4 py-2 
+          px-3 py-2 
           rounded-lg 
           cursor-pointer 
           hover:bg-neutral-800
           transition-all 
           duration-300 
-          font-medium
-          bungee-regular
+          font-semibold
         "
       >
         {name}

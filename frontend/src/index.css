@@ -20,7 +20,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--color-light);
+  background-color: var(--color-gray);
   color: var(--color-gray);
   font-family:  sans-serif, var(--font-bungee),;
 }
