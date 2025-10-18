@@ -1,5 +1,8 @@
 import { type Paper } from '../../lib/types';
 import PaperList from './PaperList';
+import FilterPanel from "./FilterPanel"
+
+import { useState } from 'react';
 
 export const samplePapers: Paper[] = [
   {
@@ -81,6 +84,8 @@ export const samplePapers: Paper[] = [
 
 
 export default function SmartSearch() {
+  const [showFilters, setShowFilters] = useState(false);
+ 
   return (
     <main className="flex-1 p-8 text-[var(--color-light)] max-h-screen flex flex-col">
       {/* Header */}
@@ -88,10 +93,14 @@ export default function SmartSearch() {
         <h1 className="text-3xl md:text-4xl font-bungee font-bold text-[var(--color-orange)]">
           Smart Search
         </h1>
-        <button className="px-6 py-2 rounded-lg bg-[var(--color-orange)] hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] border border-transparent hover:border-[var(--color-orange)] transition font-bungee">
+        <button className="px-6 py-2 rounded-lg bg-[var(--color-orange)] hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] border border-transparent hover:border-[var(--color-orange)] transition font-bungee"
+        onClick={() => setShowFilters(!showFilters)}>
           Show Filters
         </button>
       </div>
+      
+      {/*Filter Panel*/}
+      {showFilters && <FilterPanel/>}
 
       {/* Search Bar */}
       <div className="flex flex-col md:flex-row items-center gap-3 flex-shrink-0">
