@@ -82,9 +82,9 @@ export const samplePapers: Paper[] = [
 
 export default function SmartSearch() {
   return (
-    <main className="flex-1 p-8 text-[var(--color-light)] overflow-y-auto">
+    <main className="flex-1 p-8 text-[var(--color-light)] max-h-screen flex flex-col">
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex items-center justify-between flex-shrink-0">
         <h1 className="text-3xl md:text-4xl font-bungee font-bold text-[var(--color-orange)]">
           Smart Search
         </h1>
@@ -94,7 +94,7 @@ export default function SmartSearch() {
       </div>
 
       {/* Search Bar */}
-      <div className="flex flex-col md:flex-row items-center gap-3">
+      <div className="flex flex-col md:flex-row items-center gap-3 flex-shrink-0">
         <input
           type="text"
           placeholder="Search scholarly articles, topics, or papers..."
@@ -105,9 +105,14 @@ export default function SmartSearch() {
         </button>
       </div>
 
-      {/* Results Section Placeholder */}
-      <div className="my-2 px-1">
-          <PaperList  papers={samplePapers} />
+      <div className='my-6 p-2'>
+        
+      <h2 className="text-xl font-bold">Search Results:</h2>
+      </div>
+
+      {/* Paper List with scroll */}
+      <div className="flex-1 overflow-y-auto pr-2">
+        <PaperList papers={samplePapers} />
       </div>
     </main>
   );
