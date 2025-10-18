@@ -1,4 +1,4 @@
-export default function Mainbody() {
+export default function Dashboard() {
   return (
     <main className="flex-1 p-8 text-[var(--color-light)] overflow-y-auto">
       {/* Header */}

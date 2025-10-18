@@ -1,13 +1,19 @@
 import { Routes, Route } from "react-router-dom";
+import Landing from "../pages/Landing";
 import Home from "../pages/Home";
-import Dashboard from "../pages/Dashboard";
+
+import Dashboard from "../components/Home/Dashboard";
+import SmartSearch from "../components/Home/SmartSearch";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      {/* Add more routes here */}
+      <Route path="/landing" element={<Landing />} />
+      <Route path="/" element={<Home />}>
+                {/* Nested Routes */}
+                <Route index element={<Dashboard />} />
+                <Route path="smart-search" element={<SmartSearch />} />
+      </Route>
     </Routes>
   );
 }
