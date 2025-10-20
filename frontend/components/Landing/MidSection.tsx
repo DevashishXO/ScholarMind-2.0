@@ -1,4 +1,12 @@
-export default function MidSection() {
+import { useNavigate } from "react-router-dom";
+
+export default function MidSection() {  
+  const navigate = useNavigate();
+  
+  const handleSignIn = () => {
+    navigate("/");
+  };
+  
   return (
     <section className="min-w-[80%] min-h-[80vh] grid grid-cols-1 md:grid-cols-2 p-6 md:p-8">
       {/* Left: Auth / Info Section */}
@@ -16,9 +24,9 @@ export default function MidSection() {
           </p>
 
           {/* Auth Box */}
-          <div className="border border-gray-400 text-white p-6 mt-6 rounded-2xl shadow-md bg-[var(--color-gray)]/50 backdrop-blur-sm w-full">
+          <div className="border border-gray-400 text-[var(--color-light)] p-6 mt-6 rounded-2xl shadow-md bg-[var(--color-gray)] backdrop-blur-sm w-full">
             {/* Google Button */}
-            <button className="flex items-center justify-center gap-1 w-full border border-gray-400 rounded-md py-2 text-center hover:bg-neutral-800 hover:text-white transition duration-300">
+            <button className="flex items-center justify-center gap-1 w-full border border-gray-400 rounded-md py-2 text-center hover:bg-neutral-900 hover:text-white transition duration-300">
               {/*Google Logo*/}
               <img src="/icons8-google-logo-48.png" alt="Google Logo" className="w-8 h-8" />
               <div className="font-bungee">
@@ -34,7 +42,8 @@ export default function MidSection() {
                 placeholder="Enter your email"
                 className="border border-gray-400 rounded-md px-3 py-2 bg-transparent text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)] transition"
               />
-              <button className="bg-[var(--color-orange)] font-bungee rounded-md px-3 py-2 text-white font-semibold hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] transition duration-300">
+              <button className="bg-[var(--color-orange)] font-bungee rounded-md px-3 py-2 text-white font-semibold hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] transition duration-300"
+              onClick={handleSignIn}>
                 Sign Up
               </button>
             </div>

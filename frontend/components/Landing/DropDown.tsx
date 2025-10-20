@@ -23,7 +23,7 @@ export default function DropDown({ name, options }: DropdownProps) {
           px-3 py-2 
           rounded-lg 
           cursor-pointer 
-          hover:bg-neutral-800
+          hover:bg-neutral-900
           transition-all 
           duration-300 
           font-semibold

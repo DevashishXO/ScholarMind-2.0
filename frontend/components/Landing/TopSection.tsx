@@ -19,10 +19,10 @@ export default function TopSection() {
 
         {/* Action Buttons */}
         <div className="flex gap-2 ml-2">
-          <button className="bg-[var(--color-light)] text-[var(--color-gray)] bungee-regular px-4 py-2 rounded-md hover:bg-neutral-700 hover:text-[var(--color-light)] transition-all duration-300">
+          <button className="bg-[var(--color-light)] text-[var(--color-gray)] bungee-regular px-4 py-2 rounded-md hover:bg-white/70 transition-all duration-300">
             Contact
           </button>
-          <button className="bg-[var(--color-orange)] text-white bungee-regular px-4 py-2 rounded-md hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] shadow-md transition-all duration-300">
+          <button className="bg-[var(--color-orange)] text-[var(--color-light)] bungee-regular px-4 py-2 rounded-md  hover:text-[var(--color-gray)] shadow-md transition-all duration-300">
             Try Now
           </button>
         </div>
