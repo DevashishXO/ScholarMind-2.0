@@ -2,7 +2,7 @@ import { type Paper } from "../../lib/types";
 
 export default function PaperCard({ paper }: { paper: Paper }) {
   return (
-    <div className="group bg-neutral-900 border border-neutral-700/60 transition-all duration-300 rounded-2xl p-6 shadow-lg hover:shadow-[var(--color-orange)] hover:-translate-y-1">
+    <div className="group bg-neutral-900/50 border border-neutral-700/60 transition-all duration-300 rounded-2xl p-6 shadow-lg hover:shadow-[var(--color-orange)] hover:-translate-y-1">
       
       {/* Title */}
       <h2 className="text-xl font-semibold text-[var(--color-light)] mb-2 group-hover:text-[var(--color-orange)] transition line-clamp-2">
