@@ -2,7 +2,7 @@ import DropDown from "./DropDown";
 
 export default function TopSection() {
   return (
-    <header className="min-w-[80%] bg-[var(--color-gray)] flex justify-between items-center py-5 text-[var(--color-light)] shadow-md">
+    <header className="min-w-[80%] mt-2 bg-[var(--color-gray)] px-4 flex justify-between items-center py-3 text-[var(--color-light)] shadow-md rounded-2xl">
       {/* Left: Logo */}
       <h1 className="text-3xl font-bold bungee-regular text-[var(--color-orange)] tracking-wide">
         ScholarMind

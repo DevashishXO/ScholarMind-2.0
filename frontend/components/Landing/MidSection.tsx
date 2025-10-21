@@ -16,7 +16,7 @@ export default function MidSection() {
             Difficult?
           </h2>
           <h2 className="text-5xl font-bold bungee-regular text-[var(--color-orange)] leading-tight">
-            Not <span className="text-[var(--color-light)]">Now.</span>
+            Not <span className="text-[var(--color-light)]">Anymore.</span>
           </h2>
 
           <p className="text-lg font-semibold text-white mt-4 text-center">
