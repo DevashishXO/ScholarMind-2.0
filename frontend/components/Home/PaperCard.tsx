@@ -1,6 +1,14 @@
+import { Hand } from "lucide-react";
 import { type Paper } from "../../lib/types";
+import { useNavigate } from "react-router-dom";
 
 export default function PaperCard({ paper }: { paper: Paper }) {
+  const navigate = useNavigate();
+  
+  const handleCardClick = (paper: Paper) => {
+    navigate(`/smart-search/${paper.id}`);
+  };
+  
   return (
     <div className="group bg-neutral-900/50 border border-neutral-700/60 transition-all duration-300 rounded-2xl p-6 shadow-lg hover:shadow-[var(--color-orange)] hover:-translate-y-1">
       
@@ -50,13 +58,12 @@ export default function PaperCard({ paper }: { paper: Paper }) {
           <span>📅 {paper.year}</span> • <span>📚 {paper.noOfCitations} citations</span>
         </div>
         <div className="flex gap-3">
-          <a
-            href={paper.url}
-            target="_blank"
+          <button
+            onClick={() => handleCardClick(paper)}
             className="text-sm px-4 py-2 font-bungee rounded-lg bg-[var(--color-orange)] text-[var(--color-light)] hover:bg-orange-600 transition shadow-md"
           >
             View →
-          </a>
+          </button>
           <a
             href={paper.pdfUrl}
             target="_blank"
