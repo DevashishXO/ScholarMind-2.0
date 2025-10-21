@@ -1,4 +1,5 @@
 import { Folder, MoreVertical } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type CollectionCardProps = {
   title: string;
@@ -13,11 +14,15 @@ export default function CollectionCard({
   noOfItems,
   createdAt,
 }: CollectionCardProps) {
+  
+  const navigate = useNavigate();
+
   return (
     <div
       className="flex flex-col bg-neutral-900/50 backdrop-blur-md border border-neutral-700/50 
       rounded-xl p-5 text-[var(--color-light)] shadow-md 
       transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+      onClick={() => navigate(`/my-collection/${title}`)}
     >
       {/* Header */}
       <div className="flex justify-between items-start border-b border-neutral-700/40 pb-3">

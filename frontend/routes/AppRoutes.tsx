@@ -18,7 +18,7 @@ export default function AppRoutes() {
                 <Route index element={<Dashboard />} />
                 <Route path="smart-search" element={<SmartSearch />} />
                 <Route path="my-collection" element={<MyCollection />} />
-                <Route path="/my-collection/:my_collection_id" element={<CollectionPapers/>}/>
+                <Route path="/my-collection/:collection_id" element={<CollectionPapers/>}/>
                 <Route path="research-bot" element={<ResearchBot />} />
       </Route>
       <Route path="/smart-search/:paper_id" element={<PaperViewPage />}/>
