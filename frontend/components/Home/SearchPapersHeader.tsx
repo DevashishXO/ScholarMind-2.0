@@ -5,7 +5,7 @@ type HeaderProps = {
   isMyCollection: boolean;
 }
 
-export default function CollectionPapersHeader({ label, showFilters, setShowFilters, isMyCollection = false }: HeaderProps) {
+export default function SearchPapersHeader({ label, showFilters, setShowFilters, isMyCollection = false }: HeaderProps) {
   return (
     <div className="mb-6 flex items-center justify-between flex-shrink-0">
       <h1 className="text-3xl md:text-4xl font-bungee font-bold text-[var(--color-orange)]">
