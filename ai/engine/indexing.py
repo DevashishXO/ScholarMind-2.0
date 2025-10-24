@@ -1,34 +1,11 @@
-import os
 import arxiv
 import chromadb
-from chromadb.config import Settings
 from models.embedder import Embedder
 from utils.logger import log
+from engine.db_client import get_chroma_client
 
-def get_chroma_client(db_path: str = "data/chroma_db") -> chromadb.Client:
-    """
-    Initializes and returns a persistent ChromaDB client.
-    
-    Args:
-        db_path (str): Path to the directory where ChromaDB persists its data.
-                       Defaults to 'data/chroma_db'.
 
-    Returns:
-        chromadb.Client: A ChromaDB client instance with disk persistence.
-
-    Notes:
-        Persistence ensures that embeddings, documents, and metadata are saved
-        to disk and reloaded when the client is restarted.
-    """
-    os.makedirs(db_path, exist_ok=True)
-    client = chromadb.Client(Settings(
-        persist_directory=db_path,
-        anonymized_telemetry=False
-    ))
-    log(f"ChromaDB client initialized with persistence at: {db_path}")
-    return client
-
-def get_or_create_collection(client: chromadb.Client, name: str = "papers_collection") -> chromadb.Collection:
+def get_or_create_collection(client, name= "papers_collection"):
     """
     Retrieves an existing collection or creates a new one if it doesn't exist.
 
@@ -43,13 +20,15 @@ def get_or_create_collection(client: chromadb.Client, name: str = "papers_collec
         Each collection stores embeddings, metadata, and documents.
         Metadata can include title, authors, link, year, source, etc.
     """
-    existing_collections = [c.name for c in client.list_collections()]
-    if name in existing_collections:
+    collections = [c.name for c in client.list_collections()]
+    log(f"Existing collections: {collections}")
+
+    if name in collections:
         collection = client.get_collection(name)
-        log(f"Loaded existing collection '{name}' with {collection.count()} documents.")
+        log(f"✅ Loaded existing collection '{name}' with {collection.count()} documents.")
     else:
         collection = client.create_collection(name)
-        log(f"Created new collection '{name}'.")
+        log(f"🆕 Created new collection '{name}'.")
     return collection
 
 def add_papers_to_index(collection: chromadb.Collection, papers: list):
@@ -89,53 +68,55 @@ def add_papers_to_index(collection: chromadb.Collection, papers: list):
     )
     log(f"Added {len(papers)} papers to index.")
 
-
-def bootstrap_index():
+def fetch_arxiv_and_index(query: str = "machine learning", max_results: int = 10):
     """
-    Demo function to populate the ChromaDB collection with a few sample papers.
-    This helps test that the indexing engine works before connecting to real APIs.
-
+    Fetches recent papers from Arxiv based on a query and indexes them into ChromaDB.
+    
+    Args:
+        query (str): Search keyword(s) for Arxiv.
+        max_results (int): Maximum number of papers to fetch (default=10).
+    
     Steps:
-        1. Initializes Chroma client and collection.
-        2. Defines a small set of sample papers with full metadata.
-        3. Adds them to the collection using add_papers_to_index.
-        4. Logs completion.
+        1. Initialize Chroma client and collection.
+        2. Query Arxiv API and parse papers.
+        3. Generate embeddings for abstracts.
+        4. Add papers with metadata to the collection.
     """
     client = get_chroma_client()
     collection = get_or_create_collection(client)
 
-    sample_papers = [
-        {
-            "id": "arxiv:2501.001",
-            "title": "Advances in Solid-State Battery Technology",
-            "authors": "Doe, J.; Smith, A.",
-            "abstract": "This paper discusses breakthroughs in solid-state electrolyte materials and high-energy-density batteries.",
-            "link": "https://arxiv.org/abs/2501.001",
-            "year": 2025,
-            "source": "arXiv"
-        },
-        {
-            "id": "arxiv:2501.002",
-            "title": "Machine Learning in Energy Storage Materials",
-            "authors": "Lee, B.; Kumar, N.",
-            "abstract": "We present an ML framework for predicting ionic conductivity and optimizing battery materials.",
-            "link": "https://arxiv.org/abs/2501.002",
-            "year": 2025,
+    log(f"Fetching up to {max_results} papers from Arxiv for query: '{query}'...")
+    search = arxiv.Search(
+        query=query,
+        max_results=max_results,
+        sort_by=arxiv.SortCriterion.SubmittedDate
+    )
+
+    papers = []
+    for result in search.results():
+        paper = {
+            "id": f"arxiv:{result.entry_id.split('/')[-1]}",
+            "title": result.title.strip(),
+            "authors": ", ".join([author.name for author in result.authors]),
+            "abstract": result.summary.strip(),
+            "link": result.entry_id,
+            "year": result.published.year,
             "source": "arXiv"
         }
-    ]
+        print(paper["title"], "\n", paper["link"], "\n")
+        papers.append(paper)
 
-    add_papers_to_index(collection, sample_papers)
-    log("✅ Bootstrap indexing complete.")
+    if not papers:
+        log("No papers found for this query.")
+        return
 
+    add_papers_to_index(collection, papers)
+    log(f"✅ Successfully indexed {len(papers)} papers from Arxiv.")
+
+# Example usage:
 if __name__ == "__main__":
-    bootstrap_index()
+    fetch_arxiv_and_index(query="machine learning", max_results=5)
+
     client = get_chroma_client()
     collection = get_or_create_collection(client)
-    print("Document count in collection:", collection.count())
-
-    result = collection.get(include=['metadatas', 'documents'])
-    for meta, doc in zip(result['metadatas'], result['documents']):
-        print("Metadata:", meta)
-        print("Abstract:", doc)
-        print("-" * 50)
+    log(f"Documents in collection: {collection.count()}")
