@@ -86,12 +86,13 @@ export const samplePapers: Paper[] = [
 
 
 export default function SmartSearch() {
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);  
+  const [isSynthesizeOpen, setIsSynthesize] = useState(false)
  
   return (
     <main className="flex-1 p-8 text-[var(--color-light)] max-h-screen flex flex-col">
       {/* Header */}
-      <SearchPapersHeader label='Smart Search' showFilters={showFilters} setShowFilters={setShowFilters} isMyCollection={false} />
+      <SearchPapersHeader label='Smart Search' showFilters={showFilters} setShowFilters={setShowFilters} isMyCollection={true} isSynthesizing={isSynthesizeOpen} setIsSynthesizing={setIsSynthesize} />
       
       {/*Filter Panel*/}
       {showFilters && <FilterPanel/>}
