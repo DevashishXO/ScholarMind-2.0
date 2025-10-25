@@ -8,11 +8,13 @@ import SmartSearch from "../components/Home/SmartSearch";
 import MyCollection from "../components/Home/MyCollection";
 import ResearchBot from "../components/Home/ResearchBot";
 import CollectionPapers from "../components/Home/CollectionPapers";
+import VerifyOtpPage from "../components/Landing/VerifyOtpPage.tsx";
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/landing" element={<Landing />} />
+      <Route path="/verify-otp" element={<VerifyOtpPage />} />
       <Route path="/" element={<Home />}>
                 {/* Nested Routes */}
                 <Route index element={<Dashboard />} />
