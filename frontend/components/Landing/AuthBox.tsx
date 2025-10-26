@@ -1,51 +1,74 @@
-// src/components/AuthBox.tsx
 import { useState } from "react";
-import { useSendOtp } from "../../src/services/auth";
+import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
+import { useLoading } from "../../src/context/LoadingContext";
 
 type Props = {
   onGoogleLogin: () => void;
   onEmailSignup: (email: string) => void;
+  emailLoading?: boolean;
 };
 
-export default function AuthBox({ onGoogleLogin, onEmailSignup }: Props) {
+export default function AuthBox({ onGoogleLogin, onEmailSignup, emailLoading }: Props) {
   const [email, setEmail] = useState("");
-  const sendOtpMutation = useSendOtp();
+  const [error, setError] = useState("");
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const { loading, setLoading } = useLoading();
+
+  const handleGoogleClick = () => {
+    setGoogleLoading(true);
+    onGoogleLogin();
+  };
 
   const handleEmailSubmit = async () => {
+    if (!email) {
+      toast.error("Email is required");
+      return;
+    }
+    
+    setError("");
+    setLoading(true);
     try {
-      await sendOtpMutation.mutateAsync({ email });
       onEmailSignup(email);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert("Failed to send OTP");
+      toast.error(err?.message || "Failed to signup");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="border border-gray-400 text-[var(--color-light)] p-6 mt-6 rounded-2xl shadow-md bg-[var(--color-gray)] backdrop-blur-sm w-full">
+    <div className="border border-gray-400 text-[var(--color-light)] p-6 mt-6 rounded-2xl shadow-md bg-[var(--color-gray)] backdrop-blur-sm w-full relative">
+      {/* Google Button */}
       <button
-        className="flex items-center justify-center gap-1 w-full border border-gray-400 rounded-md py-2 text-center hover:bg-neutral-900 hover:text-white transition duration-300"
-        onClick={onGoogleLogin}
+        disabled={googleLoading}
+        className="flex items-center justify-center gap-2 w-full border border-gray-400 rounded-md py-2 hover:bg-neutral-900 disabled:opacity-50 transition cursor-pointer"
+        onClick={handleGoogleClick}
       >
-        <img src="/icons8-google-logo-48.png" alt="Google Logo" className="w-8 h-8" />
-        <div className="font-bungee">Continue with Google</div>
+        {googleLoading ? <Loader2 className="animate-spin w-5 h-5" /> : <img src="/icons8-google-logo-48.png" className="w-6 h-6" />}
+        {googleLoading ? "Redirecting..." : "Continue with Google"}
       </button>
 
       <p className="text-center text-gray-300 mt-4">or</p>
 
-      <div className="flex flex-col gap-3 mt-4">
+      {/* Email Input */}
+      <div className="flex flex-col gap-2 mt-4">
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="border border-gray-400 rounded-md px-3 py-2 bg-transparent text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)] transition"
+          className="border border-gray-400 rounded-md px-3 py-2 bg-transparent text-white placeholder-gray-300 focus:outline-none"
         />
+        {error && <span className="text-red-500 text-sm">{error}</span>}
+
         <button
-          className="bg-[var(--color-orange)] font-bungee rounded-md px-3 py-2 text-white font-semibold hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] transition duration-300"
+          disabled={emailLoading || loading}
+          className="flex justify-center items-center gap-2 bg-[var(--color-orange)] font-bungee rounded-md py-2 hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] disabled:opacity-60 transition cursor-pointer"
           onClick={handleEmailSubmit}
-          disabled={sendOtpMutation.isLoading}
         >
-          {sendOtpMutation.isLoading ? "Sending..." : "Sign Up"}
+          {emailLoading || loading ? <Loader2 className="animate-spin w-5 h-5" /> : null}
+          {emailLoading || loading ? "Checking..." : "Sign Up"}
         </button>
       </div>
     </div>

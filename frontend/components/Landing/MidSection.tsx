@@ -1,20 +1,40 @@
-// components/MidSection.tsx
 import { useNavigate } from "react-router-dom";
 import AuthBox from "./AuthBox";
+import { useCheckEmail } from "../../src/services/auth";
+import { useLoading } from "../../src/context/LoadingContext";
+import toast from "react-hot-toast";
 
 export default function MidSection() {
   const navigate = useNavigate();
+  const checkEmailMutation = useCheckEmail();
+  const { setLoading } = useLoading();
 
-  // Placeholder handlers — will connect to React Query
   const handleGoogleLogin = () => {
-    // Open backend Google OAuth endpoint
     window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/google/login`;
   };
 
-  const handleEmailSignup = (email: string) => {
-    // Call backend send-OTP endpoint via React Query later
-    console.log("Signup email:", email);
-    navigate(`/verify-otp?email=${email}`);
+  const handleEmailSignup = async (email: string) => {
+    if (!email) {
+      toast.error("Email is required");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await checkEmailMutation.mutateAsync(email);
+
+      if (response.exists) {
+        // Navigate to OTP page with a flag to indicate OTP should be sent
+        navigate(`/verify-otp?email=${email}&sendOtp=true`);
+      } else {
+        toast.error("User not found! Signup first or continue with Google.");
+      }
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -22,19 +42,17 @@ export default function MidSection() {
       {/* Left Section */}
       <div className="flex flex-col justify-center items-end px-4 text-[var(--color-gray)]">
         <div className="flex flex-col justify-center items-center w-full max-w-sm">
-          <h2 className="text-5xl font-bold bungee-regular text-[var(--color-orange)] leading-tight">
-            Difficult?
-          </h2>
+          <h2 className="text-5xl font-bold bungee-regular text-[var(--color-orange)] leading-tight">Difficult?</h2>
           <h2 className="text-5xl font-bold bungee-regular text-[var(--color-orange)] leading-tight">
             Not <span className="text-[var(--color-light)]">Anymore.</span>
           </h2>
+          <p className="text-lg font-semibold text-white mt-4 text-center">Experience the power of AI-driven research.</p>
 
-          <p className="text-lg font-semibold text-white mt-4 text-center">
-            Experience the power of AI-driven research.
-          </p>
-
-          {/* Auth Component */}
-          <AuthBox onGoogleLogin={handleGoogleLogin} onEmailSignup={handleEmailSignup} />
+          <AuthBox
+            onGoogleLogin={handleGoogleLogin}
+            onEmailSignup={handleEmailSignup}
+            emailLoading={checkEmailMutation.isLoading}
+          />
         </div>
       </div>
 
