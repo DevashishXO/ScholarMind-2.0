@@ -10,6 +10,7 @@ import ResearchBot from "../components/Home/ResearchBot";
 import CollectionPapers from "../components/Home/CollectionPapers";
 import VerifyOtpPage from "../components/Landing/VerifyOtpPage.tsx";
 import FullScreenLoader from "../components/FullScreenLoader";
+import OnBoardingPage from "../components/OnboardingFormCard.tsx";
 
 export default function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/landing" element={<Landing />} />
         <Route path="/verify-otp" element={<VerifyOtpPage />} />
+        <Route path="/on-boarding" element={<OnBoardingPage />} />
         <Route path="/" element={<Home />}>
           <Route index element={<Dashboard />} />
           <Route path="smart-search" element={<SmartSearch />} />
