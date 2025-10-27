@@ -68,6 +68,7 @@ async def google_callback(request: Request):
     email = userinfo.get("email")
     name = userinfo.get("name")
     google_id = userinfo.get("sub")
+    picture = userinfo.get("picture")
 
     if not email:
         raise HTTPException(status_code=400, detail="Unable to retrieve email from Google")
@@ -88,7 +89,11 @@ async def google_callback(request: Request):
             "expires_at": expires_at,
             "tries": 0,
             "created_at": datetime.utcnow(),
-            "pending_profile": {"google_id": google_id, "name": name}
+            "pending_profile": {
+                "google_id": google_id,
+                "name": name,
+                "picture": picture
+            }
         }},
         upsert=True
     )
@@ -142,6 +147,8 @@ async def verify_otp(payload: VerifyOtpIn, response: Response, request: Request)
                 user_doc["google_id"] = pending_profile.get("google_id")
             if pending_profile.get("name"):
                 user_doc["name"] = pending_profile.get("name")
+            if pending_profile.get("picture"):
+                user_doc["picture"] = pending_profile.get("picture")
         result = await db.users.insert_one(user_doc)
         user = await db.users.find_one({"_id": result.inserted_id})
     else:
@@ -151,6 +158,8 @@ async def verify_otp(payload: VerifyOtpIn, response: Response, request: Request)
             update_payload["google_id"] = pending_profile.get("google_id")
         if pending_profile and pending_profile.get("name"):
             update_payload["name"] = pending_profile.get("name")
+        if pending_profile and pending_profile.get("picture"):
+            update_payload["picture"] = pending_profile.get("picture")
         await db.users.update_one({"_id": user["_id"]}, {"$set": update_payload})
         user = await db.users.find_one({"_id": user["_id"]})
 
@@ -192,6 +201,7 @@ async def me(request: Request):
             is_verified=user.get("is_verified", False),
             name=user.get("name"),
             google_id=user.get("google_id"),
+            picture=user.get("picture"),
         ),
         "email": user["email"],
         "otpVerified": True,
