@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { User, GraduationCap, Target, CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -45,6 +46,8 @@ export default function OnboardingFullFlow(): JSX.Element {
   const [step, setStep] = useState<Step>(1);
   const [data, setData] = useState<FormData>(initialData);
   const [submitting, setSubmitting] = useState(false);
+  
+  const navigate = useNavigate();
 
   const total = stepsMeta.length;
 
@@ -92,22 +95,25 @@ export default function OnboardingFullFlow(): JSX.Element {
     console.log("onboarding payload", data);
     setSubmitting(false);
     setStep(total as Step);
-  };
+    
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-[var(--color-gray)]">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-neutral-900">
       {/* Medium width centered container */}
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-3xl">
         {/* Card */}
-        <div className="rounded-2xl overflow-hidden shadow-lg bg-neutral-900 border border-neutral-600">
+        <div className="rounded-2xl overflow-hidden shadow-lg bg-neutral-800 border border-neutral-600">
 
           {/* Top area: progress bar + step label */}
           <div className="px-8 py-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <div className="text-sm text-gray-400">Step {step} of {total}</div>
-                <h2 className="mt-4 text-2xl font-semibold text-white font-bungee">{stepsMeta[step - 1].title}</h2>
-                <p className="mt-4 text-sm text-gray-400">{stepsMeta[step - 1].short} — {stepsMeta[step - 1].title}</p>
+                <div className="text-sm text-gray-300">Step {step} of {total}</div>
+                <h2 className="mt-4 text-3xl font-semibold text-[var(--color-orange)] font-bungee">{stepsMeta[step - 1].title}</h2>
+                <p className="mt-4 text-sm text-gray-300">{stepsMeta[step - 1].short} — {stepsMeta[step - 1].title}</p>
               </div>
 
               <div className="flex items-center gap-3">
@@ -120,7 +126,10 @@ export default function OnboardingFullFlow(): JSX.Element {
 
             {/* Solid progress bar */}
             <div className="mt-4 w-full bg-white/6 rounded-full h-2 overflow-hidden">
-              <div className="h-2 rounded-full transition-all" style={{ width: `${percent}%`, background: 'linear-gradient(90deg, var(--color-orange), #ffb28f)' }} />
+              <div
+                className={`h-2 rounded-full transition-all bg-[var(--color-orange)]`}
+                style={{ width: `${percent}%` }}
+              />
             </div>
           </div>
 
@@ -135,11 +144,11 @@ export default function OnboardingFullFlow(): JSX.Element {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm text-gray-300 mb-1 block">Full name</label>
-                    <input value={data.name} onChange={(e) => update({ name: e.target.value })} placeholder="e.g., Jane Doe" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
+                    <input value={data.name} onChange={(e) => update({ name: e.target.value })} placeholder="e.g., Updating me" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
                   </div>
                   <div>
                     <label className="text-sm text-gray-300 mb-1 block">Email</label>
-                    <input value={data.email} onChange={(e) => update({ email: e.target.value })} placeholder="name@university.edu" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
+                    <input value={data.email} onChange={(e) => update({ email: e.target.value })} placeholder="updating@jklu.edu.in" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
                   </div>
                 </div>
               )}
@@ -214,7 +223,7 @@ export default function OnboardingFullFlow(): JSX.Element {
                     <label className="text-sm text-gray-300 mb-1 block">Preferred paper types</label>
                     <div className="flex flex-wrap gap-2">
                       {['Survey','Experimental','Theoretical','Benchmark','Code/Implementation'].map((p) => (
-                        <button key={p} type="button" onClick={() => toggle('paperTypes', p)} className={`px-3 py-1 rounded-full border ${data.paperTypes.includes(p) ? 'bg-[var(--color-orange)] text-black' : 'bg-transparent text-gray-300 border-white/10'}`}>
+                        <button key={p} type="button" onClick={() => toggle('paperTypes', p)} className={`px-3 py-1 rounded-full border cursor-pointer ${data.paperTypes.includes(p) ? 'bg-[var(--color-orange)] text-black' : 'bg-transparent text-gray-300 border-white/10'}`}>
                           {p}
                         </button>
                       ))}
@@ -265,7 +274,7 @@ export default function OnboardingFullFlow(): JSX.Element {
             <div className="mt-8 flex items-center justify-between">
               <div>
                 {step > 1 ? (
-                  <button onClick={back} className="px-4 py-2 rounded-md text-gray-200 bg-white/6 hover:bg-white/8 transition">
+                  <button onClick={back} className="px-4 py-2 rounded-md font-bungee cursor-pointer text-gray-200 bg-white/6 hover:bg-white/20 transition">
                     ← Back
                   </button>
                 ) : (
@@ -275,11 +284,11 @@ export default function OnboardingFullFlow(): JSX.Element {
 
               <div className="flex items-center gap-3">
                 {step < total ? (
-                  <button onClick={next} disabled={!valid(step)} className={`px-6 py-2 rounded-md text-black ${valid(step) ? 'bg-[var(--color-orange)]' : 'bg-white/10 cursor-not-allowed'} transition`}> 
+                  <button onClick={next} disabled={!valid(step)} className={`px-6 py-2 rounded-md text-white font-bungee ${valid(step) ? 'bg-[var(--color-orange)] cursor-pointer' : 'bg-white/10 cursor-not-allowed'} transition`}> 
                     Next →
                   </button>
                 ) : (
-                  <button onClick={submit} disabled={submitting} className={`px-6 py-2 rounded-md text-black bg-[var(--color-orange)] ${submitting ? 'opacity-70' : ''}`}>
+                  <button onClick={submit} disabled={submitting} className={`px-6 py-2 rounded-md text-white font-bungee bg-[var(--color-orange)] cursor-pointer ${submitting ? 'opacity-70' : ''}`}>
                     {submitting ? 'Saving...' : 'Finish & Save'}
                   </button>
                 )}
@@ -290,7 +299,7 @@ export default function OnboardingFullFlow(): JSX.Element {
         </div>
 
         {/* Footer small hint */}
-        <div className="mt-6 text-center text-xs text-gray-500">You can update these preferences anytime in your profile.</div>
+        <div className="mt-6 text-center text-xs text-gray-400">You can update these preferences anytime in your profile.</div>
       </div>
     </div>
   );
