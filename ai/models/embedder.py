@@ -37,4 +37,5 @@ class Embedder:
             norms = np.linalg.norm(emb, axis=1, keepdims=True)
             norms[norms == 0] = 1.0
             emb = emb / norms
+            
         return emb[0] if single else emb
