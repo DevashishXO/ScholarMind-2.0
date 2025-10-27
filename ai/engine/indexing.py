@@ -26,8 +26,11 @@ def get_or_create_collection(client, name= "papers_collection"):
     if name in collections:
         collection = client.get_collection(name)
         log(f"✅ Loaded existing collection '{name}' with {collection.count()} documents.")
+
     else:
-        collection = client.create_collection(name)
+        collection = client.create_collection(name, configuration={
+            "hnsw": {"space": "cosine"}
+        })
         log(f"🆕 Created new collection '{name}'.")
     return collection
 
@@ -44,6 +47,7 @@ def add_papers_to_index(collection: chromadb.Collection, papers: list):
             - 'abstract' (str)
             - 'link' (str)
             - 'year' (int)
+            - 'pdf_link' (str)
             - 'source' (str)
 
     Notes:
@@ -58,7 +62,7 @@ def add_papers_to_index(collection: chromadb.Collection, papers: list):
     metadatas = [{k: p[k] for k in p if k != "abstract"} for p in papers]
 
     log(f"Encoding {len(papers)} papers...")
-    embeddings = embedder.encode(abstracts).tolist()  # convert to list for ChromaDB
+    embeddings = embedder.encode(abstracts).tolist()
 
     collection.add(
         ids=ids,
@@ -86,6 +90,7 @@ def fetch_arxiv_and_index(query: str = "machine learning", max_results: int = 10
     collection = get_or_create_collection(client)
 
     log(f"Fetching up to {max_results} papers from Arxiv for query: '{query}'...")
+    arxiv_client = arxiv.Client(page_size=5000, delay_seconds=5, num_retries=5)
     search = arxiv.Search(
         query=query,
         max_results=max_results,
@@ -93,18 +98,25 @@ def fetch_arxiv_and_index(query: str = "machine learning", max_results: int = 10
     )
 
     papers = []
-    for result in search.results():
-        paper = {
-            "id": f"arxiv:{result.entry_id.split('/')[-1]}",
-            "title": result.title.strip(),
-            "authors": ", ".join([author.name for author in result.authors]),
-            "abstract": result.summary.strip(),
-            "link": result.entry_id,
-            "year": result.published.year,
-            "source": "arXiv"
-        }
-        print(paper["title"], "\n", paper["link"], "\n")
-        papers.append(paper)
+    try:
+        for result in arxiv_client.results(search):
+            paper = {
+                "id": f"arxiv:{result.entry_id.split('/')[-1]}",
+                "title": result.title.strip(),
+                "authors": ", ".join([author.name for author in result.authors]),
+                "abstract": result.summary.strip(),
+                "link": result.entry_id,
+                "year": result.published.year,
+                "pdf_link": result.pdf_url,
+                "source": "arXiv"
+            }
+            # print(paper["title"], "\n", paper["pdf_link"], "\n")
+            papers.append(paper)
+
+    except Exception as e:
+        log(f"🛑 Critical API Error encountered: {type(e).__name__} - {e}")
+        log("Processing partial results gathered before the failure.")        
+        pass
 
     if not papers:
         log("No papers found for this query.")
@@ -113,9 +125,8 @@ def fetch_arxiv_and_index(query: str = "machine learning", max_results: int = 10
     add_papers_to_index(collection, papers)
     log(f"✅ Successfully indexed {len(papers)} papers from Arxiv.")
 
-# Example usage:
 if __name__ == "__main__":
-    fetch_arxiv_and_index(query="machine learning", max_results=5)
+    fetch_arxiv_and_index(query="machine learning ", max_results=100)
 
     client = get_chroma_client()
     collection = get_or_create_collection(client)
