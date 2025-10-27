@@ -1,4 +1,3 @@
-# app/services/google_oauth.py
 from authlib.integrations.starlette_client import OAuth
 from app.core.config import settings
 
@@ -12,4 +11,3 @@ oauth.register(
     client_kwargs={"scope": "openid email profile"},
 )
 
-# helpers are used directly in router: oauth.google.authorize_redirect(...) and authorize_access_token(...)

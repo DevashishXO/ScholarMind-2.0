@@ -1,4 +1,3 @@
-# app/services/email_service.py
 from typing import Optional
 import httpx
 from app.core.config import settings
