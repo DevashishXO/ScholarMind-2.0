@@ -185,13 +185,18 @@ async def me(request: Request):
     user = await db.users.find_one({"_id": ObjectId(sub)})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return UserOut(
-        id=str(user["_id"]),
-        email=user.get("email"),
-        is_verified=user.get("is_verified", False),
-        name=user.get("name"),
-        google_id=user.get("google_id")
-    )
+    return {
+        "user": UserOut(
+            id=str(user["_id"]),
+            email=user.get("email"),
+            is_verified=user.get("is_verified", False),
+            name=user.get("name"),
+            google_id=user.get("google_id"),
+        ),
+        "email": user["email"],
+        "otpVerified": True,
+        "onboardingComplete": False
+    }
 
 @router.post("/logout")
 async def logout(response: Response):
