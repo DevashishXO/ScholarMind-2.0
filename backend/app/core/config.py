@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     # JWT
     JWT_SECRET: str
     JWT_EXPIRES_SECONDS: int = 3600
+    JWT_ALGORITHM: str = "HS256"
 
     # OTP
     OTP_TTL_SECONDS: int = 300
@@ -33,6 +34,7 @@ class Settings(BaseSettings):
     AUTH_COOKIE_NAME: str = "access_token"
     COOKIE_SECURE: bool = False
     COOKIE_SAMESITE: str = "lax"
+    
 
     class Config:
         env_file = ".env"
