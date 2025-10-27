@@ -25,7 +25,11 @@ export default function MidSection() {
 
       if (response.exists) {
         // Navigate to OTP page with a flag to indicate OTP should be sent
-        navigate(`/verify-otp?email=${email}&sendOtp=true`);
+        const pendingEmail = email;
+        localStorage.setItem("pendingEmail", pendingEmail);
+        setTimeout(() => {
+          navigate(`/verify-otp?email=${email}&sendOtp=true`);
+        }, 1000);
       } else {
         toast.error("User not found! Signup first or continue with Google.");
       }
