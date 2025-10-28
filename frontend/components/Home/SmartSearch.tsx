@@ -1,6 +1,7 @@
 import { type Paper } from '../../lib/types';
 import PaperList from './PaperList';
 import FilterPanel from "./FilterPanel"
+import CollectionPapersHeader from './CollectionPapersHeader';
 
 import { useState } from 'react';
 
@@ -89,15 +90,7 @@ export default function SmartSearch() {
   return (
     <main className="flex-1 p-8 text-[var(--color-light)] max-h-screen flex flex-col">
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between flex-shrink-0">
-        <h1 className="text-3xl md:text-4xl font-bungee font-bold text-[var(--color-orange)]">
-          Smart Search
-        </h1>
-        <button className="px-6 py-2 rounded-lg bg-[var(--color-orange)] hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] border border-transparent hover:border-[var(--color-orange)] transition font-bungee"
-        onClick={() => setShowFilters(!showFilters)}>
-          Show Filters
-        </button>
-      </div>
+      <CollectionPapersHeader label='Smart Search' showFilters={showFilters} setShowFilters={setShowFilters} isMyCollection={false} />
       
       {/*Filter Panel*/}
       {showFilters && <FilterPanel/>}

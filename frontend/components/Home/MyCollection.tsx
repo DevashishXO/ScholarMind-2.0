@@ -51,7 +51,7 @@ export default function MyCollection() {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between flex-shrink-0">
         <h1 className="text-3xl md:text-4xl font-bungee font-bold text-[var(--color-orange)]">
-          My Collection
+          My-Collection
         </h1>
       </div>
 
