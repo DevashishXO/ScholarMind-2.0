@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useLoading } from "../../src/context/LoadingContext";
 
 type Props = {
-  onGoogleLogin: () => void;
+  onGoogleLogin: (email: string) => void;
   onEmailSignup: (email: string) => void;
   emailLoading?: boolean;
 };
@@ -17,7 +17,7 @@ export default function AuthBox({ onGoogleLogin, onEmailSignup, emailLoading }: 
 
   const handleGoogleClick = () => {
     setGoogleLoading(true);
-    onGoogleLogin();
+    onGoogleLogin(email);
   };
 
   const handleEmailSubmit = async () => {
@@ -53,7 +53,7 @@ export default function AuthBox({ onGoogleLogin, onEmailSignup, emailLoading }: 
       <p className="text-center text-gray-300 mt-4">or</p>
 
       {/* Email Input */}
-      <div className="flex flex-col gap-2 mt-4">
+      <div className="flex flex-col gap-4 mt-4">
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}

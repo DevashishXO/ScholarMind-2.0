@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <LoadingProvider>
           <App />
-          <Toaster position="bottom-right" />
+          <Toaster position="bottom-center" />
     </LoadingProvider>
   </QueryClientProvider>
 );

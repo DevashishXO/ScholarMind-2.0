@@ -9,7 +9,9 @@ export default function MidSection() {
   const checkEmailMutation = useCheckEmail();
   const { setLoading } = useLoading();
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = (email: string) => {
+    const pendingEmail = email;
+    localStorage.setItem("pendingEmail", pendingEmail);
     window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/google/login`;
   };
 
@@ -27,9 +29,7 @@ export default function MidSection() {
         // Navigate to OTP page with a flag to indicate OTP should be sent
         const pendingEmail = email;
         localStorage.setItem("pendingEmail", pendingEmail);
-        setTimeout(() => {
-          navigate(`/verify-otp?email=${email}&sendOtp=true`);
-        }, 1000);
+        navigate(`/verify-otp?email=${email}&sendOtp=true`);
       } else {
         toast.error("User not found! Signup first or continue with Google.");
       }

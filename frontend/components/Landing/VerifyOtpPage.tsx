@@ -86,7 +86,7 @@ export default function VerifyOtpPage() {
       if (response.ok) {
         toast.success("OTP verified successfully!");
         localStorage.removeItem("pendingEmail");
-        setTimeout(() => navigate("/on-boarding"), 1000);
+        navigate("/on-boarding")
       }
     } catch (err: any) {
       const msg = err.response?.data?.detail || err.message || "Invalid OTP";

@@ -13,7 +13,7 @@ export default function PrivateRoute({ element }: { element: JSX.Element }) {
   if (!data?.otpVerified) return <Navigate to="/verify-otp" replace />;
 
   // Onboarding not done
-  if (!data?.onboardingComplete) return <Navigate to="/on-boarding" replace />;
+  // if (!data?.onboardingComplete) return <Navigate to="/on-boarding" replace />;
 
   return element;
 }
