@@ -1,11 +1,16 @@
+import { useState } from 'react';
+
 type HeaderProps = {
   label: string;
   showFilters: boolean;
   setShowFilters: React.Dispatch<React.SetStateAction<boolean>>;
-  isMyCollection: boolean;
+  isMyCollection?: boolean;
+  isSynthesizeOpen?: boolean;
+  setIsSynthesizeOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function CollectionPapersHeader({ label, showFilters, setShowFilters, isMyCollection = false }: HeaderProps) {
+export default function SearchPapersHeader({ label, showFilters, setShowFilters, isMyCollection = false, isSynthesizeOpen = false ,setIsSynthesizeOpen = useState(false)[1] }: HeaderProps) {
+  
   return (
     <div className="mb-6 flex items-center justify-between flex-shrink-0">
       <h1 className="text-3xl md:text-4xl font-bungee font-bold text-[var(--color-orange)]">
@@ -13,8 +18,10 @@ export default function CollectionPapersHeader({ label, showFilters, setShowFilt
       </h1>
       <div className="flex gap-2">
         {isMyCollection && (
-          <button className="px-6 py-2 rounded-lg text-[var(--color-gray)] bg-[var(--color-light)] hover:bg-neutral-400 hover:text-[var(--color-gray)] transition font-bungee cursor-pointer"
-          onClick={() => setShowFilters(!showFilters)}>
+          <button className={`px-6 py-2 rounded-lg text-[var(--color-gray)] bg-[var(--color-light)] hover:bg-neutral-400 hover:text-[var(--color-gray)] transition font-bungee cursor-pointer ${isSynthesizeOpen?"hidden":""}`}
+          onClick={() => {
+            setIsSynthesizeOpen(!isSynthesizeOpen);
+          }}>
             Synthesize
           </button>
         )}

@@ -1,8 +1,5 @@
-import { Collection } from "mongoose";
-import FilterPanel from "./FilterPanel"
 import CollectionCard from "./CollectionCard";
-
-import { useState } from 'react';
+import SearchBar from "./SearchBar";
 
 const sampleCollection = [
   {
@@ -44,8 +41,7 @@ const sampleCollection = [
 
 
 export default function MyCollection() {
-  const [showFilters, setShowFilters] = useState(false);
- 
+    
   return (
     <main className="flex-1 p-8 text-[var(--color-light)] max-h-screen flex flex-col">
       {/* Header */}
@@ -53,19 +49,13 @@ export default function MyCollection() {
         <h1 className="text-3xl md:text-4xl font-bungee font-bold text-[var(--color-orange)]">
           My-Collection
         </h1>
+        <button className="px-6 py-2 rounded-lg bg-[var(--color-orange)] hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] transition font-bungee cursor-pointer"
+        onClick={() => {}}>+ Create
+        </button>
       </div>
 
       {/* Search Bar */}
-      <div className="flex flex-col md:flex-row items-center gap-3 flex-shrink-0">
-        <input
-          type="text"
-          placeholder="Search scholarly articles, topics, or papers..."
-          className="w-full md:flex-1 p-3 rounded-lg border border-neutral-700 bg-neutral-900 focus:outline-none focus:border-[var(--color-orange)] placeholder-[var(--color-light)]"
-        />
-        <button className="px-6 py-2 rounded-lg bg-[var(--color-orange)] text-[var(--color-light)] hover:bg-[var(--color-light)] hover:text-[var(--color-gray)] border border-transparent font-bungee transition">
-          Search
-        </button>
-      </div>
+      <SearchBar/>
 
       <div className='grid grid-cols-2 gap-4 mt-4'>
         {sampleCollection.map((collection) => (
