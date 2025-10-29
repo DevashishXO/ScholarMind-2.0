@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Tag, Search, X, Plus, SendHorizonal } from "lucide-react";
 
 type Filters = {
@@ -50,6 +50,11 @@ export default function KeywordPromptInput({
     onChange?.({ prompt: next.join(", "), keywords: next, filters });
   }
 
+  function resetKeywords() {
+    setKeywords([]);
+    setInput("");
+  }
+
   const previewPrompt =
     keywords.length > 0
       ? `Search for research papers on: ${keywords.join(", ")}`
@@ -58,77 +63,74 @@ export default function KeywordPromptInput({
   return (
     <div className="w-full flex flex-col items-center justify-center min-h-[70vh]">
       <div className="w-full max-w-4xl mx-auto bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-xl text-white">
-        <div className="w-full">
-          <div className="flex items-center justify-between gap-2">
+        <div className="w-full space-y-4">
           {/* Input Area */}
-          <div className="w-full flex flex-wrap gap-2 items-center px-3 py-3 rounded-xl bg-neutral-800 border border-white/10">
-            {keywords.map((k, i) => (
-              <span
-                key={i}
-                className="flex items-center gap-2 bg-[var(--color-orange)] px-3 py-1 font-bold rounded-full text-md text-white"
-              >
-                <Tag className="w-4 h-4 opacity-80" /> {k}
-                <button onClick={() => removeKeyword(i)}>
-                  <X className="w-5 h-5 hover:text-gray-300 cursor-pointer" />
-                </button>
-              </span>
-            ))}
-
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addKeyword()}
-              className="flex-1 bg-transparent outline-none text-sm text-white placeholder-white/40"
-              placeholder={placeholder}
-            />
+          <div className="flex items-center gap-3">
+            <div className="flex flex-wrap gap-2 items-center px-3 py-3 rounded-xl bg-neutral-800 border border-white/30 w-full  transition-all">
+              {keywords.map((k, i) => (
+                <span
+                  key={i}
+                  className="flex items-center gap-2 bg-[var(--color-orange)] px-3 font-bold rounded-full text-md text-white shadow"
+                >
+                  <Tag className="w-4 h-4 opacity-80" /> {k}
+                  <button onClick={() => removeKeyword(i)} className="hover:scale-110 transition">
+                    <X className="w-5 h-5 hover:text-gray-300 cursor-pointer" />
+                  </button>
+                </span>
+              ))}
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && addKeyword()}
+                className="flex-1 bg-transparent outline-none text-md text-white placeholder-white/40"
+                placeholder={placeholder}
+              />
+            </div>
+            <button
+              onClick={addKeyword}
+              className="text-neutral-800 cursor-pointer px-4 py-3 font-bungee bg-[var(--color-light)] hover:opacity-90 rounded-lg text-sm flex gap-2 items-center shadow"
+            >
+              <SendHorizonal className="w-5 h-5" /> Send
+            </button>
           </div>
 
           {/* Suggestions */}
           {input && (
-            <div className="mt-3 flex gap-2 flex-wrap">
+            <div className="mt-2 flex gap-2 flex-wrap">
               {suggestions
                 .filter((s) => s.toLowerCase().includes(input.toLowerCase()))
                 .map((s, i) => (
                   <button
                     key={i}
-                    onClick={() => {
-                      setInput(s);
-                      addKeyword();
-                    }}
-                    className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg text-sm text-white/80"
+                    onClick={() => setInput(s)}
+                    className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg text-sm text-white/90 transition"
                   >
                     {s}
                   </button>
                 ))}
             </div>
           )}
-          <button
-            onClick={addKeyword}
-            className="text-neutral-800 px-4 py-3 font-bungee bg-[var(--color-light)] hover:bg-neutral-900 hover:text-white font-bold rounded-lg text-sm flex gap-1 items-center cursor-pointer"
-          >
-            <SendHorizonal className="w-5 h-5" /> Send
 
-          </button>
+          {/* Buttons */}
+          <div className="flex gap-3">
+            <button
+              onClick={addKeyword}
+              className="text-white px-4 py-2 font-bungee bg-[var(--color-orange)] hover:bg-white hover:text-gray-800 rounded-lg text-sm flex gap-2 items-center shadow transition cursor-pointer"
+            >
+              <Plus className="w-5 h-5" /> Add
+            </button>
+            <button
+              onClick={resetKeywords}
+              className="text-white px-4 py-2 font-bungee bg-neutral-800 hover:bg-neutral-900 rounded-lg text-sm flex gap-2 items-center shadow transition cursor-pointer"
+            >
+              <X className="w-5 h-5" /> Reset
+            </button>
           </div>
-          <div className="flex pt-3 px-2 gap-2">
-          <button
-            onClick={addKeyword}
-            className="text-white px-3 py-1 font-bungee bg-[var(--color-orange)] hover:bg-white hover:text-gray-800 font-bold rounded-lg text-sm flex gap-1 items-center cursor-pointer"
-          >
-            <Plus className="w-5 h-5" /> Add
-          </button>
-          <button
-            onClick={addKeyword}
-            className="text-white px-3 py-1 font-bungee bg-[var(--color-orange)] hover:bg-white hover:text-gray-800 font-bold rounded-lg text-sm flex gap-1 items-center cursor-pointer"
-          >
-            <X className="w-5 h-5" /> Reset
-          </button>
-          </div>
-          
+
           {/* Preview Section */}
-          <div className="mt-4 bg-black/30 border border-white/10 rounded-lg p-3 text-sm text-white/80">
+          <div className="bg-neutral-900/50 border border-white/10 rounded-lg p-4 text-sm text-white/80 shadow">
             <h3 className="font-medium mb-2 flex items-center gap-2">
-              <Search className="w-4 h-4" /> Preview Query
+              <Search className="w-4 h-4 text-[var(--color-orange)]" /> Preview Query
             </h3>
             <p className="text-white/70">{previewPrompt}</p>
           </div>
