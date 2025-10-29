@@ -61,7 +61,7 @@ export default function KeywordPromptInput({
       : "Start typing to add keywords...";
 
   return (
-    <div className="w-full flex flex-col items-center justify-center min-h-[70vh]">
+    <div className="w-full flex flex-col items-center justify-center ">
       <div className="w-full max-w-4xl mx-auto bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-xl text-white">
         <div className="w-full space-y-4">
           {/* Input Area */}
