@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { UserCircle, LucideMenu, LogOut } from "lucide-react";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -6,6 +7,8 @@ type SidebarProps = {
   tabSelected: string;
   setTabSelected: (tabSelected: string) => void;
   tabs: { name: string; logoSrc: string; alt: string }[];
+  profileIsOpen: boolean;
+  setProfileIsOpen: (profileIsOpen: boolean) => void;
 };
 
 const recentChats = [
@@ -14,7 +17,7 @@ const recentChats = [
   { name: "Charlie", message: "New updates on ScholarMind" },
 ];
 
-export default function Sidebar({ isOpen = false, setIsOpen, tabSelected, setTabSelected, tabs }: SidebarProps) {
+export default function Sidebar({ isOpen = false, setIsOpen, tabSelected, setTabSelected, tabs , profileIsOpen, setProfileIsOpen }: SidebarProps) {
   const navigate = useNavigate();
 
   const handleTabClick = (tabName: string) => {
@@ -112,12 +115,18 @@ export default function Sidebar({ isOpen = false, setIsOpen, tabSelected, setTab
         {/* Footer */}
         <div className="mt-6 flex items-center justify-between p-3 bg-neutral-800 rounded-xl shadow-inner">
           <div className="flex items-center gap-2">
-            <img src="/icons8-profile-picture-50.png" alt="User" className="h-10 w-10 rounded-full" />
-            <span className="font-medium hidden md:inline">Updating Me</span>
+            <UserCircle size={28} className="hover:text-[var(--color-orange)] cursor-pointer" />
           </div>
-          <button className="p-2 hover:text-[var(--color-orange)] transition">
-            <img src="/icons8-setting-50.png" alt="Settings" className="h-6 w-6" />
-          </button>
+          <div className="flex items-center gap-2">
+            <LucideMenu size={24} className="hover:text-[var(--color-orange)] cursor-pointer"
+            onClick={() => {
+              setProfileIsOpen(!profileIsOpen);
+            }} />
+            <LogOut size={24} className="hover:text-[var(--color-orange)] cursor-pointer "
+              onClick={() => {
+                
+              }} />
+          </div>
         </div>
       </aside>
 
