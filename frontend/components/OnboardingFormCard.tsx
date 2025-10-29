@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { User, GraduationCap, Target, CheckCircle } from "lucide-react";
+import { User, GraduationCap, Target, CheckCircle, XCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 type Step = 1 | 2 | 3 | 4 | 5;
@@ -46,7 +46,8 @@ export default function OnboardingFullFlow(): JSX.Element {
   const [step, setStep] = useState<Step>(1);
   const [data, setData] = useState<FormData>(initialData);
   const [submitting, setSubmitting] = useState(false);
-  
+  const [showSkipModal, setShowSkipModal] = useState(false);
+
   const navigate = useNavigate();
 
   const total = stepsMeta.length;
@@ -82,7 +83,7 @@ export default function OnboardingFullFlow(): JSX.Element {
 
   const next = () => {
     if (!valid(step)) return;
-    setStep((p) => Math.min(p + 1 as Step, total as Step));
+    setStep((p) => Math.min((p + 1) as Step, total as Step));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const back = () => setStep((p) => Math.max(1, (p - 1) as number) as Step);
@@ -95,17 +96,35 @@ export default function OnboardingFullFlow(): JSX.Element {
     console.log("onboarding payload", data);
     setSubmitting(false);
     setStep(total as Step);
-    
+
     setTimeout(() => {
       navigate("/");
-    }, 1000);  };
+    }, 1000);
+  };
+
+  // Skip handlers
+  const openSkipModal = () => setShowSkipModal(true);
+  const closeSkipModal = () => setShowSkipModal(false);
+  const confirmSkip = () => {
+    console.log("✅ User skipped onboarding");
+    navigate("/");
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-neutral-900">
       {/* Medium width centered container */}
       <div className="w-full max-w-3xl">
         {/* Card */}
-        <div className="rounded-2xl overflow-hidden shadow-lg bg-neutral-800 border border-neutral-600">
+        <div className="rounded-2xl overflow-hidden shadow-lg bg-neutral-800 border border-neutral-600 relative">
+          {/* Skip Button - only visible on Step 1 (ghost style 'Skip →') */}
+          {step === 1 && (
+            <button
+              onClick={openSkipModal}
+              className="absolute top-6 right-6 text-sm text-gray-300 hover:text-[var(--color-orange)] transition"
+            >
+              Skip →
+            </button>
+          )}
 
           {/* Top area: progress bar + step label */}
           <div className="px-8 py-6">
@@ -301,6 +320,42 @@ export default function OnboardingFullFlow(): JSX.Element {
         {/* Footer small hint */}
         <div className="mt-6 text-center text-xs text-gray-400">You can update these preferences anytime in your profile.</div>
       </div>
+
+      {/* Skip Confirmation Modal (glassmorphic, closes on outside click) */}
+      {showSkipModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={closeSkipModal} // outside click closes
+        >
+          <div
+            className="bg-neutral-800/50 border border-white/6 backdrop-blur-md p-6 rounded-xl w-[90%] max-w-md shadow-xl"
+            onClick={(e) => e.stopPropagation()} // prevent outside click when clicking inside
+          >
+            <div className="flex items-center justify-center mb-3">
+              <XCircle size={44} className="text-red-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-center text-[var(--color-orange)]">Skip Onboarding?</h3>
+            <p className="text-center text-gray-300 mt-2">
+              Are you sure you want to skip onboarding? You can finish it later from your profile.
+            </p>
+
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                onClick={closeSkipModal}
+                className="px-4 py-2 bg-neutral-700 rounded-md hover:bg-neutral-600 transition text-white cursor-pointer font-bungee"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmSkip}
+                className="px-4 py-2 bg-[var(--color-orange)] text-white font-semibold rounded-md hover:opacity-90 transition cursor-pointer font-bungee"
+              >
+                Yes, Skip
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
