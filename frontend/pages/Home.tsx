@@ -1,6 +1,7 @@
 import Sidebar from '../components/Home/Sidebar';
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
+import ProfileModel from "../components/Profile/ProfileModel";
 
 const tabs = [
   { name: "Dashboard", logoSrc: "/icons8-dashboard-48.png", alt: "Dashboard Logo" },
@@ -11,13 +12,18 @@ const tabs = [
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [tabSelected, setTabSelected] = useState("Dashboard");
+  const [profileIsOpen, setProfileIsOpen] = useState(false);
   
   return (
     <div className="flex max-h-screen w-full text-[var(--color-light)]">
       {/* Sidebar*/}
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} tabSelected={tabSelected} setTabSelected={setTabSelected} tabs={tabs}/>
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} tabSelected={tabSelected} setTabSelected={setTabSelected} tabs={tabs} profileIsOpen={profileIsOpen} setProfileIsOpen={setProfileIsOpen}/>
       {/* Dynamic content based on route */}
       <Outlet />
+      {/*Profile model is isProfileOpen*/}
+      {profileIsOpen && (
+        <ProfileModel isOpen={profileIsOpen} setIsOpen={setProfileIsOpen} />
+      )}
     </div>
   );
 }
