@@ -1,5 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import { UserCircle, LucideMenu, LogOut } from "lucide-react";
+import { useLogout } from "../../src/services/auth";
+import toast, { ToastBar } from "react-hot-toast";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -19,6 +21,7 @@ const recentChats = [
 
 export default function Sidebar({ isOpen = false, setIsOpen, tabSelected, setTabSelected, tabs , profileIsOpen, setProfileIsOpen }: SidebarProps) {
   const navigate = useNavigate();
+  const checkLogoutMutation = useLogout();
 
   const handleTabClick = (tabName: string) => {
     setTabSelected(tabName);
@@ -40,7 +43,16 @@ export default function Sidebar({ isOpen = false, setIsOpen, tabSelected, setTab
     }
     setIsOpen(false);
   };
-
+  
+  const handleLogout = () => {
+    checkLogoutMutation.mutate();
+    setTimeout(() => {
+      toast.success("Logged out successfully!");
+      navigate("/landing");
+      setIsOpen(false);
+    }, 1000);
+  };
+  
   return (
     <>
       <aside
@@ -123,9 +135,7 @@ export default function Sidebar({ isOpen = false, setIsOpen, tabSelected, setTab
               setProfileIsOpen(!profileIsOpen);
             }} />
             <LogOut size={24} className="hover:text-[var(--color-orange)] cursor-pointer "
-              onClick={() => {
-                
-              }} />
+              onClick={handleLogout} />
           </div>
         </div>
       </aside>
