@@ -14,13 +14,17 @@ type Props = {
   initialFilters?: Filters;
   onChange?: (payload: { prompt: string; keywords: string[]; filters: Filters }) => void;
   placeholder?: string;
+  loading?: boolean;
+  setLoading?: (loading: boolean) => void;
 };
 
 export default function KeywordPromptInput({
   initialKeywords = [],
   initialFilters = {},
   onChange,
-  placeholder = "Add your research query here..."
+  placeholder = "Add your research query here...",
+  loading,
+  setLoading
 }: Props) {
   const [input, setInput] = useState("");
   const [keywords, setKeywords] = useState<string[]>(initialKeywords);
@@ -87,7 +91,9 @@ export default function KeywordPromptInput({
               />
             </div>
             <button
-              onClick={addKeyword}
+              onClick={() => {
+                setLoading?.(true);
+              }}
               className="text-neutral-800 cursor-pointer px-4 py-3 font-bungee bg-[var(--color-light)] hover:opacity-90 rounded-lg text-sm flex gap-2 items-center shadow"
             >
               <SendHorizonal className="w-5 h-5" /> Send
