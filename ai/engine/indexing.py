@@ -1,13 +1,12 @@
 import arxiv
 import chromadb
-from models.embedder import Embedder
-from utils.logger import log
-from engine.db_client import get_chroma_client
+from ai.models.embedder import Embedder
+from ai.utils.logger import log
+from ai.engine.db_client import get_chroma_client
 
-
-def get_or_create_collection(client, name= "papers_collection"):
+def get_or_create_collection(client, name="papers_collection"):
     """
-    Retrieves an existing collection or creates a new one if it doesn't exist.
+    Retrieves an existing ChromaDB collection or creates a new one if it doesn't exist.
 
     Args:
         client (chromadb.Client): The Chroma client object.
@@ -19,6 +18,7 @@ def get_or_create_collection(client, name= "papers_collection"):
     Notes:
         Each collection stores embeddings, metadata, and documents.
         Metadata can include title, authors, link, year, source, etc.
+        The collection is stored in ai/data/chroma_db.
     """
     collections = [c.name for c in client.list_collections()]
     log(f"Existing collections: {collections}")
@@ -26,7 +26,6 @@ def get_or_create_collection(client, name= "papers_collection"):
     if name in collections:
         collection = client.get_collection(name)
         log(f"✅ Loaded existing collection '{name}' with {collection.count()} documents.")
-
     else:
         collection = client.create_collection(name, configuration={
             "hnsw": {"space": "cosine"}
@@ -56,7 +55,6 @@ def add_papers_to_index(collection: chromadb.Collection, papers: list):
         - This forms the RAG assistant's database for semantic search.
     """
     embedder = Embedder()
-    
     abstracts = [p["abstract"] for p in papers]
     ids = [p["id"] for p in papers]
     metadatas = [{k: p[k] for k in p if k != "abstract"} for p in papers]
@@ -72,25 +70,31 @@ def add_papers_to_index(collection: chromadb.Collection, papers: list):
     )
     log(f"Added {len(papers)} papers to index.")
 
-def fetch_arxiv_and_index(query: str = "machine learning", max_results: int = 10):
+def fetch_arxiv_and_index(query: str = "machine learning", max_results: int = 1000, fallback_query: str = None, min_results: int = 50):
     """
     Fetches recent papers from Arxiv based on a query and indexes them into ChromaDB.
-    
+
     Args:
         query (str): Search keyword(s) for Arxiv.
-        max_results (int): Maximum number of papers to fetch (default=10).
-    
+        max_results (int): Maximum number of papers to fetch (default=1000).
+        fallback_query (str): Optional fallback query if not enough papers are found.
+        min_results (int): Minimum number of papers required before trying fallback.
+
     Steps:
         1. Initialize Chroma client and collection.
         2. Query Arxiv API and parse papers.
         3. Generate embeddings for abstracts.
         4. Add papers with metadata to the collection.
+
+    Notes:
+        - Fallback query is only tried once if not enough papers are found.
+        - The collection is stored in ai/data/chroma_db.
     """
     client = get_chroma_client()
     collection = get_or_create_collection(client)
 
     log(f"Fetching up to {max_results} papers from Arxiv for query: '{query}'...")
-    arxiv_client = arxiv.Client(page_size=5000, delay_seconds=5, num_retries=5)
+    arxiv_client = arxiv.Client(page_size=100, delay_seconds=3, num_retries=5)
     search = arxiv.Search(
         query=query,
         max_results=max_results,
@@ -110,24 +114,18 @@ def fetch_arxiv_and_index(query: str = "machine learning", max_results: int = 10
                 "pdf_link": result.pdf_url,
                 "source": "arXiv"
             }
-            # print(paper["title"], "\n", paper["pdf_link"], "\n")
             papers.append(paper)
-
     except Exception as e:
         log(f"🛑 Critical API Error encountered: {type(e).__name__} - {e}")
         log("Processing partial results gathered before the failure.")        
-        pass
+
+    if len(papers) < min_results and fallback_query:
+        log(f"Only {len(papers)} papers found for '{query}'. Trying fallback query: '{fallback_query}'")
+        return fetch_arxiv_and_index(query=fallback_query, max_results=max_results, fallback_query=None, min_results=min_results) # trying fallback only once
 
     if not papers:
         log("No papers found for this query.")
         return
 
     add_papers_to_index(collection, papers)
-    log(f"✅ Successfully indexed {len(papers)} papers from Arxiv.")
-
-if __name__ == "__main__":
-    fetch_arxiv_and_index(query="machine learning ", max_results=100)
-
-    client = get_chroma_client()
-    collection = get_or_create_collection(client)
-    log(f"Documents in collection: {collection.count()}")
+    log(f"✅ Successfully indexed {len(papers)} papers from Arxiv for '{query}'.")
