@@ -1,14 +1,14 @@
 import os
 from chromadb import PersistentClient
-from utils.logger import log
+from ai.utils.logger import log
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_PATH = os.path.join(PROJECT_ROOT, "data", "chroma_db")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+CHROMA_DB_PATH = os.path.join(DATA_DIR, "chroma_db")
+os.makedirs(CHROMA_DB_PATH, exist_ok=True)
 
-os.makedirs(DB_PATH, exist_ok=True)
-
-_client = PersistentClient(path=DB_PATH)
-log(f"✅ Persistent ChromaDB client created. DB path: {DB_PATH}")
+_client = PersistentClient(path=CHROMA_DB_PATH)
+log(f"✅ Persistent ChromaDB client created. DB path: {CHROMA_DB_PATH}")
 
 def get_chroma_client():
     """
