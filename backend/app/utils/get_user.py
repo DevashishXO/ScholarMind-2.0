@@ -24,8 +24,7 @@ async def get_current_user(request: Request):
     # Get MongoDB instance
     db = get_db_from_request(request)
     user = await db.users.find_one({"_id": ObjectId(user_id)})
-    print(user)
-
+    
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
