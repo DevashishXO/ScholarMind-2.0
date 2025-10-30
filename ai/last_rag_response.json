@@ -1,0 +1,111 @@
+{
+  "query": "Exaplain LoRA fine-tuning",
+  "results": [
+    {
+      "title": "Super-LoRa: Enhancing LoRa Throughput via Payload Superposition",
+      "authors": "Salah Abdeljabar, Mohamed-Slim Alouini",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2504.11927v1",
+      "summary": "This paper presents Super-LoRa, a novel approach to enhancing the throughput\nof LoRa networks by leveraging the inherent robustness of LoRa modulation\nagainst interference. By superimposing multiple payload symbols, Super-LoRa\nsignificantly increases the data rate while maintaining lower transmitter and\nreceiver complexity. Our solution is evaluated through both simulations and\nreal-world experiments, showing a potential throughput improvement of up to 5x\ncompared to standard LoRa. This advancement positions Super-LoRa as a viable\nsolution for data-intensive IoT applications such as smart cities and precision\nagriculture, which demand higher data transmission rates.",
+      "similarity_score": 35,
+      "arxiv_id": "arxiv:2504.11927v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2504.11927v1"
+    },
+    {
+      "title": "Block-Diagonal LoRA for Eliminating Communication Overhead in Tensor Parallel LoRA Serving",
+      "authors": "Xinyu Wang, Jonas M. Kübler, Kailash Budhathoki, Yida Wang, Matthäus Kleindessner",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.23346v1",
+      "summary": "When serving a single base LLM with several different LoRA adapters\nsimultaneously, the adapters cannot simply be merged with the base model's\nweights as the adapter swapping would create overhead and requests using\ndifferent adapters could not be batched. Rather, the LoRA computations have to\nbe separated from the base LLM computations, and in a multi-device setup the\nLoRA adapters can be sharded in a way that is well aligned with the base\nmodel's tensor parallel execution, as proposed in S-LoRA. However, the S-LoRA\nsharding strategy encounters some communication overhead, which may be small in\ntheory, but can be large in practice. In this paper, we propose to constrain\ncertain LoRA factors to be block-diagonal, which allows for an alternative way\nof sharding LoRA adapters that does not require any additional communication\nfor the LoRA computations. We demonstrate in extensive experiments that our\nblock-diagonal LoRA approach is similarly parameter efficient as standard LoRA\n(i.e., for a similar number of parameters it achieves similar downstream\nperformance) and that it leads to significant end-to-end speed-up over S-LoRA.\nFor example, when serving on eight A100 GPUs, we observe up to 1.79x (1.23x)\nend-to-end speed-up with 0.87x (1.74x) the number of adapter parameters for\nLlama-3.1-70B, and up to 1.63x (1.3x) end-to-end speed-up with 0.86x (1.73x)\nthe number of adapter parameters for Llama-3.1-8B.",
+      "similarity_score": 35,
+      "arxiv_id": "arxiv:2510.23346v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.23346v1"
+    },
+    {
+      "title": "Latent Space Factorization in LoRA",
+      "authors": "Shashi Kumar, Yacouba Kaloga, John Mitros, Petr Motlicek, Ina Kodrasi",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.19640v1",
+      "summary": "Low-rank adaptation (LoRA) is a widely used method for parameter-efficient\nfinetuning. However, existing LoRA variants lack mechanisms to explicitly\ndisambiguate task-relevant information within the learned low-rank subspace,\npotentially limiting downstream performance. We propose Factorized Variational\nAutoencoder LoRA (FVAE-LoRA), which leverages a VAE to learn two distinct\nlatent spaces. Our novel Evidence Lower Bound formulation explicitly promotes\nfactorization between the latent spaces, dedicating one latent space to\ntask-salient features and the other to residual information. Extensive\nexperiments on text, audio, and image tasks demonstrate that FVAE-LoRA\nconsistently outperforms standard LoRA. Moreover, spurious correlation\nevaluations confirm that FVAE-LoRA better isolates task-relevant signals,\nleading to improved robustness under distribution shifts. Our code is publicly\navailable at: https://github.com/idiap/FVAE-LoRA",
+      "similarity_score": 35,
+      "arxiv_id": "arxiv:2510.19640v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.19640v1"
+    },
+    {
+      "title": "$α$-LoRA: Effective Fine-Tuning via Base Model Rescaling",
+      "authors": "Aymane El Firdoussi, El Mahdi Chayti, Mohamed El Amine Seddik, Martin Jaggi",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.21345v1",
+      "summary": "Fine-tuning has proven to be highly effective in adapting pre-trained models\nto perform better on new desired tasks with minimal data samples. Among the\nmost widely used approaches are reparameterization methods, which update a\ntarget module by augmenting its frozen weight matrix with an additional\ntrainable weight matrix. The most prominent example is Low Rank Adaption\n(LoRA), which gained significant attention in recent years. In this paper, we\nintroduce a new class of reparameterization methods for transfer learning,\ndesigned to enhance the generalization ability of fine-tuned models. We\nestablish the effectiveness of our approach in a high-dimensional binary\nclassification setting using tools from Random Matrix Theory, and further\nvalidate our theoretical findings through more realistic experiments, such as\nfine-tuning LLMs.",
+      "similarity_score": 35,
+      "arxiv_id": "arxiv:2510.21345v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.21345v1"
+    },
+    {
+      "title": "LoMix: Learnable Weighted Multi-Scale Logits Mixing for Medical Image Segmentation",
+      "authors": "Md Mostafijur Rahman, Radu Marculescu",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.22995v1",
+      "summary": "U-shaped networks output logits at multiple spatial scales, each capturing a\ndifferent blend of coarse context and fine detail. Yet, training still treats\nthese logits in isolation - either supervising only the final,\nhighest-resolution logits or applying deep supervision with identical loss\nweights at every scale - without exploring mixed-scale combinations.\nConsequently, the decoder output misses the complementary cues that arise only\nwhen coarse and fine predictions are fused. To address this issue, we introduce\nLoMix (Logits Mixing), a NAS-inspired, differentiable plug-and-play module that\ngenerates new mixed-scale outputs and learns how exactly each of them should\nguide the training process. More precisely, LoMix mixes the multi-scale decoder\nlogits with four lightweight fusion operators: addition, multiplication,\nconcatenation, and attention-based weighted fusion, yielding a rich set of\nsynthetic mutant maps. Every original or mutant map is given a softplus loss\nweight that is co-optimized with network parameters, mimicking a one-step\narchitecture search that automatically discovers the most useful scales,\nmixtures, and operators. Plugging LoMix into recent U-shaped architectures\n(i.e., PVT-V2-B2 backbone with EMCAD decoder) on Synapse 8-organ dataset\nimproves DICE by +4.2% over single-output supervision, +2.2% over deep\nsupervision, and +1.5% over equally weighted additive fusion, all with zero\ninference overhead. When training data are scarce (e.g., one or two labeled\nscans), the advantage grows to +9.23%, underscoring LoMix's data efficiency.\nAcross four benchmarks and diverse U-shaped networks, LoMiX improves DICE by up\nto +13.5% over single-output supervision, confirming that learnable weighted\nmixed-scale fusion generalizes broadly while remaining data efficient, fully\ninterpretable, and overhead-free at inference. Our code is available at\nhttps://github.com/SLDGroup/LoMix.",
+      "similarity_score": 34,
+      "arxiv_id": "arxiv:2510.22995v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.22995v1"
+    },
+    {
+      "title": "GaLLoP: Gradient-based Sparse Learning on Low-Magnitude Parameters",
+      "authors": "Anand Choudhary, Yasser Sulaıman, Lukas Mauch, Ghouthi Boukli Hacene, Fabien Cardinaux, Antoine Bosselut",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.19778v1",
+      "summary": "Sparse fine-tuning techniques adapt LLMs to downstream tasks by only tuning a\nsparse subset of model parameters. However, the effectiveness of sparse\nadaptation depends on optimally selecting the model parameters to be\nfine-tuned. In this work, we introduce a novel sparse fine-tuning technique\nnamed GaLLoP: Gradient-based Sparse Learning on Low-Magnitude Parameters, which\nfine-tunes only those model parameters which have the largest gradient\nmagnitudes on downstream tasks and the smallest pre-trained magnitudes,\nintuitively prioritizing parameters that are highly task-relevant, but\nminimally disruptive to pre-trained knowledge. Our experimentation with LLaMA3\n8B and Gemma 2B as base models shows that GaLLoP consistently improves or\nmatches the in-distribution as well as out-of-distribution performance obtained\nvia the usage of other leading parameter-efficient fine-tuning techniques,\nincluding LoRA, DoRA, and SAFT. Our analysis demonstrates that GaLLoP mitigates\ncatastrophic forgetting and memorization of task data, as important pre-trained\nparameters remain unchanged, and stabilizes performance relative to other\nfine-tuning techniques, robustly generalizing across most random seeds.",
+      "similarity_score": 33,
+      "arxiv_id": "arxiv:2510.19778v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.19778v1"
+    },
+    {
+      "title": "DiffLoRA: Differential Low-Rank Adapters for Large Language Models",
+      "authors": "Alexandre Misrahi, Nadezhda Chirkova, Maxime Louis, Vassilina Nikoulina",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2507.23588v1",
+      "summary": "Differential Transformer has recently been proposed to improve performance in\nTransformer models by canceling out noise through a denoiser attention\nmechanism. In this work, we introduce DiffLoRA, a parameter-efficient\nadaptation of the differential attention mechanism, with low-rank adapters on\nboth positive and negative attention terms. This approach retains the\nefficiency of LoRA while aiming to benefit from the performance gains of\ndifferential attention. We evaluate DiffLoRA across a broad range of NLP tasks,\nincluding general benchmarks, many-shot in-context learning, RAG, and\nlong-context tests. We observe that, although DiffLoRA falls short of other\nparameter-efficient fine-tuning methods in most evaluation tasks, it shows\ninteresting results in certain domains (+11 pts on LoRA for HumanEval). We\nanalyze the attention patterns post-finetuning to identify the reasons for this\nbehavior.",
+      "similarity_score": 33,
+      "arxiv_id": "arxiv:2507.23588v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2507.23588v1"
+    }
+  ],
+  "highest_score": 35,
+  "lowest_score": 33,
+  "answer_json": {
+    "answer": "LoRA fine-tuning is a method for parameter-efficient adaptation of pre-trained models. It involves updating a low-rank matrix that is added to the pre-trained weights, allowing for efficient fine-tuning with minimal additional parameters. As seen in [3], LoRA can be improved by leveraging latent space factorization, which helps to disambiguate task-relevant information. Another approach, [4], proposes base model rescaling to enhance the generalization ability of fine-tuned models. Additionally, [2] introduces a block-diagonal LoRA approach to eliminate communication overhead in tensor parallel LoRA serving, demonstrating significant end-to-end speed-up. These papers demonstrate the effectiveness of LoRA fine-tuning and its potential for improvement through various techniques.",
+    "citations": [
+      {
+        "number": 3,
+        "title": "Latent Space Factorization in LoRA",
+        "authors": "Shashi Kumar, Yacouba Kaloga, John Mitros, Petr Motlicek, Ina Kodrasi",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2510.19640v1"
+      },
+      {
+        "number": 4,
+        "title": "$\\alpha$-LoRA: Effective Fine-Tuning via Base Model Rescaling",
+        "authors": "Aymane El Firdoussi, El Mahdi Chayti, Mohamed El Amine Seddik, Martin Jaggi",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2510.21345v1"
+      },
+      {
+        "number": 2,
+        "title": "Block-Diagonal LoRA for Eliminating Communication Overhead in Tensor Parallel LoRA Serving",
+        "authors": "Xinyu Wang, Jonas M. Kübler, Kailash Budhathoki, Yida Wang, Matthäus Kleindessner",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2510.23346v1"
+      }
+    ]
+  },
+  "answer": "{\n  \"answer\": \"LoRA fine-tuning is a method for parameter-efficient adaptation of pre-trained models. It involves updating a low-rank matrix that is added to the pre-trained weights, allowing for efficient fine-tuning with minimal additional parameters. As seen in [3], LoRA can be improved by leveraging latent space factorization, which helps to disambiguate task-relevant information. Another approach, [4], proposes base model rescaling to enhance the generalization ability of fine-tuned models. Additionally, [2] introduces a block-diagonal LoRA approach to eliminate communication overhead in tensor parallel LoRA serving, demonstrating significant end-to-end speed-up. These papers demonstrate the effectiveness of LoRA fine-tuning and its potential for improvement through various techniques.\",\n  \"citations\": [\n    {\n      \"number\": 3,\n      \"title\": \"Latent Space Factorization in LoRA\",\n      \"authors\": \"Shashi Kumar, Yacouba Kaloga, John Mitros, Petr Motlicek, Ina Kodrasi\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2510.19640v1\"\n    },\n    {\n      \"number\": 4,\n      \"title\": \"$\\\\alpha$-LoRA: Effective Fine-Tuning via Base Model Rescaling\",\n      \"authors\": \"Aymane El Firdoussi, El Mahdi Chayti, Mohamed El Amine Seddik, Martin Jaggi\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2510.21345v1\"\n    },\n    {\n      \"number\": 2,\n      \"title\": \"Block-Diagonal LoRA for Eliminating Communication Overhead in Tensor Parallel LoRA Serving\",\n      \"authors\": \"Xinyu Wang, Jonas M. Kübler, Kailash Budhathoki, Yida Wang, Matthäus Kleindessner\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2510.23346v1\"\n    }\n  ]\n}"
+}
