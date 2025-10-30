@@ -1,0 +1,7 @@
+sentence-transformers
+chromadb
+requests
+tqdm
+numpy
+arxiv
+groq
