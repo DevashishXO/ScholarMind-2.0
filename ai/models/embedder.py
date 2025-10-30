@@ -11,11 +11,10 @@ class Embedder:
     _lock = threading.Lock()
 
     def __new__(cls, model_name: str = "sentence-transformers/all-MiniLM-L6-v2"):
-        if cls._instance is None:
-            with cls._lock:
-                if cls._instance is None:
-                    cls._instance = super(Embedder, cls).__new__(cls)
-                    cls._instance.model = SentenceTransformer(model_name)
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = super().__new__(cls)
+                cls._instance.model = SentenceTransformer(model_name)
         return cls._instance
     
     def encode(self, texts, normalize: bool = True):
@@ -37,5 +36,5 @@ class Embedder:
             norms = np.linalg.norm(emb, axis=1, keepdims=True)
             norms[norms == 0] = 1.0
             emb = emb / norms
-            
+
         return emb[0] if single else emb
