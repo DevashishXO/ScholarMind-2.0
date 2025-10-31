@@ -91,6 +91,7 @@ export default function VerifyOtpPage() {
       if (response.ok) {
         toast.success("OTP verified successfully!");
         localStorage.removeItem("pendingEmail");
+        localStorage.removeItem("authType");
         navigate("/on-boarding")
       }
     } catch (err: any) {
