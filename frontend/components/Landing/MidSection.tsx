@@ -9,9 +9,8 @@ export default function MidSection() {
   const checkEmailMutation = useCheckEmail();
   const { setLoading } = useLoading();
 
-  const handleGoogleLogin = (email: string) => {
-    const pendingEmail = email;
-    localStorage.setItem("pendingEmail", pendingEmail);
+  const handleGoogleLogin = () => {
+    localStorage.setItem("authType", "google");
     window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/google/login`;
   };
 

@@ -4,6 +4,8 @@ import { useVerifyOtp, useSendOtp } from "../../src/services/auth";
 import { Loader2 } from "lucide-react";
 import { useLoading } from "../../src/context/LoadingContext";
 import toast from "react-hot-toast";
+import { loadConfigFromFile } from "vite";
+import { auth } from "googleapis/build/src/apis/tagmanager";
 
 export default function VerifyOtpPage() {
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
@@ -47,6 +49,9 @@ export default function VerifyOtpPage() {
   // Only send OTP if coming from email signup
   useEffect(() => {
     if (!sendOtpFlag || !email) return;
+    
+    const authType = localStorage.getItem("authType");
+    if (authType === "google") return;
 
     const sendOtp = async () => {
       try {
