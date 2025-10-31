@@ -4,12 +4,13 @@ from starlette.middleware.sessions import SessionMiddleware
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+from app.middlewares.logging_middleware import LoggingMiddleware
 
 from app.routes.v1 import api_router
 
 load_dotenv()
 
-app = FastAPI(title="ScholarMind API", version="1.0.0")
+app = FastAPI(title="ScholarMind Web Gateway Backend", version="1.0.0")
 
 # CORS
 origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:8080").split(",")
@@ -53,6 +54,9 @@ async def close_mongo_connection():
 @app.get("/")
 async def root():
     return {"message": "ScholarMind API is live 🚀"}
+
+# Add Logging Middleware
+app.add_middleware(LoggingMiddleware)
 
 #versioned routes
 app.include_router(api_router, prefix="/api/v1")

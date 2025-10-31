@@ -103,7 +103,7 @@ async def google_callback(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to send OTP: {str(e)}")
 
-    redirect_target = f"{settings.FRONTEND_URL}verify-otp?email={email}"
+    redirect_target = f"{settings.FRONTEND_URL}verify-otp?email={email}&sendOtp=true"
     return RedirectResponse(url=redirect_target)
 
 @router.post("/verify-otp")

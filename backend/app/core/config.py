@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     # App URLs
     FRONTEND_URL: AnyUrl
     BACKEND_URL: AnyUrl
+    AI_BACKEND_URL: AnyUrl
 
     # Session / cookies
     SESSION_SECRET: str
@@ -35,7 +36,6 @@ class Settings(BaseSettings):
     COOKIE_SECURE: bool = False
     COOKIE_SAMESITE: str = "lax"
     
-
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
