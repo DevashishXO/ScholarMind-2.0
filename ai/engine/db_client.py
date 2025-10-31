@@ -1,6 +1,6 @@
 import os
 from chromadb import PersistentClient
-from ai.utils.logger import log
+from utils.logger import log
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")

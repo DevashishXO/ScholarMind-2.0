@@ -1,6 +1,6 @@
 from .db_client import get_chroma_client
-from ai.models.embedder import Embedder
-from ai.utils.logger import log
+from models.embedder import Embedder
+from utils.logger import log
 from .indexing import fetch_arxiv_and_index
 
 def hybrid_search_papers(query: str, top_k: int = 5, similarity_threshold: float = 0.4, min_results: int = 50, check_results: int = 100):

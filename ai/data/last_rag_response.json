@@ -1,0 +1,132 @@
+{
+  "query": "machine learning optimization ",
+  "results": [
+    {
+      "title": "Distributionally Robust Optimization via Diffusion Ambiguity Modeling",
+      "authors": "Jiaqi Wen, Jianyi Yang",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.22757v1",
+      "summary": "This paper studies Distributionally Robust Optimization (DRO), a fundamental\nframework for enhancing the robustness and generalization of statistical\nlearning and optimization. An effective ambiguity set for DRO must involve\ndistributions that remain consistent with the nominal distribution while being\ndiverse enough to account for a variety of potential scenarios. Moreover, it\nshould lead to tractable DRO solutions. To this end, we propose a\ndiffusion-based ambiguity set design that captures various adversarial\ndistributions beyond the nominal support space while maintaining consistency\nwith the nominal distribution. Building on this ambiguity modeling, we propose\nDiffusion-based DRO (D-DRO), a tractable DRO algorithm that solves the inner\nmaximization over the parameterized diffusion model space. We formally\nestablish the stationary convergence performance of D-DRO and empirically\ndemonstrate its superior Out-of-Distribution (OOD) generalization performance\nin a ML prediction task.",
+      "similarity_score": 49,
+      "arxiv_id": "arxiv:2510.22757v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.22757v1"
+    },
+    {
+      "title": "A Systematic Review of Metaheuristics-Based and Machine Learning-Driven Intrusion Detection Systems in IoT",
+      "authors": "Mohammad Shamim Ahsan, Salekul Islam, Swakkhar Shatabda",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2506.00377v2",
+      "summary": "The widespread adoption of the Internet of Things (IoT) has raised a new\nchallenge for developers since it is prone to known and unknown cyberattacks\ndue to its heterogeneity, flexibility, and close connectivity. To defend\nagainst such security breaches, researchers have focused on building\nsophisticated intrusion detection systems (IDSs) using machine learning (ML)\ntechniques. Although these algorithms notably improve detection performance,\nthey require excessive computing power and resources, which are crucial issues\nin IoT networks considering the recent trends of decentralized data processing\nand computing systems. Consequently, many optimization techniques have been\nincorporated with these ML models. Specifically, a special category of\noptimizer adopted from the behavior of living creatures and different aspects\nof natural phenomena, known as metaheuristic algorithms, has been a central\nfocus in recent years and brought about remarkable results. Considering this\nvital significance, we present a comprehensive and systematic review of various\napplications of metaheuristics algorithms in developing a machine\nlearning-based IDS, especially for IoT. A significant contribution of this\nstudy is the discovery of hidden correlations between these optimization\ntechniques and machine learning models integrated with state-of-the-art\nIoT-IDSs. In addition, the effectiveness of these metaheuristic algorithms in\ndifferent applications, such as feature selection, parameter or hyperparameter\ntuning, and hybrid usages are separately analyzed. Moreover, a taxonomy of\nexisting IoT-IDSs is proposed. Furthermore, we investigate several critical\nissues related to such integration. Our extensive exploration ends with a\ndiscussion of promising optimization algorithms and technologies that can\nenhance the efficiency of IoT-IDSs.",
+      "similarity_score": 46,
+      "arxiv_id": "arxiv:2506.00377v2",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2506.00377v2"
+    },
+    {
+      "title": "Common Task Framework For a Critical Evaluation of Scientific Machine Learning Algorithms",
+      "authors": "Philippe Martin Wyder, Judah Goldfeder, Alexey Yermakov, Yue Zhao, Stefano Riva, Jan P. Williams, David Zoro, Amy Sara Rude, Matteo Tomasetto, Joe Germany, Joseph Bakarji, Georg Maierhofer, Miles Cranmer, J. Nathan Kutz",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.23166v1",
+      "summary": "Machine learning (ML) is transforming modeling and control in the physical,\nengineering, and biological sciences. However, rapid development has outpaced\nthe creation of standardized, objective benchmarks - leading to weak baselines,\nreporting bias, and inconsistent evaluations across methods. This undermines\nreproducibility, misguides resource allocation, and obscures scientific\nprogress. To address this, we propose a Common Task Framework (CTF) for\nscientific machine learning. The CTF features a curated set of datasets and\ntask-specific metrics spanning forecasting, state reconstruction, and\ngeneralization under realistic constraints, including noise and limited data.\nInspired by the success of CTFs in fields like natural language processing and\ncomputer vision, our framework provides a structured, rigorous foundation for\nhead-to-head evaluation of diverse algorithms. As a first step, we benchmark\nmethods on two canonical nonlinear systems: Kuramoto-Sivashinsky and Lorenz.\nThese results illustrate the utility of the CTF in revealing method strengths,\nlimitations, and suitability for specific classes of problems and diverse\nobjectives. Next, we are launching a competition around a global real world sea\nsurface temperature dataset with a true holdout dataset to foster community\nengagement. Our long-term vision is to replace ad hoc comparisons with\nstandardized evaluations on hidden test sets that raise the bar for rigor and\nreproducibility in scientific ML.",
+      "similarity_score": 42,
+      "arxiv_id": "arxiv:2510.23166v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.23166v1"
+    },
+    {
+      "title": "Centrum: Model-based Database Auto-tuning with Minimal Distributional Assumptions",
+      "authors": "Yuanhao Lai, Pengfei Zheng, Chenpeng Ji, Yan Li, Songhan Zhang, Rutao Zhang, Zhengang Wang, Yunfei Du",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.22734v1",
+      "summary": "Gaussian-Process-based Bayesian optimization (GP-BO), is a prevailing\nmodel-based framework for DBMS auto-tuning. However, recent work shows\nGP-BO-based DBMS auto-tuners significantly outperformed auto-tuners based on\nSMAC, which features random forest surrogate models; such results motivate us\nto rethink and investigate the limitations of GP-BO in auto-tuner design. We\nfind the fundamental assumptions of GP-BO are widely violated when modeling and\noptimizing DBMS performance, while tree-ensemble-BOs (e.g., SMAC) can avoid the\nassumption pitfalls and deliver improved tuning efficiency and effectiveness.\nMoreover, we argue that existing tree-ensemble-BOs restrict further advancement\nin DBMS auto-tuning. First, existing tree-ensemble-BOs can only achieve\ndistribution-free point estimates, but still impose unrealistic distributional\nassumptions on uncertainty estimates, compromising surrogate modeling and\ndistort the acquisition function. Second, recent advances in gradient boosting,\nwhich can further enhance surrogate modeling against vanilla GP and random\nforest counterparts, have rarely been applied in optimizing DBMS auto-tuners.\nTo address these issues, we propose a novel model-based DBMS auto-tuner,\nCentrum. Centrum improves distribution-free point and interval estimation in\nsurrogate modeling with a two-phase learning procedure of stochastic gradient\nboosting ensembles. Moreover, Centrum adopts a generalized SGBE-estimated\nlocally-adaptive conformal prediction to facilitate a distribution-free\nuncertainty estimation and acquisition function. To our knowledge, Centrum is\nthe first auto-tuner to realize distribution-freeness, enhancing BO's\npracticality in DBMS auto-tuning, and the first to seamlessly fuse gradient\nboosting ensembles and conformal inference in BO. Extensive physical and\nsimulation experiments on two DBMSs and three workloads show Centrum\noutperforms 21 SOTA methods.",
+      "similarity_score": 42,
+      "arxiv_id": "arxiv:2510.22734v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.22734v1"
+    },
+    {
+      "title": "Frugal Machine Learning for Energy-efficient, and Resource-aware Artificial Intelligence",
+      "authors": "John Violos, Konstantina-Christina Diamanti, Ioannis Kompatsiaris, Symeon Papadopoulos",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2506.01869v1",
+      "summary": "Frugal Machine Learning (FML) refers to the practice of designing Machine\nLearning (ML) models that are efficient, cost-effective, and mindful of\nresource constraints. This field aims to achieve acceptable performance while\nminimizing the use of computational resources, time, energy, and data for both\ntraining and inference. FML strategies can be broadly categorized into input\nfrugality, learning process frugality, and model frugality, each focusing on\nreducing resource consumption at different stages of the ML pipeline. This\nchapter explores recent advancements, applications, and open challenges in FML,\nemphasizing its importance for smart environments that incorporate edge\ncomputing and IoT devices, which often face strict limitations in bandwidth,\nenergy, or latency. Technological enablers such as model compression,\nenergy-efficient hardware, and data-efficient learning techniques are\ndiscussed, along with adaptive methods including parameter regularization,\nknowledge distillation, and dynamic architecture design that enable incremental\nmodel updates without full retraining. Furthermore, it provides a comprehensive\ntaxonomy of frugal methods, discusses case studies across diverse domains, and\nidentifies future research directions to drive innovation in this evolving\nfield.",
+      "similarity_score": 42,
+      "arxiv_id": "arxiv:2506.01869v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2506.01869v1"
+    },
+    {
+      "title": "Feature Augmentations for High-Dimensional Learning",
+      "authors": "Xiaonan Zhu, Bingyan Wang, Jianqing Fan",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2509.00232v1",
+      "summary": "High-dimensional measurements are often correlated which motivates their\napproximation by factor models. This holds also true when features are\nengineered via low-dimensional interactions or kernel tricks. This often\nresults in over parametrization and requires a fast dimensionality reduction.\nWe propose a simple technique to enhance the performance of supervised learning\nalgorithms by augmenting features with factors extracted from design matrices\nand their transformations. This is implemented by using the factors and\nidiosyncratic residuals which significantly weaken the correlations between\ninput variables and hence increase the interpretability of learning algorithms\nand numerical stability. Extensive experiments on various algorithms and\nreal-world data in diverse fields are carried out, among which we put special\nemphasis on the stock return prediction problem with Chinese financial news\ndata due to the increasing interest in NLP problems in financial studies. We\nverify the capability of the proposed feature augmentation approach to boost\noverall prediction performance with the same algorithm. The approach bridges a\ngap in research that has been overlooked in previous studies, which focus\neither on collecting additional data or constructing more powerful algorithms,\nwhereas our method lies in between these two directions using a simple PCA\naugmentation.",
+      "similarity_score": 41,
+      "arxiv_id": "arxiv:2509.00232v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2509.00232v1"
+    },
+    {
+      "title": "How Muon's Spectral Design Benefits Generalization: A Study on Imbalanced Data",
+      "authors": "Bhavya Vasudeva, Puneesh Deora, Yize Zhao, Vatsal Sharan, Christos Thrampoulidis",
+      "year": 2025,
+      "pdf_link": "http://arxiv.org/pdf/2510.22980v1",
+      "summary": "The growing adoption of spectrum-aware matrix-valued optimizers such as Muon\nand Shampoo in deep learning motivates a systematic study of their\ngeneralization properties and, in particular, when they might outperform\ncompetitive algorithms. We approach this question by introducing appropriate\nsimplifying abstractions as follows: First, we use imbalanced data as a\ntestbed. Second, we study the canonical form of such optimizers, which is\nSpectral Gradient Descent (SpecGD) -- each update step is $UV^T$ where $U\\Sigma\nV^T$ is the truncated SVD of the gradient. Third, within this framework we\nidentify a canonical setting for which we precisely quantify when SpecGD\noutperforms vanilla Euclidean GD. For a Gaussian mixture data model and both\nlinear and bilinear models, we show that unlike GD, which prioritizes learning\ndominant principal components of the data first, SpecGD learns all principal\ncomponents of the data at equal rates. We demonstrate how this translates to a\ngrowing gap in balanced accuracy favoring SpecGD early in training and further\nshow that the gap remains consistent even when the GD counterpart uses adaptive\nstep-sizes via normalization. By extending the analysis to deep linear models,\nwe show that depth amplifies these effects. We empirically verify our\ntheoretical findings on a variety of imbalanced datasets. Our experiments\ncompare practical variants of spectral methods, like Muon and Shampoo, against\ntheir Euclidean counterparts and Adam. The results validate our findings that\nthese spectral optimizers achieve superior generalization by promoting a more\nbalanced learning of the data's underlying components.",
+      "similarity_score": 40,
+      "arxiv_id": "arxiv:2510.22980v1",
+      "source": "arXiv",
+      "link": "http://arxiv.org/abs/2510.22980v1"
+    }
+  ],
+  "highest_score": 49,
+  "lowest_score": 40,
+  "answer_json": {
+    "answer": "Machine learning optimization is a crucial aspect of improving the performance and efficiency of ML models. Distributionally Robust Optimization (DRO) is a framework that enhances the robustness and generalization of statistical learning and optimization [1]. Additionally, metaheuristic algorithms have been incorporated with ML models to optimize their performance, especially in IoT networks [2]. Other optimization techniques, such as model-based database auto-tuning [4] and frugal machine learning [5], have also been proposed to improve the efficiency and effectiveness of ML models. Furthermore, feature augmentation techniques [6] and spectral design benefits [7] can also contribute to the optimization of ML models.",
+    "citations": [
+      {
+        "number": 1,
+        "title": "Distributionally Robust Optimization via Diffusion Ambiguity Modeling",
+        "authors": "Jiaqi Wen, Jianyi Yang",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2510.22757v1"
+      },
+      {
+        "number": 2,
+        "title": "A Systematic Review of Metaheuristics-Based and Machine Learning-Driven Intrusion Detection Systems in IoT",
+        "authors": "Mohammad Shamim Ahsan, Salekul Islam, Swakkhar Shatabda",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2506.00377v2"
+      },
+      {
+        "number": 4,
+        "title": "Centrum: Model-based Database Auto-tuning with Minimal Distributional Assumptions",
+        "authors": "Yuanhao Lai, Pengfei Zheng, Chenpeng Ji, Yan Li, Songhan Zhang, Rutao Zhang, Zhengang Wang, Yunfei Du",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2510.22734v1"
+      },
+      {
+        "number": 5,
+        "title": "Frugal Machine Learning for Energy-efficient, and Resource-aware Artificial Intelligence",
+        "authors": "John Violos, Konstantina-Christina Diamanti, Ioannis Kompatsiaris, Symeon Papadopoulos",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2506.01869v1"
+      },
+      {
+        "number": 6,
+        "title": "Feature Augmentations for High-Dimensional Learning",
+        "authors": "Xiaonan Zhu, Bingyan Wang, Jianqing Fan",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2509.00232v1"
+      },
+      {
+        "number": 7,
+        "title": "How Muon's Spectral Design Benefits Generalization: A Study on Imbalanced Data",
+        "authors": "Bhavya Vasudeva, Puneesh Deora, Yize Zhao, Vatsal Sharan, Christos Thrampoulidis",
+        "year": 2025,
+        "pdf_link": "http://arxiv.org/pdf/2510.22980v1"
+      }
+    ]
+  },
+  "answer": "{\n  \"answer\": \"Machine learning optimization is a crucial aspect of improving the performance and efficiency of ML models. Distributionally Robust Optimization (DRO) is a framework that enhances the robustness and generalization of statistical learning and optimization [1]. Additionally, metaheuristic algorithms have been incorporated with ML models to optimize their performance, especially in IoT networks [2]. Other optimization techniques, such as model-based database auto-tuning [4] and frugal machine learning [5], have also been proposed to improve the efficiency and effectiveness of ML models. Furthermore, feature augmentation techniques [6] and spectral design benefits [7] can also contribute to the optimization of ML models.\",\n  \"citations\": [\n    {\n      \"number\": 1,\n      \"title\": \"Distributionally Robust Optimization via Diffusion Ambiguity Modeling\",\n      \"authors\": \"Jiaqi Wen, Jianyi Yang\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2510.22757v1\"\n    },\n    {\n      \"number\": 2,\n      \"title\": \"A Systematic Review of Metaheuristics-Based and Machine Learning-Driven Intrusion Detection Systems in IoT\",\n      \"authors\": \"Mohammad Shamim Ahsan, Salekul Islam, Swakkhar Shatabda\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2506.00377v2\"\n    },\n    {\n      \"number\": 4,\n      \"title\": \"Centrum: Model-based Database Auto-tuning with Minimal Distributional Assumptions\",\n      \"authors\": \"Yuanhao Lai, Pengfei Zheng, Chenpeng Ji, Yan Li, Songhan Zhang, Rutao Zhang, Zhengang Wang, Yunfei Du\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2510.22734v1\"\n    },\n    {\n      \"number\": 5,\n      \"title\": \"Frugal Machine Learning for Energy-efficient, and Resource-aware Artificial Intelligence\",\n      \"authors\": \"John Violos, Konstantina-Christina Diamanti, Ioannis Kompatsiaris, Symeon Papadopoulos\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2506.01869v1\"\n    },\n    {\n      \"number\": 6,\n      \"title\": \"Feature Augmentations for High-Dimensional Learning\",\n      \"authors\": \"Xiaonan Zhu, Bingyan Wang, Jianqing Fan\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2509.00232v1\"\n    },\n    {\n      \"number\": 7,\n      \"title\": \"How Muon's Spectral Design Benefits Generalization: A Study on Imbalanced Data\",\n      \"authors\": \"Bhavya Vasudeva, Puneesh Deora, Yize Zhao, Vatsal Sharan, Christos Thrampoulidis\",\n      \"year\": 2025,\n      \"pdf_link\": \"http://arxiv.org/pdf/2510.22980v1\"\n    }\n  ]\n}"
+}

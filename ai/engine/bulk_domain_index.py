@@ -1,7 +1,7 @@
 import concurrent.futures
 from .indexing import fetch_arxiv_and_index, get_or_create_collection
-from ai.utils.logger import log
-from ai.engine.db_client import get_chroma_client
+from utils.logger import log
+from engine.db_client import get_chroma_client
 
 DOMAINS = [
     "machine learning",

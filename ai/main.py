@@ -1,11 +1,14 @@
+from sys import prefix
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 
+from dotenv import load_dotenv
 load_dotenv()
+
+from routes import router as api_router
 
 app = FastAPI(title="ScholarMind AI Backend", version="1.0.0")
 
@@ -50,3 +53,5 @@ async def close_mongo_connection():
 @app.get("/")
 async def root():
     return {"message": "ScholarMind AI backend is live 🚀"}
+    
+app.include_router(api_router, prefix="/api/v1")

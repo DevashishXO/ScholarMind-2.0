@@ -1,8 +1,8 @@
 import arxiv
 import chromadb
-from ai.models.embedder import Embedder
-from ai.utils.logger import log
-from ai.engine.db_client import get_chroma_client
+from models.embedder import Embedder
+from utils.logger import log
+from engine.db_client import get_chroma_client
 
 def get_or_create_collection(client, name="papers_collection"):
     """

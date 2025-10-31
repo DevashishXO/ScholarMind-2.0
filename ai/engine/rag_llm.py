@@ -1,5 +1,5 @@
 from .query_engine import hybrid_search_papers
-from ai.utils.llm_client import call_groq_llm
+from utils.llm_client import call_groq_llm
 import json
 import os
 
@@ -95,9 +95,31 @@ if __name__ == "__main__":
     user_query = input("Enter your research question: ").strip()
     result = rag_answer(user_query, top_k=TOP_K)
     print("\n--- LLM Answer ---\n")
-    print(result["answer"])
+    print(result["answer_json"])
 
     output_path = os.path.join(DATA_DIR, "last_rag_response.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"\nSaved response to {output_path}")
+    
+def get_llm_response(payload: dict):
+    user_keywords = payload.get("query_keywords", "")
+    user_query = ""
+    for keyword in user_keywords:
+        user_query += keyword + ""
+    
+    result = rag_answer(user_query, top_k=TOP_K)
+    # print("\n--- LLM Answer ---\n")
+    # print(result)
+
+    # output_path = os.path.join(DATA_DIR, "last_rag_response.json")
+    # with open(output_path, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, ensure_ascii=False, indent=2)
+    # print(f"\nSaved response to {output_path}")
+    return result
+    
+def get_bot_response(payload: dict):
+    user_query = payload.get("user_query", "")
+    
+    result = rag_answer(user_query, top_k=TOP_K)
+    return result
