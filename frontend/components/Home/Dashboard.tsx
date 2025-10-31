@@ -91,7 +91,7 @@ export default function Dashboard(): JSX.Element {
   const [loading, setLoading] = useState(false);
   
   const HeaderSection = () => (
-    <header className="mb-8 w-full">
+    <header className="mb-4 w-full">
       {!newSearch ? (
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
@@ -112,7 +112,7 @@ export default function Dashboard(): JSX.Element {
           </button>
         </div>
       ) : (
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-white/5 p-4 rounded-xl w-full border border-white/10">
+        <div className="bg-neutral-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-4 rounded-xl w-full border border-white/10">
           <div>
             <h1 className="text-4xl font-extrabold text-[var(--color-orange)] tracking-tight font-bungee">
               New Search
@@ -144,7 +144,7 @@ export default function Dashboard(): JSX.Element {
       setLoading,
     }: NewSearchSectionProps) => {
       return (
-        <div className="flex flex-col items-center justify-center w-full mt-2  mx-auto min-h-[50vh]">
+        <div className="flex flex-col items-center justify-center w-full  mx-auto min-h-[50vh]">
           {!loading ? (
             <>
               <div className="mb-10 py-2 text-center">
@@ -169,9 +169,6 @@ export default function Dashboard(): JSX.Element {
               loading...
             </div>}
             <main className="flex-1 w-full px-2  text-[var(--color-light)] max-h-screen flex flex-col">
-              {/* Search Bar */}
-              <SearchBar/>
-        
               <div className='flex items-center gap-2 my-6 p-2 '>
                 <h2 className="text-xl font-bold text-[var(--color-light)]">Search Results:</h2>
                 <p>{samplePapers.length} Research Papers found!</p>
@@ -189,7 +186,7 @@ export default function Dashboard(): JSX.Element {
 
   return (
     <main className="flex-1 min-h-screen w-full text-[var(--color-light)] bg-[var(--color-gray)] overflow-y-auto">
-      <div className="max-w-screen mx-auto px-6 py-10 flex flex-col">
+      <div className="max-w-screen mx-auto px-6 pt-10 flex flex-col">
         <HeaderSection />
         {!newSearch ? <DashBoardMain /> : <NewSearchSection loading={loading} setLoading={setLoading} />}
       </div>
