@@ -1,46 +1,73 @@
 import React, { useState } from "react";
-import { User, GraduationCap, Target, CheckCircle, XCircle } from "lucide-react";
+import { User, GraduationCap, Target, CheckCircle, XCircle, BookOpen, Link, Users, Sparkles, Lightbulb, RefreshCcw } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
 interface FormData {
-  name: string;
-  email: string;
+  // Step 1
+  role: string;
   academicLevel: string;
-  field: string;
-  subfield: string;
+  
+  // Step 2
+  institution: string;
+  highestDegree: string;
+  primaryField: string;
+  
+  // Step 3
+  googleScholarUrl: string;
+  otherLinks: string;
   researchDescription: string;
-  keywords: string;
-  researchQuestion: string;
-  paperTypes: string[];
-  recencyPreference: string;
-  authors: string;
+  researchInterests: string[];
+  recentPublications: string;
+  
+  // Step 4
+  activeTopics: string[];
+  learningTopics: string[];
+  
+  // Step 5
   goals: string[];
 }
 
 const initialData: FormData = {
-  name: "",
-  email: "",
+  role: "",
   academicLevel: "",
-  field: "",
-  subfield: "",
+  institution: "",
+  highestDegree: "",
+  primaryField: "",
+  googleScholarUrl: "",
+  otherLinks: "",
   researchDescription: "",
-  keywords: "",
-  researchQuestion: "",
-  paperTypes: [],
-  recencyPreference: "",
-  authors: "",
+  researchInterests: [],
+  recentPublications: "",
+  activeTopics: [],
+  learningTopics: [],
   goals: []
 };
 
 const stepsMeta = [
-  { id: 1, short: "Profile", title: "Tell us about you", icon: <User size={18} /> },
-  { id: 2, short: "Academic", title: "Your academic background", icon: <GraduationCap size={18} /> },
-  { id: 3, short: "Research", title: "Your research interests", icon: <GraduationCap size={18} /> },
-  { id: 4, short: "Prefs", title: "How do you want results?", icon: <Target size={18} /> },
-  { id: 5, short: "Finish", title: "Review & save", icon: <CheckCircle size={18} /> }
+  { id: 1, short: "User", title: "Welcome & Role Selection", icon: <User size={18} /> },
+  { id: 2, short: "Academic", title: "Academic Background", icon: <GraduationCap size={18} /> },
+  { id: 3, short: "Research", title: "Research Background", icon: <BookOpen size={18} /> },
+  { id: 4, short: "Topics", title: "Research Topic Selection", icon: <Target size={18} /> },
+  { id: 5, short: "Goals", title: "Your Goals", icon: <CheckCircle size={18} /> }
 ];
+
+// Mock data for hierarchical topics
+const topicHierarchy = {
+  "Computer Science": {
+    "Artificial Intelligence": ["Machine Learning", "Natural Language Processing", "Computer Vision", "Robotics"],
+    "Systems": ["Operating Systems", "Databases", "Computer Networks"],
+    "Theory": ["Algorithms", "Cryptography", "Quantum Computing"]
+  },
+};
+
+const academicLevelsByRole: Record<string, string[]> = {
+  "Student": ["Undergraduate", "Master's Student", "PhD Student"],
+  "Professor": ["Assistant Professor", "Associate Professor", "Full Professor"],
+  "Researcher": ["Postdoc", "Research Scientist", "Principal Investigator"],
+  "Industry": ["Junior Researcher", "Senior Researcher", "Research Lead", "CTO"]
+};
 
 export default function OnboardingFullFlow(): JSX.Element {
   const [step, setStep] = useState<Step>(1);
@@ -57,23 +84,52 @@ export default function OnboardingFullFlow(): JSX.Element {
   const toggle = (key: keyof FormData, value: string) => {
     setData((d) => {
       const arr = (d[key] as unknown as string[]) || [];
-      return { ...d, [key]: arr.includes(value) ? arr.filter((a) => a !== value) : [...arr, value] } as FormData;
+      return { 
+        ...d, 
+        [key]: arr.includes(value) 
+          ? arr.filter((a) => a !== value) 
+          : [...arr, value] 
+      } as FormData;
     });
   };
 
-  // Step validation (kept simple and non-blocking for UX)
+  const toggleTopic = (topic: string, type: 'active' | 'learning') => {
+    const key = type === 'active' ? 'activeTopics' : 'learningTopics';
+    const otherKey = type === 'active' ? 'learningTopics' : 'activeTopics';
+    
+    setData((d) => {
+      const currentArray = d[key];
+      const otherArray = d[otherKey];
+      
+      // Remove from other array if exists
+      const newOtherArray = otherArray.filter(t => t !== topic);
+      
+      // Toggle in current array
+      const newArray = currentArray.includes(topic) 
+        ? currentArray.filter(t => t !== topic)
+        : [...currentArray, topic];
+      
+      return {
+        ...d,
+        [key]: newArray,
+        [otherKey]: newOtherArray
+      };
+    });
+  };
+
+  // Step validation
   const valid = (s: Step) => {
     switch (s) {
       case 1:
-        return data.name.trim().length > 1 && /.+@.+\..+/.test(data.email);
+        return data.role.trim().length > 0 && data.academicLevel.trim().length > 0;
       case 2:
-        return data.academicLevel.trim().length > 0 && data.field.trim().length > 0;
+        return data.institution.trim().length > 0 && data.primaryField.trim().length > 0;
       case 3:
         return data.researchDescription.trim().length > 8;
       case 4:
-        return true;
+        return data.activeTopics.length > 0;
       case 5:
-        return true;
+        return data.goals.length > 0;
       default:
         return true;
     }
@@ -86,6 +142,7 @@ export default function OnboardingFullFlow(): JSX.Element {
     setStep((p) => Math.min((p + 1) as Step, total as Step));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
   const back = () => setStep((p) => Math.max(1, (p - 1) as number) as Step);
 
   const submit = async () => {
@@ -95,7 +152,6 @@ export default function OnboardingFullFlow(): JSX.Element {
     await new Promise((r) => setTimeout(r, 800));
     console.log("onboarding payload", data);
     setSubmitting(false);
-    setStep(total as Step);
 
     setTimeout(() => {
       navigate("/");
@@ -110,13 +166,133 @@ export default function OnboardingFullFlow(): JSX.Element {
     navigate("/");
   };
 
+  const renderTopicTree = () => {
+    return (
+      <div className="space-y-10">
+        {Object.entries(topicHierarchy).map(([field, subfields]) => (
+          <div
+            key={field}
+            className="rounded-2xl border border-white/10 bg-gradient-to-b from-zinc-900/80 to-zinc-800/60 p-6 shadow-sm hover:shadow-md transition"
+          >
+            <div className="flex items-center gap-2 mb-5">
+              <Sparkles className="w-5 h-5 text-purple-400" />
+              <h3 className="text-xl font-semibold text-white">{field}</h3>
+            </div>
+  
+            <div className="space-y-6">
+              {Object.entries(subfields).map(([subfield, topics]) => (
+                <div key={subfield} className="">
+                  <h4 className="text-md font-medium text-gray-300 mb-3">
+                    {subfield}
+                  </h4>
+  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {topics.map((topic) => (
+                      <div
+                        key={topic}
+                        className="flex items-center gap-2 bg-white/5 rounded-lg p-2.5 border border-white/10 hover:border-white/20 transition-colors"
+                      >
+                        <div className="flex-1 text-gray-200 text-sm truncate">
+                          {topic}
+                        </div>
+  
+                        {/* Active button */}
+                        <button
+                          type="button"
+                          onClick={() => toggleTopic(topic, "active")}
+                          className={`p-1.5 rounded-md transition cursor-pointer ${
+                            data.activeTopics.includes(topic)
+                              ? "bg-green-600/20 text-green-400"
+                              : "text-gray-400 hover:text-green-400 hover:bg-green-500/10"
+                          }`}
+                          title="Mark as Active"
+                        >
+                          <CheckCircle className="w-4 h-4" />
+                        </button>
+  
+                        {/* Learning button */}
+                        <button
+                          type="button"
+                          onClick={() => toggleTopic(topic, "learning")}
+                          className={`p-1.5 rounded-md transition cursor-pointer ${
+                            data.learningTopics.includes(topic)
+                              ? "bg-blue-600/20 text-blue-400"
+                              : "text-gray-400 hover:text-blue-400 hover:bg-blue-500/10"
+                          }`}
+                          title="Mark as Learning"
+                        >
+                          <BookOpen className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+  
+        {/* 🧭 Summary Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          {/* Active */}
+          <div className="rounded-2xl border border-green-500/20 bg-green-950/20 p-5">
+            <h4 className="text-green-300 font-semibold flex items-center gap-2 mb-3">
+              <CheckCircle className="w-4 h-4" /> Active Topics
+              <span className="text-xs bg-green-600/30 text-green-200 px-2 py-0.5 rounded-full">
+                {data.activeTopics.length}
+              </span>
+            </h4>
+            {data.activeTopics.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {data.activeTopics.map((t) => (
+                  <span
+                    key={t}
+                    className="text-xs bg-green-500/20 text-green-200 px-2 py-1 rounded-md border border-green-500/30"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-green-200/70">No active topics</p>
+            )}
+          </div>
+  
+          {/* Learning */}
+          <div className="rounded-2xl border border-blue-500/20 bg-blue-950/20 p-5">
+            <h4 className="text-blue-300 font-semibold flex items-center gap-2 mb-3">
+              <BookOpen className="w-4 h-4" /> Learning Topics
+              <span className="text-xs bg-blue-600/30 text-blue-200 px-2 py-0.5 rounded-full">
+                {data.learningTopics.length}
+              </span>
+            </h4>
+            {data.learningTopics.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {data.learningTopics.map((t) => (
+                  <span
+                    key={t}
+                    className="text-xs bg-blue-500/20 text-blue-200 px-2 py-1 rounded-md border border-blue-500/30"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-blue-200/70">No learning topics</p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-neutral-900">
       {/* Medium width centered container */}
       <div className="w-full max-w-3xl">
         {/* Card */}
         <div className="rounded-2xl overflow-hidden shadow-lg bg-neutral-800 border border-neutral-600 relative">
-          {/* Skip Button - only visible on Step 1 (ghost style 'Skip →') */}
+          {/* Skip Button - only visible on Step 1 */}
           {step === 1 && (
             <button
               onClick={openSkipModal}
@@ -131,14 +307,17 @@ export default function OnboardingFullFlow(): JSX.Element {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <div className="text-sm text-gray-300">Step {step} of {total}</div>
-                <h2 className="mt-4 text-3xl font-semibold text-[var(--color-orange)] font-bungee">{stepsMeta[step - 1].title}</h2>
-                <p className="mt-4 text-sm text-gray-300">{stepsMeta[step - 1].short} — {stepsMeta[step - 1].title}</p>
+                <h2 className="mt-4 text-3xl font-semibold text-[var(--color-orange)] font-bungee">
+                  {stepsMeta[step - 1]?.title}
+                </h2>
+                <p className="mt-4 text-sm text-gray-300">
+                  {stepsMeta[step - 1]?.short} — {stepsMeta[step - 1]?.title}
+                </p>
               </div>
 
               <div className="flex items-center gap-3">
-                {/* icon */}
-                <div className="p-2 rounded-md text-[var(--color-gray)] bg-[var(--color-orange)] ">
-                  {React.cloneElement(stepsMeta[step - 1].icon as any)}
+                <div className="p-2 rounded-md text-gray-900 bg-[var(--color-orange)] cursor-pointer">
+                  {React.cloneElement(stepsMeta[step - 1]?.icon as React.ReactElement)}
                 </div>
               </div>
             </div>
@@ -146,7 +325,7 @@ export default function OnboardingFullFlow(): JSX.Element {
             {/* Solid progress bar */}
             <div className="mt-4 w-full bg-white/6 rounded-full h-2 overflow-hidden">
               <div
-                className={`h-2 rounded-full transition-all bg-[var(--color-orange)]`}
+                className="h-2 rounded-full transition-all bg-[var(--color-orange)]"
                 style={{ width: `${percent}%` }}
               />
             </div>
@@ -157,134 +336,245 @@ export default function OnboardingFullFlow(): JSX.Element {
 
           {/* Body */}
           <div className="px-8 py-8">
-            {/* Wide layout fields (two columns on md+) */}
+            {/* Step content */}
             <div className="space-y-6">
+              {/* Step 1: Welcome & Role Selection */}
               {step === 1 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-6">
                   <div>
-                    <label className="text-sm text-gray-300 mb-1 block">Full name</label>
-                    <input value={data.name} onChange={(e) => update({ name: e.target.value })} placeholder="e.g., Updating me" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-300 mb-1 block">Email</label>
-                    <input value={data.email} onChange={(e) => update({ email: e.target.value })} placeholder="updating@jklu.edu.in" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
-                  </div>
-                </div>
-              )}
-
-              {step === 2 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm text-gray-300 mb-1 block">Academic level</label>
-                    <select value={data.academicLevel} onChange={(e) => update({ academicLevel: e.target.value })} className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]">
-                      <option value="">Select level</option>
-                      <option>Undergraduate</option>
-                      <option>Master's Student</option>
-                      <option>PhD Researcher</option>
-                      <option>Postdoc</option>
-                      <option>Professor</option>
-                      <option>Industry Researcher</option>
-                      <option>Independent Researcher</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="text-sm text-gray-300 mb-1 block">Primary field</label>
-                    <input value={data.field} onChange={(e) => update({ field: e.target.value })} placeholder="Computer Science" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
-                  </div>
-
-                  <div className="md:col-span-2">
-                    <label className="text-sm text-gray-300 mb-1 block">Subfield / domain</label>
-                    <input value={data.subfield} onChange={(e) => update({ subfield: e.target.value })} placeholder="e.g., Natural Language Processing" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
-                  </div>
-                </div>
-              )}
-
-              {step === 3 && (
-                <div className="grid grid-cols-1 gap-4">
-                  <div>
-                    <label className="text-sm text-gray-300 mb-1 block">Short research description</label>
-                    <textarea value={data.researchDescription} onChange={(e) => update({ researchDescription: e.target.value })} placeholder="2-3 lines about what you study" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 h-28 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm text-gray-300 mb-1 block">Keywords (comma separated)</label>
-                      <input value={data.keywords} onChange={(e) => update({ keywords: e.target.value })} placeholder="transformers, vision, reinforcement learning" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
-                    </div>
-
-                    <div>
-                      <label className="text-sm text-gray-300 mb-1 block">Research question (optional)</label>
-                      <input value={data.researchQuestion} onChange={(e) => update({ researchQuestion: e.target.value })} placeholder="One-sentence question you're exploring" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {step === 4 && (
-                <div className="grid grid-cols-1 gap-4">
-                  <div>
-                    <label className="text-sm text-gray-300 mb-1 block">Preferred recency</label>
-                    <select value={data.recencyPreference} onChange={(e) => update({ recencyPreference: e.target.value })} className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]">
-                      <option value="">No preference</option>
-                      <option>Last 6 months</option>
-                      <option>Last 2 years</option>
-                      <option>Last 5 years</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="text-sm text-gray-300 mb-1 block">Followed authors / labs</label>
-                    <input value={data.authors} onChange={(e) => update({ authors: e.target.value })} placeholder="Yann LeCun, DeepMind" className="w-full rounded-lg bg-[#0f0f10] border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" />
-                  </div>
-
-                  <div>
-                    <label className="text-sm text-gray-300 mb-1 block">Preferred paper types</label>
-                    <div className="flex flex-wrap gap-2">
-                      {['Survey','Experimental','Theoretical','Benchmark','Code/Implementation'].map((p) => (
-                        <button key={p} type="button" onClick={() => toggle('paperTypes', p)} className={`px-3 py-1 rounded-full border cursor-pointer ${data.paperTypes.includes(p) ? 'bg-[var(--color-orange)] text-black' : 'bg-transparent text-gray-300 border-white/10'}`}>
-                          {p}
+                    <label className="text-sm text-gray-300 mb-3 block">Select your primary role</label>
+                    <div className="grid grid-cols-2 gap-4">
+                      {["Student", "Professor", "Researcher", "Industry"].map((role) => (
+                        <button
+                          key={role}
+                          type="button"
+                          onClick={() => {
+                            update({ role });
+                            update({ academicLevel: "" }); // Reset academic level when role changes
+                          }}
+                          className={`p-4 rounded-lg border-2 text-center transition-all cursor-pointer font-bungee ${
+                            data.role === role
+                              ? 'bg-[var(--color-orange)] border-neutral-200 text-white'
+                              : 'border-white/10 bg-white/5 text-gray-300 hover:border-white/20'
+                          }`}
+                        >
+                          {role}
                         </button>
                       ))}
                     </div>
                   </div>
+
+                  {data.role && (
+                    <div>
+                      <label className="text-sm text-gray-300 mb-1 block">Academic Level</label>
+                      <select 
+                        value={data.academicLevel} 
+                        onChange={(e) => update({ academicLevel: e.target.value })} 
+                        className="w-full rounded-lg bg-neutral-900 cursor-pointer border border-white/6 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]"
+                      >
+                        <option value="">Select level</option>
+                        {academicLevelsByRole[data.role]?.map((level) => (
+                          <option key={level} value={level}>{level}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {step === 5 && (
-                <div className="space-y-4">
-                  <div className="bg-white/3 rounded-lg p-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-200">
-                      <div>
-                        <div className="text-xs text-gray-400">Name</div>
-                        <div className="mt-1 text-white">{data.name || '-'}</div>
-                      </div>
-                      <div>
-                        <div className="text-xs text-gray-400">Email</div>
-                        <div className="mt-1 text-white">{data.email || '-'}</div>
-                      </div>
+              {/* Step 2: Academic Background */}
+              {step === 2 && (
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className="text-sm text-gray-300 mb-1 block">Institution</label>
+                    <input 
+                      value={data.institution} 
+                      onChange={(e) => update({ institution: e.target.value })} 
+                      placeholder="e.g., Indian Institute of Technology, Kanpur"
+                      className="w-full rounded-lg bg-neutral-900 cursor-pointer border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" 
+                    />
+                  </div>
 
-                      <div>
-                        <div className="text-xs text-gray-400">Academic level</div>
-                        <div className="mt-1 text-white">{data.academicLevel || '-'}</div>
-                      </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm text-gray-300 mb-1 block">Highest Degree</label>
+                      <select 
+                        value={data.highestDegree} 
+                        onChange={(e) => update({ highestDegree: e.target.value })} 
+                        className="w-full rounded-lg bg-neutral-900 border border-white/6 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]"
+                      >
+                        <option value="">Select degree</option>
+                        <option value="Bachelor's">Bachelor's</option>
+                        <option value="Master's">Master's</option>
+                        <option value="PhD">PhD</option>
+                        <option value="Postdoc">Postdoc</option>
+                        <option value="None">None</option>
+                      </select>
+                    </div>
 
-                      <div>
-                        <div className="text-xs text-gray-400">Field</div>
-                        <div className="mt-1 text-white">{data.field || '-'}</div>
-                      </div>
+                    <div>
+                      <label className="text-sm text-gray-300 mb-1 block">Primary Field of Research</label>
+                      <input 
+                        value={data.primaryField} 
+                        onChange={(e) => update({ primaryField: e.target.value })} 
+                        placeholder="e.g., Computer Science, Biology, Physics"
+                        className="w-full rounded-lg bg-neutral-900 border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" 
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
 
-                      <div className="md:col-span-2">
-                        <div className="text-xs text-gray-400">Research</div>
-                        <div className="mt-1 text-white">{data.researchDescription || '-'}</div>
-                      </div>
+              {/* Step 3: Research Background */}
+              {step === 3 && (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm text-gray-300 mb-1 block flex items-center gap-2">
+                        <Link size={16} />
+                        Google Scholar URL
+                      </label>
+                      <input 
+                        value={data.googleScholarUrl} 
+                        onChange={(e) => update({ googleScholarUrl: e.target.value })} 
+                        placeholder="https://scholar.google.com/citations?user=..."
+                        className="w-full rounded-lg bg-neutral-900 border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" 
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-sm text-gray-300 mb-1 block">Other Research Links</label>
+                      <input 
+                        value={data.otherLinks} 
+                        onChange={(e) => update({ otherLinks: e.target.value })} 
+                        placeholder="ORCID, ResearchGate, Personal website..."
+                        className="w-full rounded-lg bg-neutral-900 border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" 
+                      />
                     </div>
                   </div>
 
-                  <label className="flex items-center gap-2 text-sm text-gray-300">
-                    <input type="checkbox" className="w-4 h-4 rounded-sm bg-[#0f0f10] border-white/8" />
-                    I agree to use these preferences to personalize my experience.
-                  </label>
+                  <div>
+                    <label className="text-sm text-gray-300 mb-1 block">Short Research Description</label>
+                    <textarea 
+                      value={data.researchDescription} 
+                      onChange={(e) => update({ researchDescription: e.target.value })} 
+                      placeholder="Describe your current research focus, methods, and objectives (2-3 sentences)"
+                      className="w-full rounded-lg bg-neutral-900 border border-white/6 p-3 text-white placeholder:text-gray-500 h-28 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" 
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-sm text-gray-300 mb-2 block">Top Research Interests</label>
+                      <input 
+                        value={data.researchInterests.join(", ")} 
+                        onChange={(e) => update({ researchInterests: e.target.value.split(", ").filter(Boolean) })} 
+                        placeholder="Machine Learning, Natural Language Processing, Computer Vision"
+                        className="w-full rounded-lg bg-neutral-900 border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" 
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-sm text-gray-300 mb-1 block">Recent Publications (optional)</label>
+                      <input 
+                        value={data.recentPublications} 
+                        onChange={(e) => update({ recentPublications: e.target.value })} 
+                        placeholder="arXiv, conference, or journal links"
+                        className="w-full rounded-lg bg-neutral-900 border border-white/6 p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-orange)]" 
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 4: Research Topic Selection */}              
+              {step === 4 && (
+                <div className="space-y-6">
+                  {/* Header Section */}
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Sparkles className="w-5 h-5 text-purple-400" />
+                      <h3 className="text-xl font-semibold text-white">
+                        Select Your Research Topics
+                      </h3>
+                    </div>
+              
+                    <p className="text-sm text-gray-300 leading-relaxed">
+                      Tag your topics to help personalize your research assistant:
+                    </p>
+              
+                    <div className="flex flex-wrap items-center gap-3 mt-3 text-sm">
+                      <div className="flex items-center gap-1.5 text-green-300">
+                        <CheckCircle className="w-4 h-4" />
+                        <span className="font-medium">Currently Active</span>
+                        <span className="text-gray-400">(3–4 topics you're working on)</span>
+                      </div>
+              
+                      <div className="flex items-center gap-1.5 text-gray-400">•</div>
+              
+                      <div className="flex items-center gap-1.5 text-blue-300">
+                        <GraduationCap className="w-4 h-4" />
+                        <span className="font-medium">Want to Learn</span>
+                        <span className="text-gray-400">(2–3 topics to explore)</span>
+                      </div>
+                    </div>
+                  </div>
+              
+                  {/* Topic Tree */}
+                  <div className="border-t border-white/10 pt-4">
+                    {renderTopicTree()}
+                  </div>
+                </div>
+              )}
+
+              {/* Step 5: Goals */}
+              {step === 5 && (
+                <div className="space-y-6">
+                  {/* Header */}
+                  <div>
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      What brings you here?
+                    </h3>
+                    <p className="text-sm text-gray-400">
+                      Select all that apply — this helps tailor your experience.
+                    </p>
+                  </div>
+              
+                  {/* Goals Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      { label: "Literature review for my research", icon: BookOpen },
+                      { label: "Learning a new field", icon: Lightbulb },
+                      { label: "Staying updated in my area", icon: RefreshCcw },
+                      { label: "Finding collaboration opportunities", icon: Users },
+                    ].map(({ label, icon: Icon }) => {
+                      const isSelected = data.goals.includes(label);
+                      return (
+                        <button
+                          key={label}
+                          type="button"
+                          onClick={() => toggle("goals", label)}
+                          className={`flex items-center gap-3 p-4 rounded-xl border text-left transition-all duration-200 cursor-pointer font-bungee
+                            ${
+                              isSelected
+                                ? "border-[var(--color-orange)] bg-[var(--color-orange)] text-[var(--color-light)] shadow-md shadow-orange-900/10"
+                                : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10"
+                            }`}
+                        >
+                          <div
+                            className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors ${
+                              isSelected
+                                ? "bg-[var(--color-orange)] text-[var(--color-light)]"
+                                : "bg-white/10 text-gray-400"
+                            }`}
+                          >
+                            <Icon className="w-5 h-5" />
+                          </div>
+                          <span className="text-sm font-medium leading-snug">{label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>
@@ -293,7 +583,10 @@ export default function OnboardingFullFlow(): JSX.Element {
             <div className="mt-8 flex items-center justify-between">
               <div>
                 {step > 1 ? (
-                  <button onClick={back} className="px-4 py-2 rounded-md font-bungee cursor-pointer text-gray-200 bg-white/6 hover:bg-white/20 transition">
+                  <button 
+                    onClick={back} 
+                    className="px-4 py-2 rounded-md font-bungee cursor-pointer text-gray-200 bg-white/6 hover:bg-white/20 transition"
+                  >
                     ← Back
                   </button>
                 ) : (
@@ -303,33 +596,48 @@ export default function OnboardingFullFlow(): JSX.Element {
 
               <div className="flex items-center gap-3">
                 {step < total ? (
-                  <button onClick={next} disabled={!valid(step)} className={`px-6 py-2 rounded-md text-white font-bungee ${valid(step) ? 'bg-[var(--color-orange)] cursor-pointer' : 'bg-white/10 cursor-not-allowed'} transition`}> 
+                  <button 
+                    onClick={next} 
+                    disabled={!valid(step)} 
+                    className={`px-6 py-2 rounded-md text-white font-bungee ${
+                      valid(step) 
+                        ? 'bg-[var(--color-orange)] cursor-pointer hover:opacity-90' 
+                        : 'bg-white/10 cursor-not-allowed'
+                    } transition`}
+                  > 
                     Next →
                   </button>
                 ) : (
-                  <button onClick={submit} disabled={submitting} className={`px-6 py-2 rounded-md text-white font-bungee bg-[var(--color-orange)] cursor-pointer ${submitting ? 'opacity-70' : ''}`}>
+                  <button 
+                    onClick={submit} 
+                    disabled={submitting} 
+                    className={`px-6 py-2 rounded-md text-white font-bungee bg-[var(--color-orange)] cursor-pointer ${
+                      submitting ? 'opacity-70' : 'hover:opacity-90'
+                    }`}
+                  >
                     {submitting ? 'Saving...' : 'Finish & Save'}
                   </button>
                 )}
               </div>
             </div>
-
           </div>
         </div>
 
         {/* Footer small hint */}
-        <div className="mt-6 text-center text-xs text-gray-400">You can update these preferences anytime in your profile.</div>
+        <div className="mt-6 text-center text-xs text-gray-400">
+          You can update these preferences anytime in your profile.
+        </div>
       </div>
 
-      {/* Skip Confirmation Modal (glassmorphic, closes on outside click) */}
+      {/* Skip Confirmation Modal */}
       {showSkipModal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-          onClick={closeSkipModal} // outside click closes
+          onClick={closeSkipModal}
         >
           <div
             className="bg-neutral-800/50 border border-white/6 backdrop-blur-md p-6 rounded-xl w-[90%] max-w-md shadow-xl"
-            onClick={(e) => e.stopPropagation()} // prevent outside click when clicking inside
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-center mb-3">
               <XCircle size={44} className="text-red-400" />
