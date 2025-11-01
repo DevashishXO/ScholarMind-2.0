@@ -51,7 +51,9 @@ export default function VerifyOtpPage() {
     if (!sendOtpFlag || !email) return;
     
     const authType = localStorage.getItem("authType");
-    if (authType === "google") return;
+    if (authType === "google") { 
+      toast.success("OTP sent successfully!")
+      return };
 
     const sendOtp = async () => {
       try {
