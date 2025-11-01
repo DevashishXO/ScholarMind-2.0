@@ -2,32 +2,10 @@ import React, { useState } from "react";
 import { User, GraduationCap, Target, CheckCircle, XCircle, BookOpen, Link, Users, Sparkles, Lightbulb, RefreshCcw } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-type Step = 1 | 2 | 3 | 4 | 5;
+import RenderTopicTree from "./RenderTopicTree";
+import { FormData } from "../../lib/types";
 
-interface FormData {
-  // Step 1
-  role: string;
-  academicLevel: string;
-  
-  // Step 2
-  institution: string;
-  highestDegree: string;
-  primaryField: string;
-  
-  // Step 3
-  googleScholarUrl: string;
-  otherLinks: string;
-  researchDescription: string;
-  researchInterests: string[];
-  recentPublications: string;
-  
-  // Step 4
-  activeTopics: string[];
-  learningTopics: string[];
-  
-  // Step 5
-  goals: string[];
-}
+type Step = 1 | 2 | 3 | 4 | 5;
 
 const initialData: FormData = {
   role: "",
@@ -53,14 +31,6 @@ const stepsMeta = [
   { id: 5, short: "Goals", title: "Your Goals", icon: <CheckCircle size={18} /> }
 ];
 
-// Mock data for hierarchical topics
-const topicHierarchy = {
-  "Computer Science": {
-    "Artificial Intelligence": ["Machine Learning", "Natural Language Processing", "Computer Vision", "Robotics"],
-    "Systems": ["Operating Systems", "Databases", "Computer Networks"],
-    "Theory": ["Algorithms", "Cryptography", "Quantum Computing"]
-  },
-};
 
 const academicLevelsByRole: Record<string, string[]> = {
   "Student": ["Undergraduate", "Master's Student", "PhD Student"],
@@ -69,7 +39,7 @@ const academicLevelsByRole: Record<string, string[]> = {
   "Industry": ["Junior Researcher", "Senior Researcher", "Research Lead", "CTO"]
 };
 
-export default function OnboardingFullFlow(): JSX.Element {
+export default function OnboardingFormCard(): JSX.Element {
   const [step, setStep] = useState<Step>(1);
   const [data, setData] = useState<FormData>(initialData);
   const [submitting, setSubmitting] = useState(false);
@@ -92,31 +62,7 @@ export default function OnboardingFullFlow(): JSX.Element {
       } as FormData;
     });
   };
-
-  const toggleTopic = (topic: string, type: 'active' | 'learning') => {
-    const key = type === 'active' ? 'activeTopics' : 'learningTopics';
-    const otherKey = type === 'active' ? 'learningTopics' : 'activeTopics';
-    
-    setData((d) => {
-      const currentArray = d[key];
-      const otherArray = d[otherKey];
-      
-      // Remove from other array if exists
-      const newOtherArray = otherArray.filter(t => t !== topic);
-      
-      // Toggle in current array
-      const newArray = currentArray.includes(topic) 
-        ? currentArray.filter(t => t !== topic)
-        : [...currentArray, topic];
-      
-      return {
-        ...d,
-        [key]: newArray,
-        [otherKey]: newOtherArray
-      };
-    });
-  };
-
+  
   // Step validation
   const valid = (s: Step) => {
     switch (s) {
@@ -166,125 +112,7 @@ export default function OnboardingFullFlow(): JSX.Element {
     navigate("/");
   };
 
-  const renderTopicTree = () => {
-    return (
-      <div className="space-y-10">
-        {Object.entries(topicHierarchy).map(([field, subfields]) => (
-          <div
-            key={field}
-            className="rounded-2xl border border-white/10 bg-gradient-to-b from-zinc-900/80 to-zinc-800/60 p-6 shadow-sm hover:shadow-md transition"
-          >
-            <div className="flex items-center gap-2 mb-5">
-              <Sparkles className="w-5 h-5 text-purple-400" />
-              <h3 className="text-xl font-semibold text-white">{field}</h3>
-            </div>
-  
-            <div className="space-y-6">
-              {Object.entries(subfields).map(([subfield, topics]) => (
-                <div key={subfield} className="">
-                  <h4 className="text-md font-medium text-gray-300 mb-3">
-                    {subfield}
-                  </h4>
-  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {topics.map((topic) => (
-                      <div
-                        key={topic}
-                        className="flex items-center gap-2 bg-white/5 rounded-lg p-2.5 border border-white/10 hover:border-white/20 transition-colors"
-                      >
-                        <div className="flex-1 text-gray-200 text-sm truncate">
-                          {topic}
-                        </div>
-  
-                        {/* Active button */}
-                        <button
-                          type="button"
-                          onClick={() => toggleTopic(topic, "active")}
-                          className={`p-1.5 rounded-md transition cursor-pointer ${
-                            data.activeTopics.includes(topic)
-                              ? "bg-green-600/20 text-green-400"
-                              : "text-gray-400 hover:text-green-400 hover:bg-green-500/10"
-                          }`}
-                          title="Mark as Active"
-                        >
-                          <CheckCircle className="w-4 h-4" />
-                        </button>
-  
-                        {/* Learning button */}
-                        <button
-                          type="button"
-                          onClick={() => toggleTopic(topic, "learning")}
-                          className={`p-1.5 rounded-md transition cursor-pointer ${
-                            data.learningTopics.includes(topic)
-                              ? "bg-blue-600/20 text-blue-400"
-                              : "text-gray-400 hover:text-blue-400 hover:bg-blue-500/10"
-                          }`}
-                          title="Mark as Learning"
-                        >
-                          <BookOpen className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-  
-        {/* 🧭 Summary Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          {/* Active */}
-          <div className="rounded-2xl border border-green-500/20 bg-green-950/20 p-5">
-            <h4 className="text-green-300 font-semibold flex items-center gap-2 mb-3">
-              <CheckCircle className="w-4 h-4" /> Active Topics
-              <span className="text-xs bg-green-600/30 text-green-200 px-2 py-0.5 rounded-full">
-                {data.activeTopics.length}
-              </span>
-            </h4>
-            {data.activeTopics.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {data.activeTopics.map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs bg-green-500/20 text-green-200 px-2 py-1 rounded-md border border-green-500/30"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-green-200/70">No active topics</p>
-            )}
-          </div>
-  
-          {/* Learning */}
-          <div className="rounded-2xl border border-blue-500/20 bg-blue-950/20 p-5">
-            <h4 className="text-blue-300 font-semibold flex items-center gap-2 mb-3">
-              <BookOpen className="w-4 h-4" /> Learning Topics
-              <span className="text-xs bg-blue-600/30 text-blue-200 px-2 py-0.5 rounded-full">
-                {data.learningTopics.length}
-              </span>
-            </h4>
-            {data.learningTopics.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {data.learningTopics.map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs bg-blue-500/20 text-blue-200 px-2 py-1 rounded-md border border-blue-500/30"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-blue-200/70">No learning topics</p>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-neutral-900">
@@ -522,7 +350,7 @@ export default function OnboardingFullFlow(): JSX.Element {
               
                   {/* Topic Tree */}
                   <div className="border-t border-white/10 pt-4">
-                    {renderTopicTree()}
+                    <RenderTopicTree data={data} setData={setData} />
                   </div>
                 </div>
               )}
@@ -647,7 +475,7 @@ export default function OnboardingFullFlow(): JSX.Element {
               Are you sure you want to skip onboarding? You can finish it later from your profile.
             </p>
 
-            <div className="mt-6 flex justify-end gap-3">
+            <div className="mt-6 flex justify-around gap-3">
               <button
                 onClick={closeSkipModal}
                 className="px-4 py-2 bg-neutral-700 rounded-md hover:bg-neutral-600 transition text-white cursor-pointer font-bungee"

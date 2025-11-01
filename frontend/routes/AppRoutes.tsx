@@ -9,7 +9,7 @@ import MyCollection from "../components/Home/MyCollection";
 import ResearchBot from "../components/Home/ResearchBot";
 import CollectionPapers from "../components/Home/CollectionPapers";
 import VerifyOtpPage from "../components/Landing/VerifyOtpPage";
-import OnBoardingPage from "../components/OnboardingFormCard";
+import OnboardingFormCard from "../components/Onboarding/OnboardingFormCard";
 import FullScreenLoader from "../components/FullScreenLoader";
 
 import PrivateRoute from "./PrivateRoute";
@@ -27,7 +27,7 @@ export default function AppRoutes() {
         <Route path="/verify-otp" element={<OtpRoute element={<VerifyOtpPage />} />} />
 
         {/* Onboarding Route */}
-        <Route path="/on-boarding" element={<OnboardingRoute element={<OnBoardingPage />} />} />
+        <Route path="/on-boarding" element={<OnboardingRoute element={<OnboardingFormCard />} />} />
 
         {/* Protected App Routes */}
         <Route path="/" element={<PrivateRoute element={<Home />} />}>
