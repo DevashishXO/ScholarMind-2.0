@@ -1,3 +1,4 @@
+from site import USER_BASE
 from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, List
 from datetime import datetime
@@ -25,20 +26,34 @@ class PyObjectId(ObjectId):
 
 
 class ProfileBase(BaseModel):
+    # Step 1 fields
+    role: Optional[str] = None
+    academicLevel: Optional[str] = None
+    
+    # Step 2 fields
+    institution: Optional[str] = None
+    highestDegree: Optional[str] = None
+    primaryField: Optional[str] = None
+    
+    # Step 3 fields
+    googleScholarUrl: Optional[str] = None
+    otherLinks: Optional[str] = None
+    researchDescription: Optional[str] = None
+    researchInterests: Optional[List[str]] = None
+    recentPublications: Optional[str] = None
+    
+    # Step 4 fields
+    activeTopics: Optional[List[str]] = None
+    learningTopics: Optional[List[str]] = None
+    
+    # Step 5 fields
+    goals: Optional[List[str]] = None
+    
+    # Existing fields (kept for backward compatibility)
     name: Optional[str] = None
     bio: Optional[str] = None
-    avatar: Optional[str] = None
-
-    academicLevel: Optional[str] = None
-    field: Optional[str] = None
-    subfield: Optional[str] = None
-    researchInterests: Optional[List[str]] = None
-
-    preferredPaperTypes: Optional[List[str]] = None
-    recencyPreference: Optional[str] = None
-    favoriteAuthors: Optional[List[str]] = None
-
-    goals: Optional[List[str]] = None
+    picture: Optional[str] = None
+    email: Optional[str] = None
 
     model_config = ConfigDict(
         arbitrary_types_allowed=True
@@ -46,7 +61,7 @@ class ProfileBase(BaseModel):
 
 
 class ProfileCreate(ProfileBase):
-    user_id: PyObjectId = Field(..., alias="user_id")
+    # user_id: PyObjectId = Field(..., alias="user_id")
     onboardingComplete: bool = False
     onboardingStep: int = 1
 

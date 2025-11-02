@@ -195,6 +195,12 @@ async def me(request: Request):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return {
+        "user_profile": {
+            "id": str(user["_id"]),
+            "email": user.get("email"),
+            "name": user.get("name"),
+            "picture": user.get("picture"),
+        },
         "user": UserOut(
             id=str(user["_id"]),
             email=user.get("email"),
