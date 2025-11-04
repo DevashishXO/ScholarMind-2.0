@@ -38,6 +38,9 @@ export default function Sidebar({ isOpen = false, setIsOpen, tabSelected, setTab
       case "Research Bot":
         navigate("/research-bot");
         break;
+      case "My Profile":
+        navigate("/my-profile");
+        break;
       default:
         navigate("/");
     }

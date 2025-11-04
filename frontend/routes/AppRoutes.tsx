@@ -11,6 +11,7 @@ import CollectionPapers from "../components/Home/CollectionPapers";
 import VerifyOtpPage from "../components/Landing/VerifyOtpPage";
 import OnboardingFormCard from "../components/Onboarding/OnboardingFormCard";
 import FullScreenLoader from "../components/FullScreenLoader";
+import MyProfile from "../components/Home/MyProfile";
 
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
@@ -36,6 +37,7 @@ export default function AppRoutes() {
           <Route path="my-collection" element={<MyCollection />} />
           <Route path="my-collection/:collection_id" element={<CollectionPapers />} />
           <Route path="research-bot" element={<ResearchBot />} />
+          <Route path="my-profile" element={<MyProfile />} />
         </Route>
 
         {/* Public but inside app layout */}
