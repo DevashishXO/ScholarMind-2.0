@@ -36,6 +36,12 @@ class Settings(BaseSettings):
     COOKIE_SECURE: bool = False
     COOKIE_SAMESITE: str = "lax"
     
+    SERPAPI_KEY: str  
+    SEMANTIC_SCHOLAR_BASE: str  
+    CROSSREF_BASE: str  
+    UNPAYWALL_BASE: str  
+    UNPAYWALL_EMAIL: str
+    
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
