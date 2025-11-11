@@ -26,7 +26,7 @@ export default function ChatWithPaper() {
     abstract: "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely."
   };
 
-  // Sample responses with highlights based on the actual paper content
+  // Responses with highlights based on the actual paper content
   const sampleResponses = {
     'summary': {
       text: 'The paper introduces the Transformer architecture, which relies entirely on self-attention mechanisms without using recurrence or convolution. Key innovations include multi-head attention, positional encoding, and a encoder-decoder structure that enables parallel processing and better long-range dependency modeling.',
@@ -110,8 +110,6 @@ export default function ChatWithPaper() {
   };
 
   const handleLoadDifferentPaper = () => {
-    // You can add functionality to load different papers here
-    // For now, we'll just reload the same PDF
     setPdfLoadError(false);
     setCurrentPdf('https://arxiv.org/pdf/1706.03762.pdf');
   };
@@ -143,7 +141,7 @@ export default function ChatWithPaper() {
                 <div className="w-12 h-12 rounded-full bg-[var(--color-orange)] p-2 flex items-center justify-center">
                   <Bot className="w-6 h-6 text-white" />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-neutral-800 flex items-center justify-center">
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-orange-500 rounded-full border-2 border-neutral-800 flex items-center justify-center">
                   <Sparkles className="w-2 h-2 text-white" />
                 </div>
               </div>

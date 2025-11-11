@@ -293,7 +293,7 @@ export default function OnboardingFormCard(): JSX.Element {
 
                   <div className="space-y-4">
                     <div>
-                      <label className="text-sm text-gray-300 mb-2 block">Top Research Interests</label>
+                      <label className="text-sm text-gray-300 mb-2 block">Top Research Interests (Domain)</label>
                       <input 
                         value={data.researchInterests.join(", ")} 
                         onChange={(e) => update({ researchInterests: e.target.value.split(", ").filter(Boolean) })} 

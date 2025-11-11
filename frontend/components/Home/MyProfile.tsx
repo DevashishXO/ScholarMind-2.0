@@ -32,7 +32,7 @@ export default function MyProfile() {
   };
 
   return (
-    <div className="min-h-screen text-[var(--color-light)] p-4 flex flex-col md:flex-row gap-6">
+    <div className="min-h-screen text-[var(--color-light)] p-4 flex-1 flex flex-col md:flex-row gap-3">
       {/* Left Section */}
       <div className="flex-1 backdrop-blur-lg bg-neutral-800 border border-neutral-700 rounded-lg p-6 shadow-2xl">
         <div className="flex items-center gap-6 border-b border-white/20 pb-6">
@@ -76,7 +76,7 @@ export default function MyProfile() {
           {profile.papers.map((paper, i) => (
             <div
               key={i}
-              className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4 bg-neutral-900 rounded-2xl p-4 hover:bg-neutral-700 cursor-pointer transition"
+              className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4 bg-neutral-900 rounded-xl p-4 hover:bg-neutral-700 cursor-pointer transition"
             >
               <div className="col-span-3 flex flex-col justify-between">
                 <h2 className="text-lg font-semibold text-[var(--color-orange)]">
@@ -97,7 +97,7 @@ export default function MyProfile() {
       </div>
 
       {/* Right Section - Insights */}
-      <div className="w-full md:w-1/3 backdrop-blur-lg bg-neutral-800 border border-neutral-700 rounded-3xl p-6 shadow-2xl">
+      <div className="w-full md:w-1/4 backdrop-blur-lg bg-neutral-800 border border-neutral-700 rounded-lg p-6 shadow-2xl">
         <h2 className="text-2xl font-bold text-[var(--color-orange)] mb-4">
           Research Insights
         </h2>
