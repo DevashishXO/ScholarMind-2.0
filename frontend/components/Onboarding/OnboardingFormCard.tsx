@@ -3,7 +3,16 @@ import { User, GraduationCap, Target, CheckCircle, XCircle, BookOpen, Link, User
 import { useNavigate } from "react-router-dom";
 
 import RenderTopicTree from "./RenderTopicTree";
-import { FormData } from "../../lib/types";
+import { type FormData } from "../../lib/types";
+
+import { useMutation } from "@tanstack/react-query";
+import { createProfile } from "../../src/api/profileApi";
+
+export function useCreateProfile() {
+  return useMutation({
+    mutationFn: createProfile,
+  });
+}
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -44,6 +53,8 @@ export default function OnboardingFormCard(): JSX.Element {
   const [data, setData] = useState<FormData>(initialData);
   const [submitting, setSubmitting] = useState(false);
   const [showSkipModal, setShowSkipModal] = useState(false);
+  const createProfile = useCreateProfile();
+
 
   const navigate = useNavigate();
 
@@ -90,18 +101,24 @@ export default function OnboardingFormCard(): JSX.Element {
   };
 
   const back = () => setStep((p) => Math.max(1, (p - 1) as number) as Step);
-
+  
   const submit = async () => {
     if (!valid(step)) return;
+  
     setSubmitting(true);
-    // replace with real save API
-    await new Promise((r) => setTimeout(r, 800));
-    console.log("onboarding payload", data);
-    setSubmitting(false);
-
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
+  
+    createProfile.mutate(data, {
+      onSuccess: (res) => {
+        console.log("Profile created:", res);
+        setSubmitting(false);
+        navigate("/");
+      },
+      onError: (err: any) => {
+        console.error("Profile creation failed:", err);
+        alert(err?.response?.data?.detail || "Something went wrong");
+        setSubmitting(false);
+      }
+    });
   };
 
   // Skip handlers
