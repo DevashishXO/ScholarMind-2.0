@@ -1,16 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException,Request
+from fastapi import APIRouter, Depends, HTTPException,Request,BackgroundTasks
 from datetime import datetime
 from app.schema.profile_schema import ProfileCreate, ProfileUpdate, ProfileOut
 from app.utils.get_user import get_current_user
 from app.utils.db import get_db_from_request
 
-from app.services.google_scholarly import fetchScholarlyProfile
+from app.services.google_scholarly import fetchScholarlyProfile, fetch_and_update_scholarly
 
 router = APIRouter()
 
-# Create profile 
+# Create profile
 @router.post("/")
-async def create_profile(request: Request, profile: ProfileCreate, user=Depends(get_current_user)):
+async def create_profile(request: Request, profile: ProfileCreate, background_tasks: BackgroundTasks, user=Depends(get_current_user)):
     db = get_db_from_request(request)
 
     existing = await db.profiles.find_one({"user_id": user["_id"]})
@@ -26,18 +26,18 @@ async def create_profile(request: Request, profile: ProfileCreate, user=Depends(
     profile_dict["picture"] = user["picture"]
     
 
-    result = await db.profiles.insert_one(profile_dict)
+    result = await db.profiles.insert_one(profile_dict) 
+    background_tasks.add_task(fetch_and_update_scholarly, user["_id"], db)
+    
     created_profile = await db.profiles.find_one({"_id": result.inserted_id})
     created_profile["user_id"] = str(created_profile["user_id"])
     created_profile["_id"] = str(created_profile["_id"])
     return {
         "message":"Profile Created Successfully",
-        "data":created_profile
     }
 
-
 # Get current user's profile
-@router.get("/me", response_model=ProfileOut)
+@router.get("/me")
 async def get_my_profile(request: Request, user=Depends(get_current_user)):
     db = get_db_from_request(request)
 

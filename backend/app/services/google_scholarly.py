@@ -123,8 +123,8 @@ class ScholarMindScraper:
         table = cited_by.get("table", [])
         def safe(i, k, s, d=0):
             try:
-                return table[i][k][s]
-            except Exception:
+                return int(table[i][k][s]) if table[i][k][s] else d
+            except (IndexError, KeyError, TypeError, ValueError):
                 return d
         return {
             "citations": {"all": safe(0, "citations", "all"), "since_2019": safe(0, "citations", "since_2019")},
@@ -135,6 +135,19 @@ class ScholarMindScraper:
     def normalize_citation_graph(self, cited_by: Dict):
         graph = cited_by.get("graph", [])
         return [{"year": g.get("year"), "citations": g.get("citations")} for g in graph]
+
+    def normalize_co_authors(self, co_authors_raw: List) -> List[Dict]:
+        """Extract co-author info with safe defaults"""
+        if not co_authors_raw:
+            return []
+        normalized = []
+        for author in co_authors_raw:
+            normalized.append({
+                "name": author.get("name", "Unknown"),
+                "scholar_id": author.get("scholar_id"),
+                "affiliation": author.get("affiliation"),
+            })
+        return normalized
 
     async def enrich_publication(self, client, art: dict) -> dict:
         title = art.get("title")
@@ -163,7 +176,8 @@ class ScholarMindScraper:
             })
             # Fetch BibTeX & OA concurrently
             bibtex_task = client.get(
-                f"https://api.crossref.org/works/{urllib.parse.quote(doi)}/transform/application/x-bibtex"
+                f"https://api.crossref.org/works/{urllib.parse.quote(doi)}/transform/application/x-bibtex",
+                headers=HEADERS
             ) if doi else None
             oa_task = query_unpaywall(client, doi) if doi else None
             if bibtex_task and oa_task:
@@ -192,6 +206,15 @@ class ScholarMindScraper:
             enriched_tasks = [self.enrich_publication(client, art) for art in publications]
             enriched_pubs = await asyncio.gather(*enriched_tasks)
 
+        # Safely extract and normalize data
+        metrics = self.normalize_metrics(cited_by) if cited_by else {
+            "citations": {"all": 0, "since_2019": 0},
+            "h_index": {"all": 0, "since_2019": 0},
+            "i10_index": {"all": 0, "since_2019": 0},
+        }
+        
+        co_authors = self.normalize_co_authors(author.get("co_authors", []))
+
         return {
             "scholar_id": scholar_id,
             "name": author.get("name"),
@@ -199,9 +222,9 @@ class ScholarMindScraper:
             "email": author.get("email"),
             "profile_picture": author.get("thumbnail"),
             "interests": author.get("interests", []),
-            "metrics": self.normalize_metrics(cited_by),
+            "metrics": metrics,
             "citation_graph": self.normalize_citation_graph(cited_by),
-            "co_authors": author.get("co_authors", []),
+            "co_authors": co_authors,
             "publications": [p for p in enriched_pubs if p],
             "fetched_at": datetime.now(timezone.utc).isoformat(),
         }
@@ -211,3 +234,19 @@ class ScholarMindScraper:
 async def fetchScholarlyProfile(scholar_url: str) -> Dict:
     scraper = ScholarMindScraper()
     return await scraper.onboard(scholar_url)
+    
+async def fetch_and_update_scholarly(user_id, db):
+    profile = await db.profiles.find_one({"user_id": user_id})
+    if not profile:
+        return
+    
+    url = profile.get("googleScholarUrl")
+    if not url:
+        return
+
+    data = await fetchScholarlyProfile(url)
+
+    await db.profiles.update_one(
+        {"user_id": user_id},
+        {"$set": {"scholarlyProfile": data, "updatedAt": datetime.utcnow()}}
+    )
