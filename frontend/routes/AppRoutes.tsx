@@ -12,11 +12,13 @@ import VerifyOtpPage from "../components/Landing/VerifyOtpPage";
 import OnboardingFormCard from "../components/Onboarding/OnboardingFormCard";
 import FullScreenLoader from "../components/FullScreenLoader";
 import MyProfile from "../components/Home/MyProfile";
+import NewSearch from "../components/Home/NewSearch";
 
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import OtpRoute from "./OtpRoute";
 import OnboardingRoute from "./OnboardingRoute";
+
 
 export default function AppRoutes() {
   return (
@@ -33,7 +35,7 @@ export default function AppRoutes() {
         {/* Protected App Routes */}
         <Route path="/" element={<PrivateRoute element={<Home />} />}>
           <Route index element={<Dashboard />} />
-          <Route path="smart-search" element={<SmartSearch />} />
+          <Route path="smart-search" element={<NewSearch />} />
           <Route path="my-collection" element={<MyCollection />} />
           <Route path="my-collection/:collection_id" element={<CollectionPapers />} />
           <Route path="research-bot" element={<ResearchBot />} />

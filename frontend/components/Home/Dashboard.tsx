@@ -86,7 +86,7 @@ export const samplePapers: Paper[] = [
   },
 ];
 
-export default function Dashboard(): JSX.Element {
+export default function Dashboard(){
   const [newSearch, setNewSearch] = useState(false);
   const [loading, setLoading] = useState(false);
   

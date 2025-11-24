@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 type HeaderProps = {
   label: string;
-  showFilters: boolean;
-  setShowFilters: React.Dispatch<React.SetStateAction<boolean>>;
+  showFilters?: boolean | false;
+  setShowFilters?: React.Dispatch<React.SetStateAction<boolean>>;
   isMyCollection?: boolean;
   isSynthesizeOpen?: boolean;
   setIsSynthesizeOpen?: React.Dispatch<React.SetStateAction<boolean>>;

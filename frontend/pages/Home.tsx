@@ -4,8 +4,8 @@ import { useState } from 'react';
 import ProfileModel from "../components/Profile/ProfileModel";
 
 const tabs = [
-  { name: "Dashboard", logoSrc: "/icons8-dashboard-48.png", alt: "Dashboard Logo" },
   { name: "My Profile", logoSrc: "/icons8-collectibles-50.png", alt: "My Profile Logo" },
+  { name: "Dashboard", logoSrc: "/icons8-dashboard-48.png", alt: "Dashboard Logo" },
   { name: "Smart Search", logoSrc: "/icons8-research-50.png", alt: "Smart Search Logo" },
   { name: "My Collections", logoSrc: "/icons8-collectibles-50.png", alt: "My Collections Logo" },
 ];

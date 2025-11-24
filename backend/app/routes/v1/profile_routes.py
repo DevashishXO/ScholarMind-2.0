@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException,Request,BackgroundTasks
 from datetime import datetime
-from app.schema.profile_schema import ProfileCreate, ProfileUpdate, ProfileOut
+from app.schema.profile_schema import ProfileCreate, ProfileUpdate
 from app.utils.get_user import get_current_user
 from app.utils.db import get_db_from_request
 
