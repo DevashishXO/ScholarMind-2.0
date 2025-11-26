@@ -12,7 +12,7 @@ export default function OnboardingRoute({ element }: { element: JSX.Element }) {
   if (!user?.data?.user) return <Navigate to="/landing" replace />;
   if (!user?.data?.otpVerified) return <Navigate to="/verify-otp" replace />;
   
-  if (data?.onboardingComplete) return <Navigate to="/" replace />;
+  if (data?.onboardingComplete || data?.scholarlyProfileStatus === "completed") return <Navigate to="/" replace />;
 
   return element;
 }
