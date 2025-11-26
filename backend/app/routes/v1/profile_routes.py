@@ -4,7 +4,7 @@ from app.schema.profile_schema import ProfileCreate, ProfileUpdate
 from app.utils.get_user import get_current_user
 from app.utils.db import get_db_from_request
 
-from app.services.google_scholarly import fetchScholarlyProfile, fetch_and_update_scholarly
+from app.services.google_scholarly import fetch_and_update_scholarly
 
 router = APIRouter()
 
@@ -44,6 +44,9 @@ async def get_my_profile(request: Request, user=Depends(get_current_user)):
     profile = await db.profiles.find_one({"user_id": user["_id"]})
     if not profile:
         raise HTTPException(status_code=404, detail="Profile not found")
+    
+    profile["_id"] = str(profile["_id"])
+    profile["user_id"] = str(profile["user_id"])
 
     return profile
 
@@ -131,27 +134,27 @@ async def get_onboarding_status(request: Request, user=Depends(get_current_user)
     }
     
 # add scholarly data into profile
-@router.patch("/add-scholarly-data")
-async def update_scholarly_data(request: Request, user=Depends(get_current_user)):
-    db = get_db_from_request(request)
+# @router.patch("/add-scholarly-data")
+# async def update_scholarly_data(request: Request, user=Depends(get_current_user)):
+#     db = get_db_from_request(request)
 
-    profile = await db.profiles.find_one({"user_id": user["_id"]})
-    if not profile:
-        raise HTTPException(status_code=404, detail="Profile not found")
+#     profile = await db.profiles.find_one({"user_id": user["_id"]})
+#     if not profile:
+#         raise HTTPException(status_code=404, detail="Profile not found")
 
-    google_scholar_url = profile.get("googleScholarUrl", "")
-    print(google_scholar_url)
-    data = await fetchScholarlyProfile(google_scholar_url)
-    update_data = {
-        "scholarlyProfile": data,
-        "updatedAt": datetime.utcnow()
-    }
+#     google_scholar_url = profile.get("googleScholarUrl", "")
+#     print(google_scholar_url)
+#     data = await fetchScholarlyProfile(google_scholar_url)
+#     update_data = {
+#         "scholarlyProfile": data,
+#         "updatedAt": datetime.utcnow()
+#     }
 
-    await db.profiles.update_one({"user_id": user["_id"]}, {"$set": update_data})
-    updated = await db.profiles.find_one({"user_id": user["_id"]})
-    updated["user_id"] = str(updated["user_id"])    
-    updated["_id"] = str(updated["_id"])    
+#     await db.profiles.update_one({"user_id": user["_id"]}, {"$set": update_data})
+#     updated = await db.profiles.find_one({"user_id": user["_id"]})
+#     updated["user_id"] = str(updated["user_id"])    
+#     updated["_id"] = str(updated["_id"])    
     
-    return{
-        "message":"Scholarly Data Updated",
-    }
+#     return{
+#         "message":"Scholarly Data Updated",
+#     }
