@@ -12,7 +12,7 @@ const tabs = [
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
-  const [tabSelected, setTabSelected] = useState("Dashboard");
+  const [tabSelected, setTabSelected] = useState("My Profile");
   const [profileIsOpen, setProfileIsOpen] = useState(false);
   
   return (
