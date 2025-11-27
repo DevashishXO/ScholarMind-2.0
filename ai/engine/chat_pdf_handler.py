@@ -321,6 +321,31 @@ def chat_api(arxiv_id: str, user_question: str) -> dict:
     save_response(response, "chat")
     return response
 
+
+def get_response_from_chat(question: str, pdf_url: str):
+    if not pdf_url:
+        raise ValueError("pdf_url cannot be None")
+
+    try:
+        # 1. Process the paper (embedding, text extraction)
+        process_result = process_paper_api(pdf_url)
+
+        if process_result["status"] not in ["success", "already_processed"]:
+            return process_result
+        
+        arxiv_id = process_result["arxiv_id"]
+
+        # 2. Chat with the paper
+        chat_result = chat_api(arxiv_id, question)
+
+        return chat_result
+
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
 # ============================================================================
 # Manual Testing Interface (For local testing only)
 # ============================================================================
@@ -368,4 +393,4 @@ def chat_api(arxiv_id: str, user_question: str) -> dict:
     
 #     print("\n" + "="*80)
 #     print("✅ Testing complete. Check data/api_responses/ for JSON outputs.")
-#     print("="*80)
+#     print("="*80

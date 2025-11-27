@@ -28,13 +28,13 @@ async def handle_search(payload: SearchQuery):
     Receives structured search data and performs AI pipeline operations.
     """
     try:
-        payload = payload.model_dump()
+        # payload = payload.model_dump()
         print("✅ Received payload:", payload)
         
-        response = get_llm_response(payload)
-        print("✅ AI response:", response)
+        # response = get_llm_response(payload)
+        # print("✅ AI response:", response)
 
-        return response
+        return 
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI processing error: {str(e)}")
