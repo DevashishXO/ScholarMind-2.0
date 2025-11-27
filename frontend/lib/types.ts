@@ -1,17 +1,19 @@
 export type Paper = {
-  id: string;
   paper_id: string;
+  id: string;
   title: string;
   authors: string[];
   "abstract": string;
-  type: string;
-  noOfCitations: number;
   year: number;
-  keywords: string[];
-  access: string;
-  doi: string;
   url: string;
   pdfUrl: string;
+  matchtype:string
+  
+  // type: string;
+  // noOfCitations: number;
+  // keywords: string[];
+  // access: string;
+  // doi: string;
 };
 
 export interface FormData {

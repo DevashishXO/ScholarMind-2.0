@@ -1,100 +1,98 @@
 import { useState } from 'react';
 import TextType from "./TextType";
 import KeywordPromptInput from "./KeywordPromptInput";
-import { XIcon, PlusCircle } from 'lucide-react';
+import { XIcon } from 'lucide-react';
 
 import { type Paper } from "../../lib/types";
 import PaperList from "./PaperList";
+import { type Filters } from '../../lib/smart_search.types';
 
 export const samplePapers: Paper[] = [
-  {
-    id: "PAPER-001",
-    title: "Deep Learning for Natural Language Processing",
-    authors: ["Andrew Ng", "Chris Manning"],
-    abstract:
-      "This paper explores deep learning applications in natural language processing, covering transformers, embeddings, and contextual language models.",
-    type: "Journal",
-    noOfCitations: 15230,
-    year: 2019,
-    keywords: ["Deep Learning", "NLP", "Transformers", "AI"],
-    access: "Open Access",
-    doi: "10.1001/dlnlp.2019.001",
-    url: "https://example.com/nlp-paper",
-    pdfUrl: "https://example.com/nlp-paper.pdf",
-  },
-  {
-    id: "PAPER-002",
-    title: "A Survey on Reinforcement Learning Techniques",
-    authors: ["Richard Sutton", "David Silver"],
-    abstract:
-      "This survey presents a detailed overview of reinforcement learning approaches including model-free, model-based, and policy gradient methods.",
-    type: "Conference",
-    noOfCitations: 9800,
-    year: 2020,
-    keywords: ["Reinforcement Learning", "AI", "Policy Gradient", "Q-Learning"],
-    access: "Restricted",
-    doi: "10.1002/rlsurvey.2020.002",
-    url: "https://example.com/rl-survey",
-    pdfUrl: "https://example.com/rl-survey.pdf",
-  },
-  {
-    id: "PAPER-003",
-    title: "Graph Neural Networks: A Review of Methods and Applications",
-    authors: ["Thomas Kipf", "Max Welling"],
-    abstract:
-      "Graph Neural Networks have gained attention for their ability to process graph-structured data. This paper discusses architectures and real-world applications.",
-    type: "Review",
-    noOfCitations: 7430,
-    year: 2021,
-    keywords: ["GNN", "Graph Theory", "Deep Learning", "AI"],
-    access: "Open Access",
-    doi: "10.1003/gnnreview.2021.003",
-    url: "https://example.com/gnn-review",
-    pdfUrl: "https://example.com/gnn-review.pdf",
-  },
-  {
-    id: "PAPER-004",
-    title: "Advancements in Quantum Machine Learning",
-    authors: ["Scott Aaronson"],
-    abstract:
-      "Quantum machine learning is an emerging field combining quantum computing with machine learning to solve complex computational problems.",
-    type: "Journal",
-    noOfCitations: 4500,
-    year: 2022,
-    keywords: ["Quantum Computing", "Machine Learning", "QML"],
-    access: "Paid",
-    doi: "10.1004/qml.2022.004",
-    url: "https://example.com/qml",
-    pdfUrl: "https://example.com/qml.pdf",
-  },
-  {
-    id: "PAPER-005",
-    title: "Retrieval Augmented Generation (RAG) for Knowledge-Intensive NLP Tasks",
-    authors: ["Patrick Lewis", "Yuxiang Wu"],
-    abstract:
-      "This paper introduces RAG, a hybrid approach combining retrieval and generation to improve factual consistency in NLP models.",
-    type: "Conference",
-    noOfCitations: 6120,
-    year: 2023,
-    keywords: ["RAG", "NLP", "LLM", "Knowledge Retrieval"],
-    access: "Open Access",
-    doi: "10.1005/rag.2023.005",
-    url: "https://example.com/rag-paper",
-    pdfUrl: "https://example.com/rag-paper.pdf",
-  },
+  // ... your existing sample papers
 ];
 
 export default function NewSearch() {
   const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState<Paper[]>([]);
+  const [searchError, setSearchError] = useState<string | null>(null);
+  const [hasSearched, setHasSearched] = useState(false); // Add this state
+
+  const handleSearch = async (filters: Filters) => {
+    try {
+      setLoading(true);
+      setSearchError(null);
+      setHasSearched(true); // Mark that a search has been performed
+      
+      console.log('Sending search request with filters:', filters);
+      
+      const response = await fetch('http://localhost:8000/api/v1/smart-search/', {
+        method: 'POST',
+        credentials: "include",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(filters)
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Search failed: ${response.status} ${response.statusText}`);
+      }
+      
+      const results = await response.json();
+      console.log('Search results:', results);
+      
+      const papers = results.results;
+      
+      // Add safety checks for the data transformation
+      setSearchResults(papers.map(paper => ({
+        paper_id: paper.arxiv_id || paper.id,
+        id: paper.arxiv_id || paper.id,
+        title: paper.title || 'No title',
+        authors: typeof paper.authors === 'string' 
+          ? paper.authors.split(',').map(author => author.trim())
+          : paper.authors || [],
+        abstract: paper.abstract || '',
+        year: paper.year || new Date().getFullYear(),
+        url: paper.link || paper.url || '#',
+        pdfUrl: paper.pdf_link || paper.pdfUrl || '#',
+        matchtype: paper.match_type || paper.matchtype || 'unknown'
+      })));
+      
+    } catch (error) {
+      console.error('Search error:', error);
+      setSearchError(error instanceof Error ? error.message : 'Search failed');
+      setSearchResults(samplePapers); // Fallback to sample data
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleNewSearch = () => {
+    setHasSearched(false);
+    setSearchResults([]);
+    setSearchError(null);
+  };
 
   return (
     <main className="flex-1 px-6 pt-8 text-[var(--color-light)] max-h-screen flex flex-col">
       {/* Header */}
-      <HeaderSection loading={loading} setloading={setLoading} />
+      <HeaderSection 
+        loading={loading} 
+        hasSearched={hasSearched} 
+        onNewSearch={handleNewSearch} 
+      />
       
       <div className="flex-1 flex flex-col items-center rounded-2xl border border-white/10 bg-neutral-800/80 backdrop-blur-sm justify-center w-full mx-auto mb-6 overflow-auto">
         
-        {!loading ? (
+        {/* Show loading spinner */}
+        {loading && (
+          <div className="flex items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-orange)]"></div>
+          </div>
+        )}
+        
+        {/* Show search input when no search has been performed OR during new search */}
+        {!hasSearched && !loading && (
           <div className="w-full max-w-4xl mx-auto px-6 py-12">
             <div className="mb-12 py-4 text-center">
               <TextType
@@ -111,24 +109,36 @@ export default function NewSearch() {
                 cursorCharacter="|"
               />
             </div>
-            <div className="w-full max-w-2xl mx-auto">
-              <KeywordPromptInput loading={loading} setLoading={setLoading} />
+            <div className="w-full max-w-4xl mx-auto">
+              <KeywordPromptInput 
+                onChange={handleSearch} 
+                loading={loading} 
+                setLoading={setLoading} 
+              />
             </div>
           </div>
-        ) : (
+        )}
+        
+        {/* Show results when search is complete and we have results */}
+        {hasSearched && !loading && (
           <div className="w-full h-full flex flex-col">
             <div className="flex items-center justify-between p-6 border-b border-white/10">
               <div className="flex items-center gap-3">
                 <h2 className="text-2xl font-bold text-[var(--color-light)]">Search Results</h2>
                 <span className="px-3 py-1 bg-[var(--color-orange)]/20 text-[var(--color-orange)] rounded-full text-sm font-medium">
-                  {samplePapers.length} papers found
+                  {searchResults.length} papers found
                 </span>
               </div>
+              {searchError && (
+                <div className="px-4 py-2 bg-red-500/20 text-red-300 rounded-lg text-sm">
+                  {searchError} (showing sample data)
+                </div>
+              )}
             </div>
             
             {/* Paper List with scroll */}
             <div className="flex-1 overflow-y-auto px-6 py-4">
-              <PaperList papers={samplePapers} />
+              <PaperList papers={searchResults} />
             </div>
           </div>
         )}
@@ -137,7 +147,16 @@ export default function NewSearch() {
   );
 }
 
-const HeaderSection = ({loading, setloading}: {loading: boolean, setloading: React.Dispatch<React.SetStateAction<boolean>>}) => (
+// Updated HeaderSection
+const HeaderSection = ({ 
+  loading, 
+  hasSearched, 
+  onNewSearch 
+}: { 
+  loading: boolean; 
+  hasSearched: boolean;
+  onNewSearch: () => void;
+}) => (
   <header className="mb-8 w-full">
     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
       <div className="space-y-3">
@@ -149,13 +168,14 @@ const HeaderSection = ({loading, setloading}: {loading: boolean, setloading: Rea
         </p>
       </div>
       
-      {loading && (
+      {/* Show New Search button when we have results */}
+      {hasSearched && !loading && (
         <button
-          onClick={() => setloading(false)}
+          onClick={onNewSearch}
           className="flex items-center gap-3 bg-[var(--color-orange)] hover:scale[1.01] border border-white/10 backdrop-blur-sm px-6 py-3 rounded-lg hover:scale-[1.03] active:scale-95 transition-all duration-200 shadow-lg"
         >
           <XIcon size={20} />
-          <span className="text-sm font-bungee">{loading ? 'Close' : 'New Search'}</span>
+          <span className="text-sm font-bungee">Close</span>
         </button>
       )}
     </div>
