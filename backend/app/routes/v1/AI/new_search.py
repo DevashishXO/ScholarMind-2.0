@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.params import Depends
-from app.schema.new_search_schema import NewSearch
+from app.schema.new_search_schema import SmartSearch
 import httpx
 import os
 from fastapi.encoders import jsonable_encoder
@@ -11,14 +11,15 @@ router = APIRouter()
 AI_BACKEND_URL = os.getenv("AI_BACKEND_URL", "http://localhost:8001")
 
 # ==== Route ====
-@router.post("/new")
-async def new_query(payload: NewSearch):
+@router.post("/")
+async def new_query(payload: SmartSearch):
     """
     Forwards a structured new query search request to the AI backend.
     """
     try:
 
         encoded_payload = jsonable_encoder(payload.model_dump(by_alias=True))
+        print("new payload", encoded_payload)
         
         async with httpx.AsyncClient(timeout=60.0) as client:
             response = await client.post(

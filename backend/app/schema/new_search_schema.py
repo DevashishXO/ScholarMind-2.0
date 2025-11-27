@@ -1,3 +1,5 @@
+from optparse import Option
+from pickle import LIST
 from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
@@ -17,4 +19,14 @@ class NewSearch(BaseModel):
     
 class BotQuery(BaseModel):
     user_query: str
+    
+    
+class SmartSearch(BaseModel):
+    keywords: Optional[List[str]]
+    title: Optional[str]
+    authors: Optional[List[str]]
+    year: Optional[int]
+    arxiv_id: Optional[str]
+    results_per_page: Optional[int]
+    page: Optional[int]
     
