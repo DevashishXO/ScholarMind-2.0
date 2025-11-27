@@ -471,6 +471,23 @@ def smart_search_api(filters: dict) -> dict:
     
     return response
 
+def get_resposne_smart_search(filters):
+    print("Filters",filters)
+    
+    payload = {
+        "keywords": filters.keywords,
+        "title": filters.title,
+        "authors": filters.authors,
+        "year": filters.year,
+        "arxiv_id": filters.arxiv_id,
+        "page": filters.page
+    }
+    
+    
+    result = smart_search_api(filters=payload)
+    
+    return result
+    
 
 # ============================================================================
 # Manual Testing Interface
