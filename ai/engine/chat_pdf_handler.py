@@ -39,15 +39,15 @@ os.makedirs(RESPONSES_DIR, exist_ok=True)
 
 def save_response(response_data: dict, operation: str):
     """Save API response to JSON file for debugging."""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     latest_path = os.path.join(RESPONSES_DIR, f"last_{operation}_response.json")
     with open(latest_path, "w", encoding="utf-8") as f:
         json.dump(response_data, f, ensure_ascii=False, indent=2)
     
-    archive_path = os.path.join(RESPONSES_DIR, f"{operation}_{timestamp}.json")
-    with open(archive_path, "w", encoding="utf-8") as f:
-        json.dump(response_data, f, ensure_ascii=False, indent=2)
+    # archive_path = os.path.join(RESPONSES_DIR, f"{operation}_{timestamp}.json")
+    # with open(archive_path, "w", encoding="utf-8") as f:
+    #     json.dump(response_data, f, ensure_ascii=False, indent=2)
     
     log(f"💾 Response saved to {latest_path}")
     return latest_path
@@ -82,7 +82,7 @@ def extract_arxiv_id_from_url(pdf_url: str) -> tuple:
         arxiv_number = path_parts[-1].replace(".pdf", "")
         
         # Validate ID format (YYMM.NNNNN or YYMM.NNNNNN)
-        if not re.match(r'^\d{4}\.\d{5,6}$', arxiv_number):
+        if not re.match(r'^\d{4}\.\d{5,6}(v\d+)?$', arxiv_number):
             return False, None, f"Invalid arXiv ID format: {arxiv_number}"
         
         arxiv_id = f"arxiv:{arxiv_number}"
