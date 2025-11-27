@@ -16,18 +16,18 @@ class ChatWithPaper(BaseModel):
 @router.post("/")
 async def chat_with_paper(
     payload: ChatWithPaper,
-    paper_id: str = Query(..., description="The ID of the paper to chat with"),
+    # paper_id: str = Query(..., description="The ID of the paper to chat with"),
 ):
     try:
         encoded_payload = jsonable_encoder(payload)
         print("Received Payload:", encoded_payload)
-        print("Paper ID:", paper_id)
+        # print("Paper ID:", paper_id)
 
         async with httpx.AsyncClient(timeout=60.0) as client:
             response = await client.post(
                 f"{AI_BACKEND_URL}/api/v1/chat-with-paper/",
                 json={
-                    "paper_id": paper_id,
+                    # "paper_id": paper_id,
                     **encoded_payload
                 },
                 headers={"Content-Type": "application/json"},
