@@ -17,7 +17,7 @@ async def new_query(payload: NewSearch):
     Forwards a structured new query search request to the AI backend.
     """
     try:
-        
+
         encoded_payload = jsonable_encoder(payload.model_dump(by_alias=True))
         
         async with httpx.AsyncClient(timeout=60.0) as client:
