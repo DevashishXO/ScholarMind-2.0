@@ -45,7 +45,7 @@ const paper = {
   access: "Open Access",
   doi: "10.1001/dlnlp.2019.001",
   url: "https://example.com/nlp-paper",
-  pdfUrl: "https://example.com/nlp-paper.pdf",
+  pdfUrl: "https://arxiv.org/pdf/2511.20757",
 };
 
 
@@ -140,7 +140,7 @@ export default function PaperViewPage() {
           <div className="mt-10">{renderTabContent()}</div>
         </div>
       ) : (
-        <ChatWithPaper />
+        <ChatWithPaper  pdfUrl = {paper.pdfUrl}/>
       )}
       
       
