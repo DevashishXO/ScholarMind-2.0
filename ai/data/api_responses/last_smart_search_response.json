@@ -1,0 +1,220 @@
+{
+  "operation": "smart_search",
+  "timestamp": "2025-11-28T01:20:54.717460",
+  "status": "success",
+  "results": [
+    {
+      "arxiv_id": "arxiv:2510.23607v1",
+      "title": "Concerto: Joint 2D-3D Self-Supervised Learning Emerges Spatial Representations",
+      "authors": "Yujia Zhang, Xiaoyang Wu, Yixing Lao, Chengyao Wang, Zhuotao Tian, Naiyan Wang, Hengshuang Zhao",
+      "year": 2025,
+      "abstract": "Humans learn abstract concepts through multisensory synergy, and once formed,\nsuch representations can often be recalled from a single modality. Inspired by\nthis principle, we introduce Concerto, a minimalist simulation of human concept\nlearning for spatial cognition, combining 3D intra-modal self-distillation with\n2D-3D cross-modal joint embedding. Despite its simplicity, Concerto learns more\ncoherent and informative spatial features, as demonstrated by zero-shot\nvisualizations. It outperforms both standalone SOTA 2D and 3D self-supervised\nmodels by 14.2% and 4.8%, respectively, as well as their feature concatenation,\nin linear probing for 3D scene perception. With full fine-tuning, Concerto sets\nnew SOTA results across multiple scene understanding benchmarks (e.g., 80.7%\nmIoU on ScanNet). We further present a variant of Concerto tailored for\nvideo-lifted point cloud spatial understanding, and a translator that linearly\nprojects Concerto representations into CLIP's language space, enabling\nopen-world perception. These results highlight that Concerto emerges spatial\nrepresentations with superior fine-grained geometric and semantic consistency.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23607v1",
+      "link": "http://arxiv.org/abs/2510.23607v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23606v1",
+      "title": "Variational Masked Diffusion Models",
+      "authors": "Yichi Zhang, Alex Schwing, Zhizhen Zhao",
+      "year": 2025,
+      "abstract": "Masked diffusion models have recently emerged as a flexible framework for\ndiscrete generative modeling. However, a key limitation of standard masked\ndiffusion is its inability to effectively capture dependencies among tokens\nthat are predicted concurrently, leading to degraded generation quality when\ndependencies among tokens are important. To explicitly model dependencies among\ntokens, we propose Variational Masked Diffusion (VMD), a framework that\nintroduces latent variables into the masked diffusion process. Through\ncontrolled experiments on synthetic datasets, we demonstrate that VMD\nsuccessfully learns dependencies that conventional masked diffusion fails to\ncapture. We further validate the effectiveness of our approach on Sudoku\npuzzles and text datasets, where learning of dependencies among tokens improves\nglobal consistency. Across these domains, VMD enhances both generation quality\nand dependency awareness, highlighting the value of integrating variational\ninference into masked diffusion. Our code is available at:\nhttps://riccizz.github.io/VMD.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23606v1",
+      "link": "http://arxiv.org/abs/2510.23606v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23605v1",
+      "title": "Track, Inpaint, Resplat: Subject-driven 3D and 4D Generation with Progressive Texture Infilling",
+      "authors": "Shuhong Zheng, Ashkan Mirzaei, Igor Gilitschenski",
+      "year": 2025,
+      "abstract": "Current 3D/4D generation methods are usually optimized for photorealism,\nefficiency, and aesthetics. However, they often fail to preserve the semantic\nidentity of the subject across different viewpoints. Adapting generation\nmethods with one or few images of a specific subject (also known as\nPersonalization or Subject-driven generation) allows generating visual content\nthat align with the identity of the subject. However, personalized 3D/4D\ngeneration is still largely underexplored. In this work, we introduce TIRE\n(Track, Inpaint, REsplat), a novel method for subject-driven 3D/4D generation.\nIt takes an initial 3D asset produced by an existing 3D generative model as\ninput and uses video tracking to identify the regions that need to be modified.\nThen, we adopt a subject-driven 2D inpainting model for progressively infilling\nthe identified regions. Finally, we resplat the modified 2D multi-view\nobservations back to 3D while still maintaining consistency. Extensive\nexperiments demonstrate that our approach significantly improves identity\npreservation in 3D/4D generation compared to state-of-the-art methods. Our\nproject website is available at\nhttps://zsh2000.github.io/track-inpaint-resplat.github.io/.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23605v1",
+      "link": "http://arxiv.org/abs/2510.23605v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23596v1",
+      "title": "Think Twice: Branch-and-Rethink Reasoning Reward Model",
+      "authors": "Yizhu Jiao, Jiaqi Zeng, Julien Veron Vialard, Oleksii Kuchaiev, Jiawei Han, Olivier Delalleau",
+      "year": 2025,
+      "abstract": "Large language models (LLMs) increasingly rely on thinking models that\nexternalize intermediate steps and allocate extra test-time compute, with\nthink-twice strategies showing that a deliberate second pass can elicit\nstronger reasoning. In contrast, most reward models (RMs) still compress many\nquality dimensions into a single scalar in one shot, a design that induces\njudgment diffusion: attention spreads across evaluation criteria, yielding\ndiluted focus and shallow analysis. We introduce branch-and-rethink (BR-RM), a\ntwo-turn RM that transfers the think-twice principle to reward modeling. Turn 1\nperforms adaptive branching, selecting a small set of instance-critical\ndimensions (such as factuality and safety) and sketching concise,\nevidence-seeking hypotheses. Turn 2 executes branch-conditioned rethinking, a\ntargeted reread that tests those hypotheses and scrutinizes only what matters\nmost. We train with GRPO-style reinforcement learning over structured two-turn\ntraces using a simple binary outcome reward with strict format checks, making\nthe approach compatible with standard RLHF pipelines. By converting\nall-at-oncescoringintofocused, second-lookreasoning,\nBR-RMreducesjudgmentdiffusionandimproves sensitivity to subtle yet\nconsequential errors while remaining practical and scalable. Experimental\nresults demonstrate that our model achieves state-of-the-art performance on\nthree challenging reward modeling benchmarks across diverse domains. The code\nand the model will be released soon.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23596v1",
+      "link": "http://arxiv.org/abs/2510.23596v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23595v1",
+      "title": "Multi-Agent Evolve: LLM Self-Improve through Co-evolution",
+      "authors": "Yixing Chen, Yiding Wang, Siqi Zhu, Haofei Yu, Tao Feng, Muhan Zhan, Mostofa Patwary, Jiaxuan You",
+      "year": 2025,
+      "abstract": "Reinforcement Learning (RL) has demonstrated significant potential in\nenhancing the reasoning capabilities of large language models (LLMs). However,\nthe success of RL for LLMs heavily relies on human-curated datasets and\nverifiable rewards, which limit their scalability and generality. Recent\nSelf-Play RL methods, inspired by the success of the paradigm in games and Go,\naim to enhance LLM reasoning capabilities without human-annotated data.\nHowever, their methods primarily depend on a grounded environment for feedback\n(e.g., a Python interpreter or a game engine); extending them to general\ndomains remains challenging. To address these challenges, we propose\nMulti-Agent Evolve (MAE), a framework that enables LLMs to self-evolve in\nsolving diverse tasks, including mathematics, reasoning, and general knowledge\nQ&A. The core design of MAE is based on a triplet of interacting agents\n(Proposer, Solver, Judge) that are instantiated from a single LLM, and applies\nreinforcement learning to optimize their behaviors. The Proposer generates\nquestions, the Solver attempts solutions, and the Judge evaluates both while\nco-evolving. Experiments on Qwen2.5-3B-Instruct demonstrate that MAE achieves\nan average improvement of 4.54% on multiple benchmarks. These results highlight\nMAE as a scalable, data-efficient method for enhancing the general reasoning\nabilities of LLMs with minimal reliance on human-curated supervision.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23595v1",
+      "link": "http://arxiv.org/abs/2510.23595v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23590v1",
+      "title": "Lightweight Robust Direct Preference Optimization",
+      "authors": "Cheol Woo Kim, Shresth Verma, Mauricio Tec, Milind Tambe",
+      "year": 2025,
+      "abstract": "Direct Preference Optimization (DPO) has become a popular method for\nfine-tuning large language models (LLMs) due to its stability and simplicity.\nHowever, it is also known to be sensitive to noise in the data and prone to\noverfitting. Recent works have proposed using distributionally robust\noptimization (DRO) to address potential noise and distributional shift in the\ndata. However, these methods often suffer from excessive conservatism and high\ncomputational cost. We propose DPO-PRO (DPO with Preference Robustness), a\nrobust fine-tuning algorithm based on DPO which accounts for uncertainty in the\npreference distribution through a lightweight DRO formulation. Unlike prior\nDRO-based variants, DPO-PRO focuses solely on uncertainty in preferences,\navoiding unnecessary conservatism and incurring negligible computational\noverhead. We further show that DPO-PRO is equivalent to a regularized DPO\nobjective that penalizes model overconfidence under weak preference signals. We\nevaluate DPO-PRO on standard alignment benchmarks and a real-world public\nhealth task. Experimental results show that our method consistently improves\nrobustness to noisy preference signals compared to existing DPO variants.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23590v1",
+      "link": "http://arxiv.org/abs/2510.23590v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23588v1",
+      "title": "FARMER: Flow AutoRegressive Transformer over Pixels",
+      "authors": "Guangting Zheng, Qinyu Zhao, Tao Yang, Fei Xiao, Zhijie Lin, Jie Wu, Jiajun Deng, Yanyong Zhang, Rui Zhu",
+      "year": 2025,
+      "abstract": "Directly modeling the explicit likelihood of the raw data distribution is key\ntopic in the machine learning area, which achieves the scaling successes in\nLarge Language Models by autoregressive modeling. However, continuous AR\nmodeling over visual pixel data suffer from extremely long sequences and\nhigh-dimensional spaces. In this paper, we present FARMER, a novel end-to-end\ngenerative framework that unifies Normalizing Flows (NF) and Autoregressive\n(AR) models for tractable likelihood estimation and high-quality image\nsynthesis directly from raw pixels. FARMER employs an invertible autoregressive\nflow to transform images into latent sequences, whose distribution is modeled\nimplicitly by an autoregressive model. To address the redundancy and complexity\nin pixel-level modeling, we propose a self-supervised dimension reduction\nscheme that partitions NF latent channels into informative and redundant\ngroups, enabling more effective and efficient AR modeling. Furthermore, we\ndesign a one-step distillation scheme to significantly accelerate inference\nspeed and introduce a resampling-based classifier-free guidance algorithm to\nboost image generation quality. Extensive experiments demonstrate that FARMER\nachieves competitive performance compared to existing pixel-based generative\nmodels while providing exact likelihoods and scalable training.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23588v1",
+      "link": "http://arxiv.org/abs/2510.23588v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23585v1",
+      "title": "Hope Speech Detection in Social Media English Corpora: Performance of Traditional and Transformer Models",
+      "authors": "Luis Ramos, Hiram Calvo, Olga Kolesnikova",
+      "year": 2025,
+      "abstract": "The identification of hope speech has become a promised NLP task, considering\nthe need to detect motivational expressions of agency and goal-directed\nbehaviour on social media platforms. This proposal evaluates traditional\nmachine learning models and fine-tuned transformers for a previously split hope\nspeech dataset as train, development and test set. On development test, a\nlinear-kernel SVM and logistic regression both reached a macro-F1 of 0.78; SVM\nwith RBF kernel reached 0.77, and Na\\\"ive Bayes hit 0.75. Transformer models\ndelivered better results, the best model achieved weighted precision of 0.82,\nweighted recall of 0.80, weighted F1 of 0.79, macro F1 of 0.79, and 0.80\naccuracy. These results suggest that while optimally configured traditional\nmachine learning models remain agile, transformer architectures detect some\nsubtle semantics of hope to achieve higher precision and recall in hope speech\ndetection, suggesting that larges transformers and LLMs could perform better in\nsmall datasets.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23585v1",
+      "link": "http://arxiv.org/abs/2510.23585v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23581v1",
+      "title": "Lookahead Anchoring: Preserving Character Identity in Audio-Driven Human Animation",
+      "authors": "Junyoung Seo, Rodrigo Mira, Alexandros Haliassos, Stella Bounareli, Honglie Chen, Linh Tran, Seungryong Kim, Zoe Landgraf, Jie Shen",
+      "year": 2025,
+      "abstract": "Audio-driven human animation models often suffer from identity drift during\ntemporal autoregressive generation, where characters gradually lose their\nidentity over time. One solution is to generate keyframes as intermediate\ntemporal anchors that prevent degradation, but this requires an additional\nkeyframe generation stage and can restrict natural motion dynamics. To address\nthis, we propose Lookahead Anchoring, which leverages keyframes from future\ntimesteps ahead of the current generation window, rather than within it. This\ntransforms keyframes from fixed boundaries into directional beacons: the model\ncontinuously pursues these future anchors while responding to immediate audio\ncues, maintaining consistent identity through persistent guidance. This also\nenables self-keyframing, where the reference image serves as the lookahead\ntarget, eliminating the need for keyframe generation entirely. We find that the\ntemporal lookahead distance naturally controls the balance between expressivity\nand consistency: larger distances allow for greater motion freedom, while\nsmaller ones strengthen identity adherence. When applied to three recent human\nanimation models, Lookahead Anchoring achieves superior lip synchronization,\nidentity preservation, and visual quality, demonstrating improved temporal\nconditioning across several different architectures. Video results are\navailable at the following link: https://lookahead-anchoring.github.io.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23581v1",
+      "link": "http://arxiv.org/abs/2510.23581v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23571v1",
+      "title": "RobotArena $\\infty$: Scalable Robot Benchmarking via Real-to-Sim Translation",
+      "authors": "Yash Jangir, Yidi Zhang, Kashu Yamazaki, Chenyu Zhang, Kuan-Hsun Tu, Tsung-Wei Ke, Lei Ke, Yonatan Bisk, Katerina Fragkiadaki",
+      "year": 2025,
+      "abstract": "The pursuit of robot generalists - instructable agents capable of performing\ndiverse tasks across diverse environments - demands rigorous and scalable\nevaluation. Yet real-world testing of robot policies remains fundamentally\nconstrained: it is labor-intensive, slow, unsafe at scale, and difficult to\nreproduce. Existing simulation benchmarks are similarly limited, as they train\nand test policies within the same synthetic domains and cannot assess models\ntrained from real-world demonstrations or alternative simulation environments.\nAs policies expand in scope and complexity, these barriers only intensify,\nsince defining \"success\" in robotics often hinges on nuanced human judgments of\nexecution quality. In this paper, we introduce a new benchmarking framework\nthat overcomes these challenges by shifting VLA evaluation into large-scale\nsimulated environments augmented with online human feedback. Leveraging\nadvances in vision-language models, 2D-to-3D generative modeling, and\ndifferentiable rendering, our approach automatically converts video\ndemonstrations from widely used robot datasets into simulated counterparts.\nWithin these digital twins, we assess VLA policies using both automated\nVLM-guided scoring and scalable human preference judgments collected from\ncrowdworkers, transforming human involvement from tedious scene setup,\nresetting, and safety supervision into lightweight preference comparisons. To\nmeasure robustness, we systematically perturb simulated environments along\nmultiple axes, such as textures and object placements, stress-testing policy\ngeneralization under controlled variation. The result is a continuously\nevolving, reproducible, and scalable benchmark for real-world trained robot\nmanipulation policies, addressing a critical missing capability in today's\nrobotics landscape.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23571v1",
+      "link": "http://arxiv.org/abs/2510.23571v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23569v1",
+      "title": "EgoThinker: Unveiling Egocentric Reasoning with Spatio-Temporal CoT",
+      "authors": "Baoqi Pei, Yifei Huang, Jilan Xu, Yuping He, Guo Chen, Fei Wu, Yu Qiao, Jiangmiao Pang",
+      "year": 2025,
+      "abstract": "Egocentric video reasoning centers on an unobservable agent behind the camera\nwho dynamically shapes the environment, requiring inference of hidden\nintentions and recognition of fine-grained interactions. This core challenge\nlimits current multimodal large language models MLLMs, which excel at visible\nevent reasoning but lack embodied, first-person understanding. To bridge this\ngap, we introduce EgoThinker, a novel framework that endows MLLMs with robust\negocentric reasoning capabilities through spatio-temporal chain-of-thought\nsupervision and a two-stage learning curriculum. First, we introduce EgoRe-5M,\na large-scale egocentric QA dataset constructed from 13M diverse egocentric\nvideo clips. This dataset features multi-minute segments annotated with\ndetailed CoT rationales and dense hand-object grounding. Second, we employ SFT\non EgoRe-5M to instill reasoning skills, followed by reinforcement fine-tuning\nRFT to further enhance spatio-temporal localization. Experimental results show\nthat EgoThinker outperforms existing methods across multiple egocentric\nbenchmarks, while achieving substantial improvements in fine-grained\nspatio-temporal localization tasks. Full code and data are released at\nhttps://github.com/InternRobotics/EgoThinker.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23569v1",
+      "link": "http://arxiv.org/abs/2510.23569v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23564v1",
+      "title": "ReCode: Unify Plan and Action for Universal Granularity Control",
+      "authors": "Zhaoyang Yu, Jiayi Zhang, Huixue Su, Yufan Zhao, Yifan Wu, Mingyi Deng, Jinyu Xiang, Yizhang Lin, Lingxiao Tang, Yingchao Li, Yuyu Luo, Bang Liu, Chenglin Wu",
+      "year": 2025,
+      "abstract": "Real-world tasks require decisions at varying granularities, and humans excel\nat this by leveraging a unified cognitive representation where planning is\nfundamentally understood as a high-level form of action. However, current Large\nLanguage Model (LLM)-based agents lack this crucial capability to operate\nfluidly across decision granularities. This limitation stems from existing\nparadigms that enforce a rigid separation between high-level planning and\nlow-level action, which impairs dynamic adaptability and limits generalization.\nWe propose ReCode (Recursive Code Generation), a novel paradigm that addresses\nthis limitation by unifying planning and action within a single code\nrepresentation. In this representation, ReCode treats high-level plans as\nabstract placeholder functions, which the agent then recursively decomposes\ninto finer-grained sub-functions until reaching primitive actions. This\nrecursive approach dissolves the rigid boundary between plan and action,\nenabling the agent to dynamically control its decision granularity.\nFurthermore, the recursive structure inherently generates rich,\nmulti-granularity training data, enabling models to learn hierarchical\ndecision-making processes. Extensive experiments show ReCode significantly\nsurpasses advanced baselines in inference performance and demonstrates\nexceptional data efficiency in training, validating our core insight that\nunifying planning and action through recursive code generation is a powerful\nand effective approach to achieving universal granularity control. The code is\navailable at https://github.com/FoundationAgents/ReCode.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23564v1",
+      "link": "http://arxiv.org/abs/2510.23564v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23561v1",
+      "title": "Revising Second Order Terms in Deep Animation Video Coding",
+      "authors": "Konstantin Schmidt, Thomas Richter",
+      "year": 2025,
+      "abstract": "First Order Motion Model is a generative model that animates human heads\nbased on very little motion information derived from keypoints. It is a\npromising solution for video communication because first it operates at very\nlow bitrate and second its computational complexity is moderate compared to\nother learning based video codecs. However, it has strong limitations by\ndesign. Since it generates facial animations by warping source-images, it fails\nto recreate videos with strong head movements. This works concentrates on one\nspecific kind of head movements, namely head rotations. We show that replacing\nthe Jacobian transformations in FOMM by a global rotation helps the system to\nperform better on items with head-rotations while saving 40% to 80% of bitrate\non P-frames. Moreover, we apply state-of-the-art normalization techniques to\nthe discriminator to stabilize the adversarial training which is essential for\ngenerating visually appealing videos. We evaluate the performance by the\nlearned metics LPIPS and DISTS to show the success our optimizations.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23561v1",
+      "link": "http://arxiv.org/abs/2510.23561v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23559v1",
+      "title": "KongNet: A Multi-headed Deep Learning Model for Detection and Classification of Nuclei in Histopathology Images",
+      "authors": "Jiaqi Lv, Esha Sadia Nasir, Kesi Xu, Mostafa Jahanifar, Brinder Singh Chohan, Behnaz Elhaminia, Shan E Ahmed Raza",
+      "year": 2025,
+      "abstract": "Accurate detection and classification of nuclei in histopathology images are\ncritical for diagnostic and research applications. We present KongNet, a\nmulti-headed deep learning architecture featuring a shared encoder and\nparallel, cell-type-specialised decoders. Through multi-task learning, each\ndecoder jointly predicts nuclei centroids, segmentation masks, and contours,\naided by Spatial and Channel Squeeze-and-Excitation (SCSE) attention modules\nand a composite loss function. We validate KongNet in three Grand Challenges.\nThe proposed model achieved first place on track 1 and second place on track 2\nduring the MONKEY Challenge. Its lightweight variant (KongNet-Det) secured\nfirst place in the 2025 MIDOG Challenge. KongNet pre-trained on the MONKEY\ndataset and fine-tuned on the PUMA dataset ranked among the top three in the\nPUMA Challenge without further optimisation. Furthermore, KongNet established\nstate-of-the-art performance on the publicly available PanNuke and CoNIC\ndatasets. Our results demonstrate that the specialised multi-decoder design is\nhighly effective for nuclei detection and classification across diverse tissue\nand stain types. The pre-trained model weights along with the inference code\nhave been publicly released to support future research.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23559v1",
+      "link": "http://arxiv.org/abs/2510.23559v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23557v1",
+      "title": "Minimizing Human Intervention in Online Classification",
+      "authors": "William Réveillard, Vasileios Saketos, Alexandre Proutiere, Richard Combes",
+      "year": 2025,
+      "abstract": "We introduce and study an online problem arising in question answering\nsystems. In this problem, an agent must sequentially classify user-submitted\nqueries represented by $d$-dimensional embeddings drawn i.i.d. from an unknown\ndistribution. The agent may consult a costly human expert for the correct\nlabel, or guess on her own without receiving feedback. The goal is to minimize\nregret against an oracle with free expert access. When the time horizon $T$ is\nat least exponential in the embedding dimension $d$, one can learn the geometry\nof the class regions: in this regime, we propose the Conservative Hull-based\nClassifier (CHC), which maintains convex hulls of expert-labeled queries and\ncalls the expert as soon as a query lands outside all known hulls. CHC attains\n$\\mathcal{O}(\\log^d T)$ regret in $T$ and is minimax optimal for $d=1$.\nOtherwise, the geometry cannot be reliably learned without additional\ndistributional assumptions. We show that when the queries are drawn from a\nsubgaussian mixture, for $T \\le e^d$, a Center-based Classifier (CC) achieves\nregret proportional to $N\\log{N}$ where $N$ is the number of labels. To bridge\nthese regimes, we introduce the Generalized Hull-based Classifier (GHC), a\npractical extension of CHC that allows for more aggressive guessing via a\ntunable threshold parameter. Our approach is validated with experiments,\nnotably on real-world question-answering datasets using embeddings derived from\nstate-of-the-art large language models.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23557v1",
+      "link": "http://arxiv.org/abs/2510.23557v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23554v1",
+      "title": "A U-Net and Transformer Pipeline for Multilingual Image Translation",
+      "authors": "Siddharth Sahay, Radhika Agarwal",
+      "year": 2025,
+      "abstract": "This paper presents an end-to-end multilingual translation pipeline that\nintegrates a custom U-Net for text detection, the Tesseract engine for text\nrecognition, and a from-scratch sequence-to-sequence (Seq2Seq) Transformer for\nNeural Machine Translation (NMT). Our approach first utilizes a U-Net model,\ntrained on a synthetic dataset , to accurately segment and detect text regions\nfrom an image. These detected regions are then processed by Tesseract to\nextract the source text. This extracted text is fed into a custom Transformer\nmodel trained from scratch on a multilingual parallel corpus spanning 5\nlanguages. Unlike systems reliant on monolithic pre-trained models, our\narchitecture emphasizes full customization and adaptability. The system is\nevaluated on its text detection accuracy, text recognition quality, and\ntranslation performance via BLEU scores. The complete pipeline demonstrates\npromising results, validating the viability of a custom-built system for\ntranslating text directly from images.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23554v1",
+      "link": "http://arxiv.org/abs/2510.23554v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23553v1",
+      "title": "OntoPret: An Ontology for the Interpretation of Human Behavior",
+      "authors": "Alexis Ellis, Stacie Severyn, Fjollë Novakazi, Hadi Banaee, Cogan Shimizu",
+      "year": 2025,
+      "abstract": "As human machine teaming becomes central to paradigms like Industry 5.0, a\ncritical need arises for machines to safely and effectively interpret complex\nhuman behaviors. A research gap currently exists between techno centric robotic\nframeworks, which often lack nuanced models of human behavior, and descriptive\nbehavioral ontologies, which are not designed for real time, collaborative\ninterpretation. This paper addresses this gap by presenting OntoPret, an\nontology for the interpretation of human behavior. Grounded in cognitive\nscience and a modular engineering methodology, OntoPret provides a formal,\nmachine processable framework for classifying behaviors, including task\ndeviations and deceptive actions. We demonstrate its adaptability across two\ndistinct use cases manufacturing and gameplay and establish the semantic\nfoundations necessary for advanced reasoning about human intentions.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23553v1",
+      "link": "http://arxiv.org/abs/2510.23553v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23552v1",
+      "title": "Generalized Kantorovich-Rubinstein Duality beyond Hausdorff and Kantorovich",
+      "authors": "Paul Wild, Lutz Schröder, Karla Messing, Barbara König, Jonas Forster",
+      "year": 2025,
+      "abstract": "The classical Kantorovich-Rubinstein duality guarantees coincidence between\nmetrics on the space of probability distributions defined on the one hand via\ntransport plans (couplings) and on the other hand via price functions. Both\nconstructions have been lifted to the level of generality of set functors, with\nthe coupling-based construction referred to as the Wasserstein lifting, and the\nprice-function-based construction as the Kantorovich lifting, both based on a\nchoice of quantitative modalities for the given functor. It is known that every\nWasserstein lifting can be expressed as a Kantorovich lifting; however, the\nlatter in general needs to use additional modalities. We give an example\nshowing that this cannot be avoided in general. We refer to cases in which the\nsame modalities can be used as satisfying the generalized\nKantorovich-Rubinstein duality. We establish the generalized\nKantorovich-Rubinstein duality in this sense for two important cases: The\nL\\'evy-Prokhorov distance on distributions, which finds wide-spread\napplications in machine learning due to its favourable stability properties,\nand the standard metric on convex sets of distributions that arises by\ncombining the Hausdorff and Wasserstein distances.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23552v1",
+      "link": "http://arxiv.org/abs/2510.23552v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23550v1",
+      "title": "Bayesian Nonlinear PDE Inference via Gaussian Process Collocation with Application to the Richards Equation",
+      "authors": "Yumo Yang, Anass Ben Bouazza, Xuejun Dong, Quan Zhou",
+      "year": 2025,
+      "abstract": "The estimation of unknown parameters in nonlinear partial differential\nequations (PDEs) offers valuable insights across a wide range of scientific\ndomains. In this work, we focus on estimating plant root parameters in the\nRichards equation, which is essential for understanding the soil-plant system\nin agricultural studies. Since conventional methods are computationally\nintensive and often yield unstable estimates, we develop a new Gaussian process\ncollocation method for efficient Bayesian inference. Unlike existing Gaussian\nprocess-based approaches, our method constructs an approximate posterior\ndistribution using samples drawn from a Gaussian process model fitted to the\nobserved data, which does not require any structural assumption about the\nunderlying PDE. Further, we propose to use an importance sampling procedure to\ncorrect for the discrepancy between the approximate and true posterior\ndistributions. As an alternative, we also devise a prior-guided Bayesian\noptimization algorithm leveraging the approximate posterior. Simulation studies\ndemonstrate that our method yields robust estimates under various settings.\nFinally, we apply our method on a real agricultural data set and estimate the\nplant root parameters with uncertainty quantification.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23550v1",
+      "link": "http://arxiv.org/abs/2510.23550v1",
+      "match_type": "exact"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23546v1",
+      "title": "Variational Thermal State Preparation on Digital Quantum Processors Assisted by Matrix Product States",
+      "authors": "Rui-Hao Li, Semeon Valgushev, Khadijeh Najafi",
+      "year": 2025,
+      "abstract": "The preparation of quantum Gibbs states at finite temperatures is a\ncornerstone of quantum computation, enabling applications in quantum simulation\nof many-body systems, machine learning via quantum Boltzmann machines, and\noptimization through thermal sampling techniques. In this work, we introduce a\nvariational framework that leverages matrix product states for the efficient\nclassical evaluation of the Helmholtz free energy, combining scalable\nentanglement entropy computation with a hardware efficient ansatz to accurately\napproximate thermal states in one- and two-dimensional systems. We conduct\nextensive benchmarking on key observables, including energy density,\nsusceptibility, specific heat, and two-point correlations, comparing against\nexact analytical results for 1D systems and quantum Monte Carlo simulations for\n2D lattices across various temperatures and ansatz configurations. Our\nlarge-scale numerical simulations demonstrate the capability to prepare\nhigh-quality Gibbs states for 1D lattice models with up to 30 sites and 2D\nsystems with up to 6x6 sites, using up to 42 qubits. Finally, we demonstrate\nthe framework's practical viability on a 156-qubit IBM Heron processor by\npreparing the approximate Gibbs state of a 30-site transverse-field Ising\nmodel. Leveraging a combination of error mitigation techniques, we reduce the\nrelative errors in energy and susceptibility measurements by over 50% compared\nto unmitigated results.",
+      "pdf_link": "http://arxiv.org/pdf/2510.23546v1",
+      "link": "http://arxiv.org/abs/2510.23546v1",
+      "match_type": "exact"
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 171,
+    "total_results": 3406,
+    "per_page": 20
+  },
+  "metadata": {
+    "filters_applied": {
+      "year": 2025
+    },
+    "used_fallback": false,
+    "fallback_message": null
+  }
+}
