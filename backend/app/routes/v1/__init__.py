@@ -9,5 +9,5 @@ api_router = APIRouter()
 # Include routes
 api_router.include_router(auth_router, prefix="/auth", tags=["Authentication"])
 api_router.include_router(profile_router, prefix="/profile", tags=["Profile"])
-api_router.include_router(my_collection_router, prefix="/my_collection", tags=["My Collection"])
+api_router.include_router(my_collection_router, prefix="/my-collection", tags=["My Collection"])
 api_router.include_router(ai_router)

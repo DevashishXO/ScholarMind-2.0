@@ -48,12 +48,18 @@ async def create_collection(request: Request, user=Depends(get_current_user)):
         updated_at=datetime.utcnow()
     )
 
-    # Save to DB
-    await db.mycollections.insert_one(new_collection.dict())
-
+    
+    insert_result = await db.mycollections.insert_one(new_collection.dict())
+    
+    created_collection = await db.mycollections.find_one({
+        "_id": insert_result.inserted_id
+    })
+    
+    created_collection["_id"] = str(created_collection["_id"])
+    
     return {
         "message": "Collection created",
-        "collection": new_collection.dict()
+        "collection": created_collection
     }
 
 
