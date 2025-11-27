@@ -1,5 +1,6 @@
 export type Paper = {
   id: string;
+  paper_id: string;
   title: string;
   authors: string[];
   "abstract": string;

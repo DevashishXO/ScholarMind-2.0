@@ -34,12 +34,12 @@ export default function PaperList({
       {/* Paper cards */}
       <div className="grid grid-cols-1 gap-4">
         {papers.map((paper) => (
-          <div className="flex items-start gap-4" key={paper.id}>
+          <div className="flex items-start gap-4" key={paper.paper_id}>
             {isSynthesizeOpen && (
               <input
                 type="checkbox"
-                checked={selectedPapers?.includes(paper.id) ?? false}
-                onChange={() => togglePaperSelection(paper.id)}
+                checked={selectedPapers?.includes(paper.paper_id) ?? false}
+                onChange={() => togglePaperSelection(paper.paper_id)}
                 className="mt-6 w-5 h-5 cursor-pointer"
               />
             )}
@@ -47,7 +47,7 @@ export default function PaperList({
               paper={paper}
               isMyCollection={isMyCollection}
               isSynthesizeOpen={isSynthesizeOpen}
-              isSelected={selectedPapers?.includes(paper.id) ?? false}
+              isSelected={selectedPapers?.includes(paper.paper_id) ?? false}
             />
           </div>
         ))}
