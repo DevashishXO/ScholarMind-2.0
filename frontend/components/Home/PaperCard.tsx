@@ -26,7 +26,10 @@ export default function PaperCard({
   const [creating, setCreating] = useState(false);
 
   const handleCardClick = () => {
-    if (!isSynthesizeOpen) navigate(`/smart-search/${paper.id}`);
+    if (!isSynthesizeOpen){
+      sessionStorage.setItem('currentPaper', JSON.stringify(paper));
+      navigate(`/smart-search/${paper.paper_id}`, { state: { paper } });
+    }
   };
 
   // ----------------------------------------------------
@@ -69,12 +72,12 @@ export default function PaperCard({
             title: paper.title,
             authors: paper.authors,
             abstract: paper.abstract,
-            type: paper.type,
-            noOfCitations: paper.noOfCitations,
+            // type: paper.type,
+            // noOfCitations: paper.noOfCitations,
             year: paper.year,
-            keywords: paper.keywords,
-            access: paper.access,
-            doi: paper.doi,
+            // keywords: paper.keywords,
+            // access: paper.access,
+            // doi: paper.doi,
             url: paper.url,
             pdfUrl: paper.pdfUrl,
           }),
@@ -185,29 +188,29 @@ export default function PaperCard({
         }`}
       >
         <h2 className="text-xl font-semibold text-[var(--color-light)] group-hover:text-[var(--color-orange)] transition line-clamp-2 mb-2">
-          {paper.title}
+          {paper.title || 'Refer to the docs'}
         </h2>
 
         <p className="text-sm text-neutral-400 mb-3 italic">
-          {paper.authors.join(", ")}
+          {paper.authors.join(", ") || 'Refer to the docs'}
         </p>
 
         <p className="text-sm text-neutral-300 mb-4 leading-relaxed line-clamp-3">
-          {paper.abstract}
+          {paper.abstract || 'Refer to the docs'}
         </p>
 
         {!isSynthesizeOpen && (
           <div className="flex items-center justify-between">
             <div className="text-xs text-neutral-500">
               <span>📅 {paper.year}</span> •{" "}
-              <span>📚 {paper.noOfCitations} citations</span>
+              <span>📚 Citations {paper.noOfCitations || 'Refer to the docs'}</span>
             </div>
 
             <div className="flex gap-3">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate(`/smart-search/${paper.id}`);
+                  navigate(`/smart-search/${paper.paper_id}`, { state: { paper } });
                 }}
                 className="text-sm px-4 py-2 font-bungee rounded-lg bg-[var(--color-orange)] text-[var(--color-light)] hover:bg-orange-500/70 transition shadow-md cursor-pointer"
               >

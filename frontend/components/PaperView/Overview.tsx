@@ -9,7 +9,7 @@ export default function Overview({ abstract, keywords }: OverviewProps) {
     <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl text-left text-[var(--color-light)]">
       <h2 className="text-3xl font-semibold mb-4">Overview</h2>
       <p className="mb-4 text-xl ">{abstract}</p>
-      <div className="flex flex-wrap gap-2">
+      {/*<div className="flex flex-wrap gap-2">
         {keywords.map((keyword) => (
           <span
             key={keyword}
@@ -18,7 +18,7 @@ export default function Overview({ abstract, keywords }: OverviewProps) {
             {keyword}
           </span>
         ))}
-      </div>
+      </div>*/}
     </div>
   );
 }

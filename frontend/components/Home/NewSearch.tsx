@@ -47,15 +47,16 @@ export default function NewSearch() {
       setSearchResults(papers.map(paper => ({
         paper_id: paper.arxiv_id || paper.id,
         id: paper.arxiv_id || paper.id,
-        title: paper.title || 'No title',
+        title: paper.title || 'Refer to the docs',
         authors: typeof paper.authors === 'string' 
           ? paper.authors.split(',').map(author => author.trim())
           : paper.authors || [],
         abstract: paper.abstract || '',
         year: paper.year || new Date().getFullYear(),
-        url: paper.link || paper.url || '#',
-        pdfUrl: paper.pdf_link || paper.pdfUrl || '#',
+        url: paper.link || paper.url || '#refer to the docs',
+        pdfUrl: paper.pdf_link?.replace('http://', 'https://') || paper.pdfUrl?.replace('http://', 'https://') || '#',
         matchtype: paper.match_type || paper.matchtype || 'unknown'
+        
       })));
       
     } catch (error) {

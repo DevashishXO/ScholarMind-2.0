@@ -1,3 +1,9 @@
+type Category = {
+  code: string;
+  label: string;
+  is_primary: boolean;
+}
+
 export type Paper = {
   paper_id: string;
   id: string;
@@ -7,13 +13,17 @@ export type Paper = {
   year: number;
   url: string;
   pdfUrl: string;
-  matchtype:string
+  matchtype: string;
+  //new entries
+  
+  category: Category[];
+  published_date: string;
+  doi: string;
   
   // type: string;
   // noOfCitations: number;
   // keywords: string[];
   // access: string;
-  // doi: string;
 };
 
 export interface FormData {
