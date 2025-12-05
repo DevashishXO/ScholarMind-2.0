@@ -314,7 +314,8 @@ def chat_api(arxiv_id: str, user_question: str) -> dict:
             "similarity_range": {
                 "min": min(result["chunk_similarities"]) if result["chunk_similarities"] else 0,
                 "max": max(result["chunk_similarities"]) if result["chunk_similarities"] else 0
-            }
+            },
+            "confidence": result.get("confidence", "medium")
         }
     })
     
@@ -393,4 +394,4 @@ def get_response_from_chat(question: str, pdf_url: str):
     
 #     print("\n" + "="*80)
 #     print("✅ Testing complete. Check data/api_responses/ for JSON outputs.")
-#     print("="*80
+#     print("="*80)

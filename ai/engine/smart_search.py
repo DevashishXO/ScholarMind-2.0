@@ -31,6 +31,70 @@ os.makedirs(RESPONSES_DIR, exist_ok=True)
 # Constants
 RESULTS_PER_PAGE = 20
 MAX_RESULTS = 100
+CATEGORY_MAP = {
+    # Computer Science
+    "cs.AI": "Artificial Intelligence",
+    "cs.AR": "Hardware Architecture",
+    "cs.CC": "Computational Complexity",
+    "cs.CE": "Computational Engineering",
+    "cs.CG": "Computational Geometry",
+    "cs.CL": "Computation and Language",  # NLP
+    "cs.CR": "Cryptography and Security",
+    "cs.CV": "Computer Vision",
+    "cs.CY": "Computers and Society",
+    "cs.DB": "Databases",
+    "cs.DC": "Distributed Computing",
+    "cs.DL": "Digital Libraries",
+    "cs.DM": "Discrete Mathematics",
+    "cs.DS": "Data Structures and Algorithms",
+    "cs.ET": "Emerging Technologies",
+    "cs.FL": "Formal Languages",
+    "cs.GL": "General Literature",
+    "cs.GR": "Graphics",
+    "cs.GT": "Computer Science and Game Theory",
+    "cs.HC": "Human-Computer Interaction",
+    "cs.IR": "Information Retrieval",
+    "cs.IT": "Information Theory",
+    "cs.LG": "Machine Learning",
+    "cs.LO": "Logic in Computer Science",
+    "cs.MA": "Multiagent Systems",
+    "cs.MM": "Multimedia",
+    "cs.MS": "Mathematical Software",
+    "cs.NA": "Numerical Analysis",
+    "cs.NE": "Neural and Evolutionary Computing",
+    "cs.NI": "Networking and Internet",
+    "cs.OH": "Other Computer Science",
+    "cs.OS": "Operating Systems",
+    "cs.PF": "Performance",
+    "cs.PL": "Programming Languages",
+    "cs.RO": "Robotics",
+    "cs.SC": "Symbolic Computation",
+    "cs.SD": "Sound",
+    "cs.SE": "Software Engineering",
+    "cs.SI": "Social and Information Networks",
+    "cs.SY": "Systems and Control",
+    
+    # Math (common in ML papers)
+    "math.OC": "Optimization and Control",
+    "math.ST": "Statistics Theory",
+    "math.PR": "Probability",
+    
+    # Statistics
+    "stat.ML": "Machine Learning (Statistics)",
+    "stat.ME": "Methodology",
+    
+    # Physics (common in quantum ML)
+    "quant-ph": "Quantum Physics",
+    
+    # Economics (common in game theory papers)
+    "econ.EM": "Econometrics",
+    
+    # Electrical Engineering
+    "eess.AS": "Audio and Speech Processing",
+    "eess.IV": "Image and Video Processing",
+    "eess.SP": "Signal Processing",
+    "eess.SY": "Systems and Control"
+}
 
 def save_response(response_data: dict):
     """Save search response to JSON file for debugging."""
@@ -115,7 +179,7 @@ def build_metadata_filters(filters: dict) -> dict:
         }
     
     Returns:
-        ChromaDB where filter: {"$and": [...]}
+        ChromaDB where filter: {"$  ": [...]}
     """
     conditions = []
     
@@ -263,6 +327,37 @@ def get_fallback_results(collection, limit: int = 20) -> list:
     except Exception as e:
         log(f"❌ Fallback query failed: {e}")
         return []
+    
+def format_categories_as_badges(categories_str: str, primary_category: str) -> list:
+    """
+    Convert 'cs.AI, cs.LG, cs.CL' into badge objects.
+    
+    Returns:
+        [
+            {"code": "cs.AI", "label": "Artificial Intelligence", "is_primary": True},
+            {"code": "cs.LG", "label": "Machine Learning", "is_primary": False},
+            ...
+        ]
+    """
+
+    if not categories_str:
+        return []
+    
+    categories = [cat.strip() for cat in categories_str.split(",")]
+    badges = []
+    
+    for cat in categories:
+        badges.append({
+            "code": cat,
+            "label": CATEGORY_MAP.get(cat, cat),  # Fallback to code if not in map
+            "is_primary": (cat == primary_category)
+        })
+    
+    return badges
+
+def get_category_label(category_code: str, category_map: dict) -> str:
+    """Convert category code to human-readable label."""
+    return category_map.get(category_code, category_code)
 
 def smart_search_api(filters: dict) -> dict:
     """
@@ -434,7 +529,8 @@ def smart_search_api(filters: dict) -> dict:
     formatted_results = []
     for paper in paginated_papers:
         metadata = paper["metadata"]
-        
+        primary_cat_code = metadata.get("primary_category", "")
+        primary_cat_label = get_category_label(primary_cat_code, CATEGORY_MAP)
         formatted_results.append({
             "arxiv_id": metadata.get("id", ""),
             "title": metadata.get("title", ""),
@@ -443,7 +539,14 @@ def smart_search_api(filters: dict) -> dict:
             "abstract": paper["document"],
             "pdf_link": metadata.get("pdf_link", ""),
             "link": metadata.get("link", ""),
-            "match_type": determine_match_type(filters, metadata) if not used_fallback else "fallback"
+            "match_type": determine_match_type(filters, metadata) if not used_fallback else "fallback",
+            "categories": format_categories_as_badges(metadata.get("categories", ""), metadata.get("primary_category", "")),
+            "doi": metadata.get("doi", None),
+            "journal_ref": metadata.get("journal_ref", None),
+            "primary_category": primary_cat_label,
+            "comment": metadata.get("comment", None),
+            "published_date": metadata.get("published_date", None),
+            "updated_date": metadata.get("updated_date", None)  
         })
     
     # Step 10: Build response
@@ -496,27 +599,27 @@ def get_resposne_smart_search(filters):
 # if __name__ == "__main__":
 #     print("\n" + "="*80)
 #     print("🧪 SMART SEARCH - Manual Testing")
-#     print("="*80)
+#     print("="*80)   
     
-    # Test Case 1: Keyword search 
-    # print("\n--- TEST 1: Keyword Search ---")
-    # result1 = smart_search_api({
-    #     "keywords": ["language model"], 
-    #     "title": None,
-    #     "authors": [],
-    #     "year": None,
-    #     "arxiv_id": None,
-    #     "page": 1
-    # })
-    # print(f"Status: {result1['status']}")
-    # if result1['status'] == 'success':
-    #     print(f"Results: {len(result1['results'])}")
-    #     print(f"Total: {result1['pagination']['total_results']}")
-    #     if result1['results']:
-    #         print(f"Top result: {result1['results'][0]['title']}")
-    #         print(f"Match type: {result1['results'][0]['match_type']}")
-    #     if result1['metadata'].get('used_fallback'):
-    #         print(f"⚠️ Fallback used: {result1['metadata']['fallback_message']}")
+#     # Test Case 1: Keyword search 
+#     print("\n--- TEST 1: Keyword + Year Search ---")
+#     result1 = smart_search_api({
+#         "keywords": ["convolutional neural networks"], 
+#         "title": None,
+#         "authors": [],
+#         "year": 2025,
+#         "arxiv_id": None,
+#         "page": 1
+#     })
+#     print(f"Status: {result1['status']}")
+#     if result1['status'] == 'success':
+#         print(f"Results: {len(result1['results'])}")
+#         print(f"Total: {result1['pagination']['total_results']}")
+#         if result1['results']:
+#             print(f"Top result: {result1['results'][0]['title']}")
+#             print(f"Match type: {result1['results'][0]['match_type']}")
+#         if result1['metadata'].get('used_fallback'):
+#             print(f"⚠️ Fallback used: {result1['metadata']['fallback_message']}")
     
     # Test Case 2: Title + Author search
     # print("\n--- TEST 2: Title + Author Search ---")
