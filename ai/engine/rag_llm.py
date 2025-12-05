@@ -44,6 +44,11 @@ def rag_answer(user_query, top_k=5):
         "  - Use \\n\\n for paragraph breaks\n"
         "- Cite papers by their number in square brackets, e.g., [1], [2].\n"
         "- Prefer citing papers with higher similarity scores.\n"
+        "\n**ANTI-HALLUCINATION RULES:**\n"
+        "- Do NOT use information from outside the provided papers\n"
+        "- If a paper does NOT address a specific aspect of the question, state: 'None of the provided papers discuss [specific aspect]'\n"
+        "- Do NOT infer or speculate beyond what's explicitly stated in the summaries\n"
+        "- If you're uncertain about any detail, acknowledge it clearly\n"
         "- Do NOT use information from outside the provided papers.\n"
         "- Return a JSON object with exactly two keys:\n"
         "  {\n"
@@ -73,7 +78,7 @@ def rag_answer(user_query, top_k=5):
         {"role": "user", "content": user_prompt},
     ]
 
-    answer = call_groq_llm(messages)
+    answer = call_groq_llm(messages, json_mode= True, temperature = 0.1)
     try:
         answer_json = json.loads(answer)
         retrieval["answer_json"] = answer_json
@@ -87,7 +92,7 @@ if __name__ == "__main__":
     user_query = input("Enter your research question: ").strip()
     result = rag_answer(user_query, top_k=TOP_K)
     print("\n--- LLM Answer ---\n")
-    print(result["answer_json"])
+    print(result["answer"])
 
     output_path = os.path.join(DATA_DIR, "last_rag_response.json")
     with open(output_path, "w", encoding="utf-8") as f:
