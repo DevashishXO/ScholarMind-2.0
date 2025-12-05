@@ -30,7 +30,7 @@ async def send_otp_email(to_email: str, otp: str, name: Optional[str] = None) ->
         resp = await client.post(RESEND_URL, headers=headers, json=payload)
         try:
             resp.raise_for_status()
-        except httpx.HTTPStatusError as exc:
-            logger.error("Resend API error: %s - %s", resp.status_code, resp.text)
-            raise
+        except httpx.HTTPStatusError:
+            logger.error("Resend Error: %s", resp.text)
+            raise RuntimeError(f"Resend error: {resp.text}")
         return resp.json()

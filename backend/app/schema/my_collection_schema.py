@@ -5,6 +5,11 @@ import uuid
 
 def generate_uuid() -> str:
     return str(uuid.uuid4())
+    
+class Category(BaseModel):
+    code:str
+    label: str
+    is_primary: bool    
 
 class Paper(BaseModel):
     paper_id: str = Field(default_factory=generate_uuid)
@@ -14,6 +19,11 @@ class Paper(BaseModel):
     source: Optional[str] = None     # e.g., "arXiv", "Google Scholar", "IEEE"
     url: Optional[str] = None
     abstract: Optional[str] = None   # optional future expansion
+    doi: Optional[str] = None
+    primary_category: Optional[str] = None
+    categories: Optional[List[Category]] = []
+    published_date: Optional[str] = None
+    pdfUrl: Optional[str] = None
 
 class Collection(BaseModel):
     user_id: str
