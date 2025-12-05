@@ -244,7 +244,22 @@ def chat_with_pdf(arxiv_id: str, user_question: str, top_k: int = 12):
         "- Do NOT fabricate technical details, equations, or results\n"
         "- Prefer citing excerpts over paraphrasing summary (excerpts are traceable to pages)\n"
         "- Use Markdown: headings, bullets, bold for key terms\n"
-        "- Be technically precise and comprehensive"
+        "- Be technically precise and comprehensive\n"
+    "\n**ANTI-HALLUCINATION PROTOCOL:**\n"
+        "1. If the excerpts + summary do NOT answer the question:\n"
+        "   - State clearly: 'The provided excerpts do not discuss [specific topic]'\n"
+        "   - Do NOT continue with: 'However, based on my knowledge...'\n"
+        "   - Do NOT speculate or infer\n"
+        "2. If you're highly confident (90%+) the answer is in the excerpts:\n"
+        "   - Provide the answer and cite excerpts [N]\n"
+        "   - Start your answer with: ✅ (green checkmark)\n"
+        "3. If you're moderately confident (50-90%):\n"
+        "   - Provide partial answer with caveats\n"
+        "   - Start your answer with: ⚠️ (warning sign)\n"
+        "   - State: 'Based on the excerpts, it appears that [partial answer], but I cannot confirm without additional context'\n"
+        "4. If you're low confident (<50%):\n"
+        "   - State: 'The excerpts do not provide sufficient information to answer this'\n"
+        "   - Start your answer with: ❌ (red X)\n"
     )
     
     system_prompt = base_prompt + theme_guidance
@@ -264,10 +279,22 @@ def chat_with_pdf(arxiv_id: str, user_question: str, top_k: int = 12):
     try:
         answer = call_groq_llm(messages, json_mode=False, max_tokens=2048, temperature=0.2)
         answer = answer.replace("[Summary]", "").replace("[summary]", "").replace("[Paper Summary]", "")
-        log(f"✅ Generated answer ({len(answer)} chars)")
+        confidence = "medium"  # Default
+        if answer.startswith("✅"):
+            confidence = "high"
+            answer = answer[2:].strip()  # Remove emoji
+        elif answer.startswith("⚠️"):
+            confidence = "medium"
+            answer = answer[2:].strip()
+        elif answer.startswith("❌"):
+            confidence = "low"
+            answer = answer[2:].strip()
+        
+        log(f"✅ Generated answer ({len(answer)} chars, confidence: {confidence})")
     except Exception as e:
         log(f"❌ LLM failed: {e}")
         answer = f"Error: {e}"
+        confidence = "error"
     
     similarities = []
     if distances:
@@ -282,7 +309,8 @@ def chat_with_pdf(arxiv_id: str, user_question: str, top_k: int = 12):
         "chunk_similarities": similarities,
         "chunk_metadata": citation_map,  # NEW: Citation mapping for frontend
         "arxiv_id": arxiv_id,
-        "has_summary": True
+        "has_summary": True,
+        "confidence": confidence
     }
 
 if __name__ == "__main__":
