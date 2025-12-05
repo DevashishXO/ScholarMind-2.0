@@ -88,7 +88,14 @@ def hybrid_search_papers(query: str, top_k: int = 5, similarity_threshold: float
                 "similarity_score": similarity_scores[i],
                 "arxiv_id": metadatas[i].get('id', 'N/A'),
                 "source": metadatas[i].get('source', 'N/A'),
-                "link": metadatas[i].get('link', 'N/A')
+                "link": metadatas[i].get('link', 'N/A'),
+                "doi": metadatas[i].get('doi', 'N/A'),
+                "journal_ref": metadatas[i].get('journal_ref', 'N/A'),
+                "primary_category": metadatas[i].get('primary_category', 'N/A'),
+                "categories": metadatas[i].get('categories', 'N/A'),
+                "comment": metadatas[i].get('comment', 'N/A'),
+                "published_date": metadatas[i].get('published_date', 'N/A'),
+                "updated_date": metadatas[i].get('updated_date', 'N/A')
             }
             for i in range(len(docs))
         ],
