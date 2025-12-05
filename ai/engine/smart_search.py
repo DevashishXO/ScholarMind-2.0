@@ -552,7 +552,6 @@ def smart_search_api(filters: dict) -> dict:
     # Step 10: Build response
     response.update({
         "status": "success",
-        "results": formatted_results,
         "pagination": {
             "current_page": page,
             "total_pages": total_pages,
@@ -566,7 +565,8 @@ def smart_search_api(filters: dict) -> dict:
             },
             "used_fallback": used_fallback,
             "fallback_message": "No exact matches found. Showing recent papers." if used_fallback else None
-        }
+        },
+        "results": formatted_results
     })
     
     save_response(response)
