@@ -1,0 +1,10 @@
+{
+  "operation": "process_paper",
+  "pdf_url": "https://arxiv.org/pdf/1706.03762",
+  "timestamp": "2025-11-27T00:24:41.838969",
+  "arxiv_id": "arxiv:1706.03762",
+  "status": "success",
+  "message": "Successfully processed 66 chunks",
+  "chunks_processed": 66,
+  "summary_preview": "### 1. Title & Core Topic\nThe paper title is \"Attention Is All You Need\" and the main research area is machine translation, specifically the development of a new neural network architecture called the Transformer.\n\n### 2. Research Problem\nThe research problem addressed in this paper is the limitation of traditional sequence-to-sequence models that rely on recurrent neural networks (RNNs) or convolutional neural networks (CNNs), which have inherent sequential computation that limits parallelizati..."
+}

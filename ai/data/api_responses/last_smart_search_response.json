@@ -1,0 +1,558 @@
+{
+  "operation": "smart_search",
+  "timestamp": "2025-12-05T16:54:57.432397",
+  "status": "success",
+  "results": [
+    {
+      "arxiv_id": "arxiv:2510.23278v1",
+      "title": "hYOLO Model: Enhancing Object Classification with Hierarchical Context in YOLOv8",
+      "authors": "Veska Tsenkova, Peter Stanchev, Daniel Petrov, Deyan Lazarov",
+      "year": 2025,
+      "abstract": "Current convolution neural network (CNN) classification methods are\npredominantly focused on flat classification which aims solely to identify a\nspecified object within an image. However, real-world objects often possess a\nnatural hierarchical organization that can significantly help classification\ntasks. Capturing the presence of relations between objects enables better\ncontextual understanding as well as control over the severity of mistakes.\nConsidering these aspects, this paper proposes an end-to-end hierarchical model\nfor image detection and classification built upon the YOLO model family. A\nnovel hierarchical architecture, a modified loss function, and a performance\nmetric tailored to the hierarchical nature of the model are introduced. The\nproposed model is trained and evaluated on two different hierarchical\ncategorizations of the same dataset: a systematic categorization that\ndisregards visual similarities between objects and a categorization accounting\nfor common visual characteristics across classes. The results illustrate how\nthe suggested methodology addresses the inherent hierarchical structure present\nin real-world objects, which conventional flat classification algorithms often\noverlook.",
+      "pdf_link": "https://arxiv.org/pdf/2510.23278v1",
+      "link": "http://arxiv.org/abs/2510.23278v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": "39 pages, 12 figures, 4 tables, code available at https://github.com/ds2run/hyolo",
+      "published_date": "2025-10-27",
+      "updated_date": "2025-10-27"
+    },
+    {
+      "arxiv_id": "arxiv:2511.04344v1",
+      "title": "Comparative Study of CNN Architectures for Binary Classification of Horses and Motorcycles in the VOC 2008 Dataset",
+      "authors": "Muhammad Annas Shaikh, Hamza Zaman, Arbaz Asif",
+      "year": 2025,
+      "abstract": "This paper presents a comprehensive evaluation of nine convolutional neural network architectures for binary classification of horses and motorcycles in the VOC 2008 dataset. We address the significant class imbalance problem by implementing minority-class augmentation techniques. Our experiments compare modern architectures including ResNet-50, ConvNeXt-Tiny, DenseNet-121, and Vision Transformer across multiple performance metrics. Results demonstrate substantial performance variations, with ConvNeXt-Tiny achieving the highest Average Precision (AP) of 95.53% for horse detection and 89.12% for motorcycle detection. We observe that data augmentation significantly improves minority class detection, particularly benefiting deeper architectures. This study provides insights into architecture selection for imbalanced binary classification tasks and quantifies the impact of data augmentation strategies in mitigating class imbalance issues in object detection.",
+      "pdf_link": "https://arxiv.org/pdf/2511.04344v1",
+      "link": "http://arxiv.org/abs/2511.04344v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": null,
+      "published_date": "2025-11-06",
+      "updated_date": "2025-11-06"
+    },
+    {
+      "arxiv_id": "arxiv:2511.10533v1",
+      "title": "Enhancing Photon Identification with Neural Network Methods",
+      "authors": "Yuval Frid, Liron Barak",
+      "year": 2025,
+      "abstract": "We investigate photon--pion discrimination in regimes where electromagnetic showers overlap at the scale of calorimeter granularity. Using full detector simulations with fine-grained calorimeter segmentation of approximately $0.025\\times0.025$ in $(η,φ)$, we benchmark three approaches: boosted decision trees (BDTs) on shower-shape variables, dense neural networks (DNNs) on the same features, and a ResNet-based convolutional neural network operating directly on calorimeter cell energies. The ResNet significantly outperformed both baseline methods, achieving further gains when augmented with soft scoring and an auxiliary $ΔR$ regression head. Our results demonstrate that residual convolutional architectures, combined with physics-informed loss functions, can substantially improve photon identification in high-luminosity collider environments in which overlapping electromagnetic showers challenge traditional methods.",
+      "pdf_link": "https://arxiv.org/pdf/2511.10533v1",
+      "link": "http://arxiv.org/abs/2511.10533v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "hep-ex",
+          "label": "hep-ex",
+          "is_primary": true
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "hep-ex",
+      "comment": null,
+      "published_date": "2025-11-13",
+      "updated_date": "2025-11-13"
+    },
+    {
+      "arxiv_id": "arxiv:2503.01085v1",
+      "title": "Identity documents recognition and detection using semantic segmentation with convolutional neural network",
+      "authors": "Mykola Kozlenko, Volodymyr Sendetskyi, Oleksiy Simkiv, Nazar Savchenko, Andy Bosyi",
+      "year": 2025,
+      "abstract": "Object recognition and detection are well-studied problems with a developed\nset of almost standard solutions. Identity documents recognition,\nclassification, detection, and localization are the tasks required in a number\nof applications, particularly, in physical access control security systems at\ncritical infrastructure premises. In this paper, we propose the new original\narchitecture of a model based on an artificial convolutional neural network and\nsemantic segmentation approach for the recognition and detection of identity\ndocuments in images. The challenge with the processing of such images is the\nlimited computational performance and the limited amount of memory when such an\napplication is running on industrial oneboard microcomputer hardware. The aim\nof this research is to prove the feasibility of the proposed technique and to\nobtain quality metrics. The methodology of the research is to evaluate the deep\nlearning detection model trained on the mobile identity document video dataset.\nThe dataset contains five hundred video clips for fifty different identity\ndocument types. The numerical results from simulations are used to evaluate the\nquality metrics. We present the results as accuracy versus threshold of the\nintersection over union value. The paper reports an accuracy above 0.75 for the\nintersection over union (IoU) threshold value of 0.8. Besides, we assessed the\nsize of the model and proved the feasibility of running the model on an\nindustrial one-board microcomputer or smartphone hardware.",
+      "pdf_link": "https://arxiv.org/pdf/2503.01085v1",
+      "link": "http://arxiv.org/abs/2503.01085v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        },
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": "2021 Workshop on Cybersecurity Providing in Information and Telecommunication Systems, in CEUR Workshop Proceedings, vol. 2923, Kyiv, Ukraine, Jan. 28, 2021, pp. 234-242",
+      "primary_category": "Computer Vision",
+      "comment": "9 pages, 8 figures. This paper was originally published in 2021 Workshop on Cybersecurity Providing in Information and Telecommunication Systems, in CEUR Workshop Proceedings, vol. 2923, available: https://ceur-ws.org/Vol-2923/paper25.pdf",
+      "published_date": "2025-03-03",
+      "updated_date": "2025-03-03"
+    },
+    {
+      "arxiv_id": "arxiv:2511.14087v1",
+      "title": "GCA-ResUNet:Image segmentation in medical images using grouped coordinate attention",
+      "authors": "Jun Ding, Shang Gao",
+      "year": 2025,
+      "abstract": "Medical image segmentation underpins computer-aided diagnosis and therapy by supporting clinical diagnosis, preoperative planning, and disease monitoring. While U-Net style convolutional neural networks perform well due to their encoder-decoder structures with skip connections, they struggle to capture long-range dependencies. Transformer-based variants address global context but often require heavy computation and large training datasets. This paper proposes GCA-ResUNet, an efficient segmentation network that integrates Grouped Coordinate Attention (GCA) into ResNet-50 residual blocks. GCA uses grouped coordinate modeling to jointly encode global dependencies across channels and spatial locations, strengthening feature representation and boundary delineation while adding minimal parameter and FLOP overhead compared with self-attention. On the Synapse dataset, GCA-ResUNet achieves a Dice score of 86.11%, and on the ACDC dataset, it reaches 92.64%, surpassing several state-of-the-art baselines while maintaining fast inference and favorable computational efficiency. These results indicate that GCA offers a practical way to enhance convolutional architectures with global modeling capability, enabling high-accuracy and resource-efficient medical image segmentation.",
+      "pdf_link": "https://arxiv.org/pdf/2511.14087v1",
+      "link": "http://arxiv.org/abs/2511.14087v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        },
+        {
+          "code": "cs.AI",
+          "label": "Artificial Intelligence",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": null,
+      "published_date": "2025-11-18",
+      "updated_date": "2025-11-18"
+    },
+    {
+      "arxiv_id": "arxiv:2509.05821v1",
+      "title": "Brain Tumor Detection Through Diverse CNN Architectures in IoT Healthcare Industries: Fast R-CNN, U-Net, Transfer Learning-Based CNN, and Fully Connected CNN",
+      "authors": "Mohsen Asghari Ilani, Yaser M. Banad",
+      "year": 2025,
+      "abstract": "Artificial intelligence (AI)-powered deep learning has advanced brain tumor\ndiagnosis in Internet of Things (IoT)-healthcare systems, achieving high\naccuracy with large datasets. Brain health is critical to human life, and\naccurate diagnosis is essential for effective treatment. Magnetic Resonance\nImaging (MRI) provides key data for brain tumor detection, serving as a major\nsource of big data for AI-driven image classification. In this study, we\nclassified glioma, meningioma, and pituitary tumors from MRI images using\nRegion-based Convolutional Neural Network (R-CNN) and UNet architectures. We\nalso applied Convolutional Neural Networks (CNN) and CNN-based transfer\nlearning models such as Inception-V3, EfficientNetB4, and VGG19. Model\nperformance was assessed using F-score, recall, precision, and accuracy. The\nFast R-CNN achieved the best results with 99% accuracy, 98.5% F-score, 99.5%\nArea Under the Curve (AUC), 99.4% recall, and 98.5% precision. Combining R-CNN,\nUNet, and transfer learning enables earlier diagnosis and more effective\ntreatment in IoT-healthcare systems, improving patient outcomes. IoT devices\nsuch as wearable monitors and smart imaging systems continuously collect\nreal-time data, which AI algorithms analyze to provide immediate insights for\ntimely interventions and personalized care. For external cohort cross-dataset\nvalidation, EfficientNetB2 achieved the strongest performance among fine-tuned\nEfficientNet models, with 92.11% precision, 92.11% recall/sensitivity, 95.96%\nspecificity, 92.02% F1-score, and 92.23% accuracy. These findings underscore\nthe robustness and reliability of AI models in handling diverse datasets,\nreinforcing their potential to enhance brain tumor classification and patient\ncare in IoT healthcare environments.",
+      "pdf_link": "https://arxiv.org/pdf/2509.05821v1",
+      "link": "http://arxiv.org/abs/2509.05821v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "eess.IV",
+          "label": "Image and Video Processing",
+          "is_primary": true
+        },
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Image and Video Processing",
+      "comment": null,
+      "published_date": "2025-09-06",
+      "updated_date": "2025-09-06"
+    },
+    {
+      "arxiv_id": "arxiv:2504.16128v1",
+      "title": "Hybrid Knowledge Transfer through Attention and Logit Distillation for On-Device Vision Systems in Agricultural IoT",
+      "authors": "Stanley Mugisha, Rashid Kisitu, Florence Tushabe",
+      "year": 2025,
+      "abstract": "Integrating deep learning applications into agricultural IoT systems faces a\nserious challenge of balancing the high accuracy of Vision Transformers (ViTs)\nwith the efficiency demands of resource-constrained edge devices. Large\ntransformer models like the Swin Transformers excel in plant disease\nclassification by capturing global-local dependencies. However, their\ncomputational complexity (34.1 GFLOPs) limits applications and renders them\nimpractical for real-time on-device inference. Lightweight models such as\nMobileNetV3 and TinyML would be suitable for on-device inference but lack the\nrequired spatial reasoning for fine-grained disease detection. To bridge this\ngap, we propose a hybrid knowledge distillation framework that synergistically\ntransfers logit and attention knowledge from a Swin Transformer teacher to a\nMobileNetV3 student model. Our method includes the introduction of adaptive\nattention alignment to resolve cross-architecture mismatch (resolution,\nchannels) and a dual-loss function optimizing both class probabilities and\nspatial focus. On the lantVillage-Tomato dataset (18,160 images), the distilled\nMobileNetV3 attains 92.4% accuracy relative to 95.9% for Swin-L but at an 95%\nreduction on PC and < 82% in inference latency on IoT devices. (23ms on PC CPU\nand 86ms/image on smartphone CPUs). Key innovations include IoT-centric\nvalidation metrics (13 MB memory, 0.22 GFLOPs) and dynamic resolution-matching\nattention maps. Comparative experiments show significant improvements over\nstandalone CNNs and prior distillation methods, with a 3.5% accuracy gain over\nMobileNetV3 baselines. Significantly, this work advances real-time,\nenergy-efficient crop monitoring in precision agriculture and demonstrates how\nwe can attain ViT-level diagnostic precision on edge devices. Code and models\nwill be made available for replication after acceptance.",
+      "pdf_link": "https://arxiv.org/pdf/2504.16128v1",
+      "link": "http://arxiv.org/abs/2504.16128v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        },
+        {
+          "code": "cs.AI",
+          "label": "Artificial Intelligence",
+          "is_primary": false
+        },
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": "12 pages and 4 figures",
+      "published_date": "2025-04-21",
+      "updated_date": "2025-04-21"
+    },
+    {
+      "arxiv_id": "arxiv:2506.12335v1",
+      "title": "GroupNL: Low-Resource and Robust CNN Design over Cloud and Device",
+      "authors": "Chuntao Ding, Jianhang Xie, Junna Zhang, Salman Raza, Shangguang Wang, Jiannong Cao",
+      "year": 2025,
+      "abstract": "It has become mainstream to deploy Convolutional Neural Network (CNN) models\non ubiquitous Internet of Things (IoT) devices with the help of the cloud to\nprovide users with a variety of high-quality services. Most existing methods\nhave two limitations: (i) low robustness in handling corrupted image data\ncollected by IoT devices; and (ii) high consumption of computational and\ntransmission resources. To this end, we propose the Grouped NonLinear\ntransformation generation method (GroupNL), which generates diversified feature\nmaps by utilizing data-agnostic Nonlinear Transformation Functions (NLFs) to\nimprove the robustness of the CNN model. Specifically, partial convolution\nfilters are designated as seed filters in a convolutional layer, and a small\nset of feature maps, i.e., seed feature maps, are first generated based on\nvanilla convolution operation. Then, we split seed feature maps into several\ngroups, each with a set of different NLFs, to generate corresponding diverse\nfeature maps with in-place nonlinear processing. Moreover, GroupNL effectively\nreduces the parameter transmission between multiple nodes during model training\nby setting the hyperparameters of NLFs to random initialization and not\nupdating them during model training, and reduces the computing resources by\nusing NLFs to generate feature maps instead of most feature maps generated\nbased on sliding windows. Experimental results on CIFAR-10, GTSRB, CIFAR-10-C,\nIcons50, and ImageNet-1K datasets in NVIDIA RTX GPU platforms show that the\nproposed GroupNL outperforms other state-of-the-art methods in model robust and\ntraining acceleration. Specifically, on the Icons-50 dataset, the accuracy of\nGroupNL-ResNet-18 achieves approximately 2.86% higher than the vanilla\nResNet-18. GroupNL improves training speed by about 53% compared to vanilla CNN\nwhen trained on a cluster of 8 NVIDIA RTX 4090 GPUs on the ImageNet-1K dataset.",
+      "pdf_link": "https://arxiv.org/pdf/2506.12335v1",
+      "link": "http://arxiv.org/abs/2506.12335v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        },
+        {
+          "code": "cs.AI",
+          "label": "Artificial Intelligence",
+          "is_primary": false
+        },
+        {
+          "code": "cs.DC",
+          "label": "Distributed Computing",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": "13 pages, 10 figures",
+      "published_date": "2025-06-14",
+      "updated_date": "2025-06-14"
+    },
+    {
+      "arxiv_id": "arxiv:2510.22984v1",
+      "title": "Equivariant Neural Networks for General Linear Symmetries on Lie Algebras",
+      "authors": "Chankyo Kim, Sicheng Zhao, Minghan Zhu, Tzu-Yuan Lin, Maani Ghaffari",
+      "year": 2025,
+      "abstract": "Encoding symmetries is a powerful inductive bias for improving the\ngeneralization of deep neural networks. However, most existing equivariant\nmodels are limited to simple symmetries like rotations, failing to address the\nbroader class of general linear transformations, GL(n), that appear in many\nscientific domains. We introduce Reductive Lie Neurons (ReLNs), a novel neural\nnetwork architecture exactly equivariant to these general linear symmetries.\nReLNs are designed to operate directly on a wide range of structured inputs,\nincluding general n-by-n matrices. ReLNs introduce a novel adjoint-invariant\nbilinear layer to achieve stable equivariance for both Lie-algebraic features\nand matrix-valued inputs, without requiring redesign for each subgroup. This\narchitecture overcomes the limitations of prior equivariant networks that only\napply to compact groups or simple vector data. We validate ReLNs' versatility\nacross a spectrum of tasks: they outperform existing methods on algebraic\nbenchmarks with sl(3) and sp(4) symmetries and achieve competitive results on a\nLorentz-equivariant particle physics task. In 3D drone state estimation with\ngeometric uncertainty, ReLNs jointly process velocities and covariances,\nyielding significant improvements in trajectory accuracy. ReLNs provide a\npractical and general framework for learning with broad linear group symmetries\non Lie algebras and matrix-valued data. Project page:\nhttps://reductive-lie-neuron.github.io/",
+      "pdf_link": "https://arxiv.org/pdf/2510.22984v1",
+      "link": "http://arxiv.org/abs/2510.22984v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": true
+        },
+        {
+          "code": "cs.NE",
+          "label": "Neural and Evolutionary Computing",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Machine Learning",
+      "comment": "23 pages, 5 figures",
+      "published_date": "2025-10-27",
+      "updated_date": "2025-10-27"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23079v1",
+      "title": "Strategies for Robust Deep Learning Based Deformable Registration",
+      "authors": "Joel Honkamaa, Pekka Marttinen",
+      "year": 2025,
+      "abstract": "Deep learning based deformable registration methods have become popular in\nrecent years. However, their ability to generalize beyond training data\ndistribution can be poor, significantly hindering their usability. LUMIR brain\nregistration challenge for Learn2Reg 2025 aims to advance the field by\nevaluating the performance of the registration on contrasts and modalities\ndifferent from those included in the training set. Here we describe our\nsubmission to the challenge, which proposes a very simple idea for\nsignificantly improving robustness by transforming the images into MIND feature\nspace before feeding them into the model. In addition, a special ensembling\nstrategy is proposed that shows a small but consistent improvement.",
+      "pdf_link": "https://arxiv.org/pdf/2510.23079v1",
+      "link": "http://arxiv.org/abs/2510.23079v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": null,
+      "published_date": "2025-10-27",
+      "updated_date": "2025-10-27"
+    },
+    {
+      "arxiv_id": "arxiv:2509.25611v1",
+      "title": "Transformers through the lens of support-preserving maps between measures",
+      "authors": "Takashi Furuya, Maarten V. de Hoop, Matti Lassas",
+      "year": 2025,
+      "abstract": "Transformers are deep architectures that define ``in-context maps'' which\nenable predicting new tokens based on a given set of tokens (such as a prompt\nin NLP applications or a set of patches for a vision transformer). In previous\nwork, we studied the ability of these architectures to handle an arbitrarily\nlarge number of context tokens. To mathematically, uniformly analyze their\nexpressivity, we considered the case that the mappings are conditioned on a\ncontext represented by a probability distribution which becomes discrete for a\nfinite number of tokens. Modeling neural networks as maps on probability\nmeasures has multiple applications, such as studying Wasserstein regularity,\nproving generalization bounds and doing a mean-field limit analysis of the\ndynamics of interacting particles as they go through the network. In this work,\nwe study the question what kind of maps between measures are transformers. We\nfully characterize the properties of maps between measures that enable these to\nbe represented in terms of in-context maps via a push forward. On the one hand,\nthese include transformers; on the other hand, transformers universally\napproximate representations with any continuous in-context map. These\nproperties are preserving the cardinality of support and that the regular part\nof their Fr\\'{e}chet derivative is uniformly continuous. Moreover, we show that\nthe solution map of the Vlasov equation, which is of nonlocal transport type,\nfor interacting particle systems in the mean-field regime for the Cauchy\nproblem satisfies the conditions on the one hand and, hence, can be\napproximated by a transformer; on the other hand, we prove that the\nmeasure-theoretic self-attention has the properties that ensure that the\ninfinite depth, mean-field measure-theoretic transformer can be identified with\na Vlasov flow.",
+      "pdf_link": "https://arxiv.org/pdf/2509.25611v1",
+      "link": "http://arxiv.org/abs/2509.25611v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CL",
+          "label": "Computation and Language",
+          "is_primary": true
+        },
+        {
+          "code": "stat.ML",
+          "label": "Machine Learning (Statistics)",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computation and Language",
+      "comment": null,
+      "published_date": "2025-09-30",
+      "updated_date": "2025-09-30"
+    },
+    {
+      "arxiv_id": "arxiv:2510.22743v1",
+      "title": "ConMatFormer: A Multi-attention and Transformer Integrated ConvNext based Deep Learning Model for Enhanced Diabetic Foot Ulcer Classification",
+      "authors": "Raihan Ahamed Rifat, Fuyad Hasan Bhoyan, Md Humaion Kabir Mehedi, Md Kaviul Hossain, Md. Jakir Hossen, M. F. Mridha",
+      "year": 2025,
+      "abstract": "Diabetic foot ulcer (DFU) detection is a clinically significant yet\nchallenging task due to the scarcity and variability of publicly available\ndatasets. To solve these problems, we propose ConMatFormer, a new hybrid deep\nlearning architecture that combines ConvNeXt blocks, multiple attention\nmechanisms convolutional block attention module (CBAM) and dual attention\nnetwork (DANet), and transformer modules in a way that works together. This\ndesign facilitates the extraction of better local features and understanding of\nthe global context, which allows us to model small skin patterns across\ndifferent types of DFU very accurately. To address the class imbalance, we used\ndata augmentation methods. A ConvNeXt block was used to obtain detailed local\nfeatures in the initial stages. Subsequently, we compiled the model by adding a\ntransformer module to enhance long-range dependency. This enabled us to\npinpoint the DFU classes that were underrepresented or constituted minorities.\nTests on the DS1 (DFUC2021) and DS2 (diabetic foot ulcer (DFU)) datasets showed\nthat ConMatFormer outperformed state-of-the-art (SOTA) convolutional neural\nnetwork (CNN) and Vision Transformer (ViT) models in terms of accuracy,\nreliability, and flexibility. The proposed method achieved an accuracy of\n0.8961 and a precision of 0.9160 in a single experiment, which is a significant\nimprovement over the current standards for classifying DFUs. In addition, by\n4-fold cross-validation, the proposed model achieved an accuracy of 0.9755 with\na standard deviation of only 0.0031. We further applied explainable artificial\nintelligence (XAI) methods, such as Grad-CAM, Grad-CAM++, and LIME, to\nconsistently monitor the transparency and trustworthiness of the\ndecision-making process.. Our findings set a new benchmark for DFU\nclassification and provide a hybrid attention transformer framework for medical\nimage analysis.",
+      "pdf_link": "https://arxiv.org/pdf/2510.22743v1",
+      "link": "http://arxiv.org/abs/2510.22743v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": null,
+      "published_date": "2025-10-26",
+      "updated_date": "2025-10-26"
+    },
+    {
+      "arxiv_id": "arxiv:2502.07189v1",
+      "title": "Exploring Neural Network Pruning with Screening Methods",
+      "authors": "Mingyuan Wang, Yangzi Guo, Sida Liu, Yanwen Xiao",
+      "year": 2025,
+      "abstract": "Deep neural networks (DNNs) such as convolutional neural networks (CNNs) for\nvisual tasks, recurrent neural networks (RNNs) for sequence data, and\ntransformer models for rich linguistic or multimodal tasks, achieved\nunprecedented performance on a wide range of tasks. The impressive performance\nof modern DNNs is partially attributed to their sheer scale. The latest deep\nlearning models have tens to hundreds of millions of parameters which makes the\ninference processes resource-intensive. The high computational complexity of\nthese networks prevents their deployment on resource-limited devices such as\nmobile platforms, IoT devices, and edge computing systems because these devices\nrequire energy-efficient and real-time processing capabilities. This paper\nproposes and evaluates a network pruning framework that eliminates\nnon-essential parameters based on a statistical analysis of network component\nsignificance across classification categories. The proposed method uses\nscreening methods coupled with a weighted scheme to assess connection and\nchannel contributions for unstructured and structured pruning which allows for\nthe elimination of unnecessary network elements without significantly degrading\nmodel performance. Extensive experimental validation on real-world vision\ndatasets for both fully connected neural networks (FNNs) and CNNs has shown\nthat the proposed framework produces competitive lean networks compared to the\noriginal networks. Moreover, the proposed framework outperforms state-of-art\nnetwork pruning methods in two out of three cases.",
+      "pdf_link": "https://arxiv.org/pdf/2502.07189v1",
+      "link": "http://arxiv.org/abs/2502.07189v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": true
+        },
+        {
+          "code": "stat.ML",
+          "label": "Machine Learning (Statistics)",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Machine Learning",
+      "comment": "This work has been submitted to the IEEE for possible publication",
+      "published_date": "2025-02-11",
+      "updated_date": "2025-02-11"
+    },
+    {
+      "arxiv_id": "arxiv:2502.20979v1",
+      "title": "Real-Time Aerial Fire Detection on Resource-Constrained Devices Using Knowledge Distillation",
+      "authors": "Sabina Jangirova, Branislava Jankovic, Waseem Ullah, Latif U. Khan, Mohsen Guizani",
+      "year": 2025,
+      "abstract": "Wildfire catastrophes cause significant environmental degradation, human\nlosses, and financial damage. To mitigate these severe impacts, early fire\ndetection and warning systems are crucial. Current systems rely primarily on\nfixed CCTV cameras with a limited field of view, restricting their\neffectiveness in large outdoor environments. The fusion of intelligent fire\ndetection with remote sensing improves coverage and mobility, enabling\nmonitoring in remote and challenging areas. Existing approaches predominantly\nutilize convolutional neural networks and vision transformer models. While\nthese architectures provide high accuracy in fire detection, their\ncomputational complexity limits real-time performance on edge devices such as\nUAVs. In our work, we present a lightweight fire detection model based on\nMobileViT-S, compressed through the distillation of knowledge from a stronger\nteacher model. The ablation study highlights the impact of a teacher model and\nthe chosen distillation technique on the model's performance improvement. We\ngenerate activation map visualizations using Grad-CAM to confirm the model's\nability to focus on relevant fire regions. The high accuracy and efficiency of\nthe proposed model make it well-suited for deployment on satellites, UAVs, and\nIoT devices for effective fire detection. Experiments on common fire benchmarks\ndemonstrate that our model suppresses the state-of-the-art model by 0.44%,\n2.00% while maintaining a compact model size. Our model delivers the highest\nprocessing speed among existing works, achieving real-time performance on\nresource-constrained devices.",
+      "pdf_link": "https://arxiv.org/pdf/2502.20979v1",
+      "link": "http://arxiv.org/abs/2502.20979v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": null,
+      "published_date": "2025-02-28",
+      "updated_date": "2025-02-28"
+    },
+    {
+      "arxiv_id": "arxiv:2511.11221v1",
+      "title": "Sparse Methods for Vector Embeddings of TPC Data",
+      "authors": "Tyler Wheeler, Michelle P. Kuchera, Raghuram Ramanujan, Ryan Krupp, Chris Wrede, Saiprasad Ravishankar, Connor L. Cross, Hoi Yan Ian Heung, Andrew J. Jones, Benjamin Votaw",
+      "year": 2025,
+      "abstract": "Time Projection Chambers (TPCs) are versatile detectors that reconstruct charged-particle tracks in an ionizing medium, enabling sensitive measurements across a wide range of nuclear physics experiments. We explore sparse convolutional networks for representation learning on TPC data, finding that a sparse ResNet architecture, even with randomly set weights, provides useful structured vector embeddings of events. Pre-training this architecture on a simple physics-motivated binary classification task further improves the embedding quality. Using data from the GAseous Detector with GErmanium Tagging (GADGET) II TPC, a detector optimized for measuring low-energy $β$-delayed particle decays, we represent raw pad-level signals as sparse tensors, train Minkowski Engine ResNet models, and probe the resulting event-level embeddings which reveal rich event structure. As a cross-detector test, we embed data from the Active-Target TPC (AT-TPC) -- a detector designed for nuclear reaction studies in inverse kinematics -- using the same encoder. We find that even an untrained sparse ResNet model provides useful embeddings of AT-TPC data, and we observe improvements when the model is trained on GADGET data. Together, these results highlight the potential of sparse convolutional techniques as a general tool for representation learning in diverse TPC experiments.",
+      "pdf_link": "https://arxiv.org/pdf/2511.11221v1",
+      "link": "http://arxiv.org/abs/2511.11221v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": true
+        },
+        {
+          "code": "nucl-ex",
+          "label": "nucl-ex",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Machine Learning",
+      "comment": "NeurIPS Machine Learning and the Physical Sciences Workshop 2025",
+      "published_date": "2025-11-14",
+      "updated_date": "2025-11-14"
+    },
+    {
+      "arxiv_id": "arxiv:2510.17890v2",
+      "title": "MIN-Merging: Merge the Important Neurons for Model Merging",
+      "authors": "Yunfei Liang",
+      "year": 2025,
+      "abstract": "Recent advances in deep learning have led to a surge of open-source models\nacross diverse domains. While model merging offers a promising way to combine\ntheir strengths, existing approaches often suffer from parameter conflicts that\ndegrade performance on domain-specific tasks. We propose MIN-Merging, a\nrouter-based framework that selectively merges the most important neurons to\nreduce such conflicts. Extensive experiments on Computer Vision(CV) and Natural\nLanguage Processing(NLP) benchmarks show that MIN-Merging achieves consistent\ngains on in-domain tasks while retaining the generalization ability of\npretrained models on out-of-domain tasks. These results highlight its\neffectiveness as a practical solution to the parameter conflict problem in\nmodel merging.",
+      "pdf_link": "https://arxiv.org/pdf/2510.17890v2",
+      "link": "http://arxiv.org/abs/2510.17890v2",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": true
+        },
+        {
+          "code": "cs.AI",
+          "label": "Artificial Intelligence",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Machine Learning",
+      "comment": "Withdrawn due to an error in Section 3; a corrected version will be posted soon",
+      "published_date": "2025-10-18",
+      "updated_date": "2025-10-26"
+    },
+    {
+      "arxiv_id": "arxiv:2510.23288v1",
+      "title": "Learning from Frustration: Torsor CNNs on Graphs",
+      "authors": "Daiyuan Li, Shreya Arya, Robert Ghrist",
+      "year": 2025,
+      "abstract": "Most equivariant neural networks rely on a single global symmetry, limiting\ntheir use in domains where symmetries are instead local. We introduce Torsor\nCNNs, a framework for learning on graphs with local symmetries encoded as edge\npotentials-- group-valued transformations between neighboring coordinate\nframes. We establish that this geometric construction is fundamentally\nequivalent to the classical group synchronization problem, yielding: (1) a\nTorsor Convolutional Layer that is provably equivariant to local changes in\ncoordinate frames, and (2) the frustration loss--a standalone geometric\nregularizer that encourages locally equivariant representations when added to\nany NN's training objective. The Torsor CNN framework unifies and generalizes\nseveral architectures--including classical CNNs and Gauge CNNs on manifolds--\nby operating on arbitrary graphs without requiring a global coordinate system\nor smooth manifold structure. We establish the mathematical foundations of this\nframework and demonstrate its applicability to multi-view 3D recognition, where\nrelative camera poses naturally define the required edge potentials.",
+      "pdf_link": "https://arxiv.org/pdf/2510.23288v1",
+      "link": "http://arxiv.org/abs/2510.23288v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": true
+        },
+        {
+          "code": "math.AT",
+          "label": "math.AT",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Machine Learning",
+      "comment": "19 pages (main text + appendices), 1 figure",
+      "published_date": "2025-10-27",
+      "updated_date": "2025-10-27"
+    },
+    {
+      "arxiv_id": "arxiv:2511.15188v2",
+      "title": "BrainRotViT: Transformer-ResNet Hybrid for Explainable Modeling of Brain Aging from 3D sMRI",
+      "authors": "Wasif Jalal, Md Nafiu Rahman, Atif Hasan Rahman, M. Sohel Rahman",
+      "year": 2025,
+      "abstract": "Accurate brain age estimation from structural MRI is a valuable biomarker for studying aging and neurodegeneration. Traditional regression and CNN-based methods face limitations such as manual feature engineering, limited receptive fields, and overfitting on heterogeneous data. Pure transformer models, while effective, require large datasets and high computational cost. We propose Brain ResNet over trained Vision Transformer (BrainRotViT), a hybrid architecture that combines the global context modeling of vision transformers (ViT) with the local refinement of residual CNNs. A ViT encoder is first trained on an auxiliary age and sex classification task to learn slice-level features. The frozen encoder is then applied to all sagittal slices to generate a 2D matrix of embedding vectors, which is fed into a residual CNN regressor that incorporates subject sex at the final fully-connected layer to estimate continuous brain age. Our method achieves an MAE of 3.34 years (Pearson $r=0.98$, Spearman $ρ=0.97$, $R^2=0.95$) on validation across 11 MRI datasets encompassing more than 130 acquisition sites, outperforming baseline and state-of-the-art models. It also generalizes well across 4 independent cohorts with MAEs between 3.77 and 5.04 years. Analyses on the brain age gap (the difference between the predicted age and actual age) show that aging patterns are associated with Alzheimer's disease, cognitive impairment, and autism spectrum disorder. Model attention maps highlight aging-associated regions of the brain, notably the cerebellar vermis, precentral and postcentral gyri, temporal lobes, and medial superior frontal gyrus. Our results demonstrate that this method provides an efficient, interpretable, and generalizable framework for brain-age prediction, bridging the gap between CNN- and transformer-based approaches while opening new avenues for aging and neurodegeneration research.",
+      "pdf_link": "https://arxiv.org/pdf/2511.15188v2",
+      "link": "http://arxiv.org/abs/2511.15188v2",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        },
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": null,
+      "published_date": "2025-11-19",
+      "updated_date": "2025-11-20"
+    },
+    {
+      "arxiv_id": "arxiv:2511.08465v1",
+      "title": "Generalizable Blood Cell Detection via Unified Dataset and Faster R-CNN",
+      "authors": "Siddharth Sahay",
+      "year": 2025,
+      "abstract": "This paper presents a comprehensive methodology and comparative performance analysis for the automated classification and object detection of peripheral blood cells (PBCs) in microscopic images. Addressing the critical challenge of data scarcity and heterogeneity, robust data pipeline was first developed to standardize and merge four public datasets (PBC, BCCD, Chula, Sickle Cell) into a unified resource. Then employed a state-of-the-art Faster R-CNN object detection framework, leveraging a ResNet-50-FPN backbone. Comparative training rigorously evaluated a randomly initialized baseline model (Regimen 1) against a Transfer Learning Regimen (Regimen 2), initialized with weights pre-trained on the Microsoft COCO dataset. The results demonstrate that the Transfer Learning approach achieved significantly faster convergence and superior stability, culminating in a final validation loss of 0.08666, a substantial improvement over the baseline. This validated methodology establishes a robust foundation for building high-accuracy, deployable systems for automated hematological diagnosis.",
+      "pdf_link": "https://arxiv.org/pdf/2511.08465v1",
+      "link": "http://arxiv.org/abs/2511.08465v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.CV",
+          "label": "Computer Vision",
+          "is_primary": true
+        },
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": false
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Computer Vision",
+      "comment": "7 pages, 7 tables, 3 figures, 2 algorithms, Submitted for review at Next-Gen Quantum and Advanced Computing: Algorithms, Security, and Beyond (NQComp-2026)",
+      "published_date": "2025-11-11",
+      "updated_date": "2025-11-11"
+    },
+    {
+      "arxiv_id": "arxiv:2502.10460v1",
+      "title": "SenDaL: An Effective and Efficient Calibration Framework of Low-Cost Sensors for Daily Life",
+      "authors": "Seokho Ahn, Hyungjin Kim, Euijong Lee, Young-Duk Seo",
+      "year": 2025,
+      "abstract": "The collection of accurate and noise-free data is a crucial part of Internet\nof Things (IoT)-controlled environments. However, the data collected from\nvarious sensors in daily life often suffer from inaccuracies. Additionally,\nIoT-controlled devices with low-cost sensors lack sufficient hardware resources\nto employ conventional deep-learning models. To overcome this limitation, we\npropose sensors for daily life (SenDaL), the first framework that utilizes\nneural networks for calibrating low cost sensors. SenDaL introduces novel\ntraining and inference processes that enable it to achieve accuracy comparable\nto deep learning models while simultaneously preserving latency and energy\nconsumption similar to linear models. SenDaL is first trained in a bottom-up\nmanner, making decisions based on calibration results from both linear and deep\nlearning models. Once both models are trained, SenDaL makes independent\ndecisions through a top-down inference process, ensuring accuracy and inference\nspeed. Furthermore, SenDaL can select the optimal deep learning model according\nto the resources of the IoT devices because it is compatible with various deep\nlearning models, such as long short-term memory-based and Transformer-based\nmodels. We have verified that SenDaL outperforms existing deep learning models\nin terms of accuracy, latency, and energy efficiency through experiments\nconducted in different IoT environments and real-life scenarios.",
+      "pdf_link": "https://arxiv.org/pdf/2502.10460v1",
+      "link": "http://arxiv.org/abs/2502.10460v1",
+      "match_type": "exact",
+      "categories": [
+        {
+          "code": "cs.LG",
+          "label": "Machine Learning",
+          "is_primary": true
+        }
+      ],
+      "doi": null,
+      "journal_ref": null,
+      "primary_category": "Machine Learning",
+      "comment": "Accepted by IEEE IoTJ",
+      "published_date": "2025-02-12",
+      "updated_date": "2025-02-12"
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 5,
+    "total_results": 100,
+    "per_page": 20
+  },
+  "metadata": {
+    "filters_applied": {
+      "keywords": [
+        "convolutional neural networks"
+      ],
+      "year": 2025
+    },
+    "used_fallback": false,
+    "fallback_message": null
+  }
+}
