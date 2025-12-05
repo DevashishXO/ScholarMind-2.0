@@ -210,6 +210,15 @@ def smart_report_api(pdf_url: str) -> dict:  # ← CHANGE: Only pdf_url input
     return response
 
 
+def get_generate_report(pdf_url:str):
+    if not pdf_url:
+        raise ValueError("PDF URL required")
+    
+    # Generate synthesis
+    result = smart_report_api(pdf_url)     
+    return result
+
+
 # ============================================================================
 # Manual Testing Interface
 # ============================================================================
