@@ -16,9 +16,10 @@ export type Paper = {
   matchtype: string;
   //new entries
   
-  category: Category[];
+  categories: Category[];
   published_date: string;
   doi: string;
+  primary_category: string;
   
   // type: string;
   // noOfCitations: number;

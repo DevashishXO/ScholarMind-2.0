@@ -77,9 +77,11 @@ export default function PaperCard({
             year: paper.year,
             // keywords: paper.keywords,
             // access: paper.access,
-            // doi: paper.doi,
+            doi: paper.doi,
             url: paper.url,
             pdfUrl: paper.pdfUrl,
+            primary_category: paper.primary_category,
+            categories: paper.categories
           }),
         }
       );
@@ -202,8 +204,8 @@ export default function PaperCard({
         {!isSynthesizeOpen && (
           <div className="flex items-center justify-between">
             <div className="text-xs text-neutral-500">
-              <span>📅 {paper.year}</span> •{" "}
-              <span>📚 Citations {paper.noOfCitations || 'Refer to the docs'}</span>
+              <span>📅 {paper.year}</span> •{" 📚 Category:"}
+              <span className="text-white/70"> <span className="text-[var(--color-orange)]">{paper.primary_category || 'Refer to the docs'}</span>  {paper.categories.map((category) => ` ${category.label && category.label !== paper.primary_category ? category.label : ''}`).join(", ")}</span>
             </div>
 
             <div className="flex gap-3">

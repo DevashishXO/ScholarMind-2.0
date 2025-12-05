@@ -55,8 +55,12 @@ export default function NewSearch() {
         year: paper.year || new Date().getFullYear(),
         url: paper.link || paper.url || '#refer to the docs',
         pdfUrl: paper.pdf_link?.replace('http://', 'https://') || paper.pdfUrl?.replace('http://', 'https://') || '#',
-        matchtype: paper.match_type || paper.matchtype || 'unknown'
-        
+        matchtype: paper.match_type || paper.matchtype || 'unknown',
+        // new fields
+        primary_category: paper.primary_category || 'Others',
+        categories: paper.categories || [],
+        doi: paper.doi || 'Refer to docs',
+        published_date: paper.published_date || "Refer to docs",
       })));
       
     } catch (error) {

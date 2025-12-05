@@ -1,6 +1,6 @@
 // pages/MyProfile.tsx  (or wherever your component lives)
 import React, { useMemo, useState } from "react";
-import { PlusCircle, XIcon } from "lucide-react";
+import { PlusCircle, XIcon, User } from "lucide-react";
 import { useProfile } from "../../src/hooks/useProfile";
 import type { Profile, Publication } from "../../lib/profile.types";
 import PublicationModal from "../../components/MyProfile/PublicationModal";
@@ -37,10 +37,33 @@ export default function MyProfile() {
     ];
   }, [profileData]);
 
-  if (profileLoading) {
+  // if profileLoading or status is not completed
+  if (profileLoading && profileDataRaw?.scholarlyProfileStatus !== "completed") {
     return (
-      <main className="flex-1 min-h-screen w-full text-[var(--color-light)] flex items-center justify-center">
-        <p>Loading...</p>
+      <main className="flex-1 min-h-screen w-full bg-neutral-900 text-[var(--color-light)] flex items-center justify-center">
+        <div className="text-center">
+          {/* Simple animated logo matching your chat interface */}
+          <div className="relative inline-flex items-center justify-center mb-6">
+            <div className="w-16 h-16 rounded-xl bg-[var(--color-orange)] flex items-center justify-center animate-pulse">
+              <User className="w-8 h-8 text-white" />
+            </div>
+            <div className="absolute -inset-4">
+              <div className="w-full h-full border-2 border-[var(--color-orange)]/20 rounded-xl animate-ping"></div>
+            </div>
+          </div>
+          
+          <h3 className="text-xl font-bold text-white mb-2 font-bungee">Loading</h3>
+          
+          {/* Typing indicator similar to your chat */}
+          <div className="flex items-center justify-center gap-1">
+            <div className="flex gap-1">
+              <div className="w-1.5 h-1.5 bg-[var(--color-orange)] rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+              <div className="w-1.5 h-1.5 bg-[var(--color-orange)] rounded-full animate-bounce" style={{animationDelay: '100ms'}}></div>
+              <div className="w-1.5 h-1.5 bg-[var(--color-orange)] rounded-full animate-bounce" style={{animationDelay: '200ms'}}></div>
+            </div>
+            <span className="text-neutral-400 text-sm ml-2">Fetching profile data</span>
+          </div>
+        </div>
       </main>
     );
   }

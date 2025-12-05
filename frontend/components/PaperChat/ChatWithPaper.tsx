@@ -22,6 +22,11 @@ export default function ChatWithPaper({ pdfUrl }) {
   const [highlightedText, setHighlightedText] = useState('');
   const chatContainerRef = useRef(null);
   const iframeRef = useRef(null);
+  
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reportContent, setReportContent] = useState('');
+  const [reportLoading, setReportLoading] = useState(false);
+  const [reportData, setReportData] = useState(null);
 
   const API_BASE_URL = 'http://localhost:8000';
 
@@ -40,6 +45,96 @@ export default function ChatWithPaper({ pdfUrl }) {
     }
   }, [pdfUrl]);
 
+  // Update the handleGenerateReport function
+  const handleGenerateReport = async () => {
+    try {
+      setReportLoading(true);
+      setShowReportModal(true);
+      setReportContent('');
+      setReportData(null);
+  
+      // Call your backend to generate a report
+      const response = await fetch(`http://localhost:8001/api/v1/chat-with-paper/generate-report`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pdf_url: currentPdf
+        })
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setReportData(data);
+        setReportContent(data.report || '');
+      } else {
+        throw new Error('Failed to generate report');
+      }
+    } catch (error) {
+      console.error('Report generation failed:', error);
+      setReportContent('Error generating report. Please try again.');
+    } finally {
+      setReportLoading(false);
+    }
+  };
+  
+  // Add this function to convert markdown to HTML with styling
+  const renderReportContent = () => {
+    if (!reportContent) return null;
+    
+    return (
+      <ReactMarkdown
+        components={{
+          h1: ({node, ...props}) => <h1 className="text-2xl font-bold text-white mb-4 flex items-center gap-2" {...props} />,
+          h2: ({node, ...props}) => <h2 className="text-xl font-bold text-white mt-6 mb-3" {...props} />,
+          h3: ({node, ...props}) => <h3 className="text-lg font-bold text-white mt-4 mb-2" {...props} />,
+          p: ({node, ...props}) => <p className="text-gray-200 mb-3 leading-relaxed" {...props} />,
+          ul: ({node, ...props}) => <ul className="list-disc list-inside mb-4 ml-4 text-gray-200 space-y-1" {...props} />,
+          ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-4 ml-4 text-gray-200 space-y-1" {...props} />,
+          li: ({node, ...props}) => <li className="mb-1" {...props} />,
+          strong: ({node, ...props}) => <strong className="font-bold text-white" {...props} />,
+          em: ({node, ...props}) => <em className="italic text-gray-300" {...props} />,
+          code: ({node, inline, ...props}) => 
+            inline 
+              ? <code className="bg-neutral-700 px-1.5 py-0.5 rounded text-sm text-orange-300" {...props} />
+              : <pre className="bg-neutral-700 p-4 rounded-lg my-4 overflow-x-auto"><code className="text-sm text-orange-300" {...props} /></pre>,
+          blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-[var(--color-orange)] pl-4 my-4 italic text-gray-300 bg-neutral-700/50 py-2 rounded-r-lg" {...props} />,
+          a: ({node, ...props}) => <a className="text-[var(--color-orange)] hover:text-orange-400 underline" {...props} />,
+          hr: ({node, ...props}) => <hr className="my-6 border-neutral-600" {...props} />
+        }}
+      >
+        {reportContent}
+      </ReactMarkdown>
+    );
+  };
+  
+  // Update the save and download handlers
+  const handleSaveReport = () => {
+    console.log('Saving report...');
+    // Implement your save functionality here
+    alert('Report saved successfully!');
+  };
+  
+  const handleDownloadReport = () => {
+    if (!reportData) return;
+    
+    const element = document.createElement("a");
+    const file = new Blob([reportContent], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = `research-report-${reportData.arxiv_id || 'report'}.txt`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+  
+  const handleCloseModal = () => {
+    if (!reportLoading) {
+      setShowReportModal(false);
+    }
+  };
+  
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -372,7 +467,7 @@ export default function ChatWithPaper({ pdfUrl }) {
         {/* Chatbot Panel */}
         <div className="bg-neutral-800 border border-neutral-700 rounded-xl shadow-2xl flex flex-col h-[85vh]">
           <div className="border-b border-neutral-700 px-6 py-4 flex justify-between items-center bg-neutral-900/50">
-            <div className="flex gap-3 items-center">
+            <div className="flex gap-3 items-center w-full">
               <div className="relative">
                 <div className="w-12 h-12 rounded-full bg-[var(--color-orange)] p-2 flex items-center justify-center">
                   <Bot className="w-6 h-6 text-white" />
@@ -381,9 +476,20 @@ export default function ChatWithPaper({ pdfUrl }) {
                   <Sparkles className="w-2 h-2 text-white" />
                 </div>
               </div>
-              <div>
+              <div className='flex justify-between w-full'>
+                <div>
                 <h2 className="text-xl font-bold text-white font-bungee">Research Assistant</h2>
                 <p className="text-sm text-neutral-400">Ask anything about the paper</p>
+                </div>
+                <div>
+                  <button 
+                    onClick={handleGenerateReport}
+                    className='bg-[var(--color-orange)] font-bungee text-white px-5 py-2 rounded-xl shadow-lg hover:scale-102 transition cursor-pointer flex items-center gap-2'
+                  >
+                    <FileText className="w-4 h-4" />
+                    Generate Report
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -554,6 +660,213 @@ export default function ChatWithPaper({ pdfUrl }) {
           </div>
         </div>
       )}
+      {showReportModal && (
+        <div className="fixed inset-0 z-[9999]">
+          {/* Background overlay - prevents interaction while loading */}
+          <div 
+            className={`fixed inset-0 bg-black/80 backdrop-blur-sm transition-all duration-300 ${reportLoading ? 'cursor-not-allowed' : ''}`}
+            onClick={handleCloseModal}
+          />
+          
+          {/* Modal container */}
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4">
+              {/* Modal content */}
+              <div 
+                className="relative bg-neutral-800 border border-neutral-700 rounded-xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Header */}
+                <div className="border-b border-neutral-700 px-6 py-4 flex justify-between items-center bg-neutral-900/50">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[var(--color-orange)] p-2 flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-bold text-white font-bungee">Research Report</h2>
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${reportData?.status === 'success' ? 'bg-green-500' : 'bg-yellow-500'} animate-pulse`}></div>
+                        <p className="text-sm text-neutral-400">
+                          {reportData ? `arXiv: ${reportData.arxiv_id}` : 'Generating from Paper...'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    {reportData && !reportLoading && (
+                      <>
+                        {/* Tool Buttons */}
+                        <button
+                          onClick={handleSaveReport}
+                          className="flex items-center gap-2 font-bungee bg-neutral-700 hover:bg-neutral-600 text-white px-4 py-2 rounded-lg transition-all hover:scale-105 active:scale-95"
+                          disabled={reportLoading}
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                          </svg>
+                          Save
+                        </button>
+                        
+                        {/*<button
+                          onClick={handleDownloadReport}
+                          className="flex items-center gap-2 bg-[var(--color-orange)] hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all hover:scale-105 active:scale-95"
+                          disabled={reportLoading}
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                          </svg>
+                          Download
+                        </button>*/}
+                      </>
+                    )}
+                    
+                    <button
+                      onClick={handleCloseModal}
+                      className="p-2 hover:bg-neutral-700 rounded-lg transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={reportLoading}
+                    >
+                      <X className="w-5 h-5 text-neutral-400" />
+                    </button>
+                  </div>
+                </div>
+      
+                {/* Loading State */}
+                {reportLoading && (
+                  <div className="flex-1 flex flex-col items-center justify-center p-12">
+                    <div className="relative mb-8">
+                      <div className="w-24 h-24 border-4 border-neutral-700 rounded-full"></div>
+                      <div className="absolute top-0 left-0 w-24 h-24 border-4 border-t-[var(--color-orange)] border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <FileText className="w-8 h-8 text-[var(--color-orange)] animate-pulse" />
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-3">Generating Smart Report</h3>
+                    <p className="text-neutral-400 text-center mb-6 max-w-md">
+                      Analyzing paper content, extracting key insights, and generating comprehensive report...
+                    </p>
+                    <div className="w-full max-w-md bg-neutral-700 rounded-full h-2 mb-4">
+                      <div className="bg-[var(--color-orange)] h-2 rounded-full animate-pulse w-3/4"></div>
+                    </div>
+                    <div className="text-sm text-neutral-500">
+                      Please wait, this may take a moment...
+                    </div>
+                    <div className="mt-8 text-xs text-neutral-600">
+                      The report generation is in progress. You cannot close this window until it's complete.
+                    </div>
+                  </div>
+                )}
+      
+                {/* Report Content */}
+                {!reportLoading && reportData && (
+                  <div className="flex-1 overflow-y-auto">
+                    <div className="p-6">
+                      {/* Report Metadata Summary */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div className="bg-neutral-700/50 border border-neutral-600 rounded-xl p-4">
+                          <div className="text-xs text-neutral-400 mb-1">Reading Time</div>
+                          <div className="text-lg font-bold text-white">
+                            {reportData.metadata?.reading_time_minutes || '--'} min
+                          </div>
+                        </div>
+                        
+                        <div className="bg-neutral-700/50 border border-neutral-600 rounded-xl p-4">
+                          <div className="text-xs text-neutral-400 mb-1">Pages</div>
+                          <div className="text-lg font-bold text-white">
+                            {reportData.metadata?.page_count || '--'}
+                          </div>
+                        </div>
+                        
+                        <div className="bg-neutral-700/50 border border-neutral-600 rounded-xl p-4">
+                          <div className="text-xs text-neutral-400 mb-1">Chunks Analyzed</div>
+                          <div className="text-lg font-bold text-white">
+                            {reportData.metadata?.chunks_analyzed || '--'}
+                          </div>
+                        </div>
+                        
+                        <div className="bg-neutral-700/50 border border-neutral-600 rounded-xl p-4">
+                          <div className="text-xs text-neutral-400 mb-1">Generated</div>
+                          <div className="text-lg font-bold text-white">
+                            {new Date(reportData.timestamp).toLocaleDateString()}
+                          </div>
+                        </div>
+                      </div>
+      
+                      {/* Main Report Content */}
+                      <div className="bg-neutral-900/50 border border-neutral-700 rounded-xl p-6">
+                        <div className="prose prose-invert max-w-none">
+                          {renderReportContent()}
+                        </div>
+                      </div>
+      
+                      {/* Additional Metadata */}
+                      {reportData.metadata && (
+                        <div className="mt-6 grid grid-cols-2 md:grid-cols-2 gap-4">
+                          <div className="bg-neutral-700/30 border border-neutral-600 rounded-lg p-3">
+                            <div className="text-xs text-neutral-400 mb-1">Sections Generated</div>
+                            <div className="text-sm font-bold text-white">{reportData.metadata.sections_generated}</div>
+                          </div>
+                          
+                          
+                          <div className="bg-neutral-700/30 border border-neutral-600 rounded-lg p-3">
+                            <div className="text-xs text-neutral-400 mb-1">Citations Found</div>
+                            <div className="text-sm font-bold text-white">{reportData.metadata.citations_found}</div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+      
+                {/* Error State */}
+                {!reportLoading && !reportData && reportContent && reportContent.includes('Error') && (
+                  <div className="flex-1 flex flex-col items-center justify-center p-12">
+                    <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mb-4">
+                      <X className="w-8 h-8 text-red-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-3">Report Generation Failed</h3>
+                    <p className="text-neutral-400 text-center mb-6 max-w-md">
+                      {reportContent}
+                    </p>
+                    <button
+                      onClick={handleGenerateReport}
+                      className="px-4 py-2 bg-[var(--color-orange)] hover:bg-orange-600 text-white rounded-lg transition-all font-medium"
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                )}
+      
+                {/* Modal Footer */}
+                {reportData && !reportLoading && (
+                  <div className="border-t border-neutral-700 px-6 py-4 bg-neutral-900/30">
+                    <div className="flex justify-between items-center">
+                      <div className="text-sm text-neutral-400">
+                        {reportData.metadata?.chunks_analyzed ? `${reportData.metadata.chunks_analyzed} excerpts analyzed` : 'Smart Report generated'}
+                      </div>
+                      <div className="flex gap-3">
+                        <button
+                          onClick={handleCloseModal}
+                          className="px-4 py-2 text-neutral-300 font-bungee hover:text-white bg-neutral-700 rounded-lg transition-all hover:scale-105 active:scale-95"
+                        >
+                          Close
+                        </button>
+                        <button
+                          onClick={handleDownloadReport}
+                          className="px-4 py-2 bg-[var(--color-orange)] font-bungee hover:scale-102 text-white rounded-lg transition-all font-medium hover:scale-105 active:scale-95"
+                        >
+                          Download Report
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}    
     </div>
+    
   );
 }

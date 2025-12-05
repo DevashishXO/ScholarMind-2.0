@@ -74,4 +74,5 @@ export interface Profile {
   scholarlyProfile: ScholarlyProfile;
   onboardingComplete?: boolean;
   onboardingStep?: number;
+  scholarlyProfileStatus?: string;
 }
