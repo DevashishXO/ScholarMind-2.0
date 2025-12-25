@@ -8,16 +8,16 @@ An intelligent research assistance platform that helps academics discover, analy
 
 ## Authors
 
-| **Archita Bhargava**                                                                                 | **Devashish Nagpal**                                                                     | **Miheer Gautam**                                                                      |
-| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| AI Pipeline                                                                                                | AI Pipeline Lead & Research                                                                    | Full-Stack Lead & UI/UX Design                                                               |
-| [LinkedIn](https://www.linkedin.com/in/archita-bhargava-7966bb248/) • [GitHub](https://github.com/yourprofile1) | [LinkedIn](https://www.linkedin.com/in/devashishnagpal/) • [GitHub](https://github.com/DevashishXO) | [LinkedIn](https://www.linkedin.com/in/miheer-gautam) • [GitHub](https://github.com/Miheergautam) |
+| **Archita Bhargava**                                                                                    | **Devashish Nagpal**                                                                     | **Miheer Gautam**                                                                      |
+| ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| AI Pipeline                                                                                                   | AI Pipeline Lead & Research                                                                    | Full-Stack Lead & UI/UX Design                                                               |
+| [LinkedIn](https://www.linkedin.com/in/archita-bhargava-7966bb248/) • [GitHub](https://github.com/Architabhargava) | [LinkedIn](https://www.linkedin.com/in/devashishnagpal/) • [GitHub](https://github.com/DevashishXO) | [LinkedIn](https://www.linkedin.com/in/miheer-gautam) • [GitHub](https://github.com/Miheergautam) |
 
 **Made with ❤️ in Jaipur**
 
 ---
 
-## Table of Contents	
+## Table of Contents
 
 - [Overview](#overview)
 - [Key Features](#-key-features)
